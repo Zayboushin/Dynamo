@@ -9,6 +9,7 @@ char posiciones_avance[MAX_TURNS];
 //  r = “right”;
 //  u = “up”;
 //  d = “down”;
+// test
 
 // variables de control (falta cambiar)
 int P = 0;
