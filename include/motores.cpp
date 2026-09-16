@@ -7,47 +7,65 @@
 // dirección = 0 -> detenerse
 // dirección = -1 -> retroceder
 
-void motor_izq_frente(uint8_t pin_pwm, uint8_t A1, uint8_t A2, int dir, uint8_t pwm)
+class motor
 {
-    analogWrite(pin_pwm, pwm);
+private:
+    uint8_t m1;
+    uint8_t m2;
+    uint8_t pin_pwm;
+    int dir;
+    uint8_t vel;
 
-    // dirección = 1 -> avanzar
-    // dirección = 0 -> detenerse
-    // dirección = -1 -> retroceder
-
-    switch (dir)
+public:
+    motor()
     {
-    case -1:
-    {
-        digitalWrite(A1, LOW);
-        digitalWrite(A2, HIGH);
+        m1 = 0;
+        m2 = 0;
+        pin_pwm = A0;
+        dir = 0;
+        vel = 0;
     }
-    case 0:
-    {
-        digitalWrite(A1, LOW);
-        digitalWrite(A2, LOW);
-    }
-    case 1:
-    {
-        digitalWrite(A1, HIGH);
-        digitalWrite(A2, LOW);
-    }
-    }
-}
 
-funcion control_motor_der(dirección)
-// dirección = 1 -> avanzar
-// dirección = 0 -> detenerse
-// dirección = -1 -> retroceder
-FinFuncion
+    void setPins(uint8_t newM1, uint8_t newM2, uint8_t newPin_pwm)
+    {
+        m1 = newM1;
+        m2 = newM2;
+        pin_pwm = newPin_pwm;
+    }
 
-    funcion
-    avanzar(PWM_Izq, PWM_der)
-        control_motor_izq(1, PWM_Izq)
-            control_motor_der(1, PWM_der)
-                FinFuncion
+    void setDir(int newDir)
+    {
+        dir = newDir;
+    }
 
-    funcion giro(lateralidad, PWM_Izq, PWM_der)
+    void motor_individual(int dir, uint8_t vel)
+    {
+        analogWrite(pin_pwm, vel);
+
+        // dirección = 1 -> avanzar
+        // dirección = 0 -> detenerse
+        // dirección = -1 -> retroceder
+
+        switch (dir)
+        {
+        case -1:
+
+            digitalWrite(m1, LOW);
+            digitalWrite(m2, HIGH);
+            break;
+        case 0:
+            digitalWrite(m1, LOW);
+            digitalWrite(m2, LOW);
+            break;
+        case 1:
+            digitalWrite(m1, HIGH);
+            digitalWrite(m2, LOW);
+            break;
+        }
+    }
+};
+
+funcion giro(lateralidad, PWM_Izq, PWM_der)
 si lateralidad == 1 control_motor_izq(-1, PWM_Izq) control_motor_der(1, PWM_der) FinSi si lateralidad == 2 control_motor_izq(1, PWM_Izq) control_motor_der(-1, PWM_der) FinSi
 
     FinFuncion
