@@ -69,6 +69,20 @@ public:
     }
 };
 
+// Instancia de los motores (falta declarar pines correctos)
+
+motor motor_izq_front;
+motor_izq_front.setPins(2, 3, 4); // Pines del motor izquierdo delantero
+
+motor motor_izq_back;
+motor_izq_back.setPins(5, 6, 7); // Pines del motor izquierdo trasero
+
+motor motor_der_front;
+motor_der_front.setPins(8, 9, 10); // Pines del motor derecho delantero
+
+motor motor_der_back;
+motor_der_back.setPins(11, 12, 13); // Pines del motor derecho trasero
+
 /*
 
 funcion giro(lateralidad, PWM_Izq, PWM_der)
