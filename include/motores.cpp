@@ -1,5 +1,5 @@
-#include <stdint.h>
 #include <Arduino.h>
+#include "motores.h"
 
 // Movimiento simple del carrito
 
@@ -31,11 +31,10 @@ public:
         m1 = newM1;
         m2 = newM2;
         pin_pwm = newPin_pwm;
-    }
 
-    void setDir(int newDir)
-    {
-        dir = newDir;
+        pinMode(m1, OUTPUT);
+        pinMode(m2, OUTPUT);
+        pinMode(pin_pwm, OUTPUT);
     }
 
     void motor_individual(int dir, uint8_t vel)
@@ -49,21 +48,28 @@ public:
         switch (dir)
         {
         case -1:
-
+        {
             digitalWrite(m1, LOW);
             digitalWrite(m2, HIGH);
             break;
+        }
         case 0:
+        {
             digitalWrite(m1, LOW);
             digitalWrite(m2, LOW);
             break;
+        }
         case 1:
+        {
             digitalWrite(m1, HIGH);
             digitalWrite(m2, LOW);
             break;
         }
+        }
     }
 };
+
+/*
 
 funcion giro(lateralidad, PWM_Izq, PWM_der)
 si lateralidad == 1 control_motor_izq(-1, PWM_Izq) control_motor_der(1, PWM_der) FinSi si lateralidad == 2 control_motor_izq(1, PWM_Izq) control_motor_der(-1, PWM_der) FinSi
@@ -79,3 +85,4 @@ si lateralidad == 1 control_motor_izq(-1, PWM_Izq) control_motor_der(1, PWM_der)
             FinSi
 
     FinFuncion
+*/
