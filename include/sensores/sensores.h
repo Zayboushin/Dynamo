@@ -13,11 +13,8 @@ public:
     void begin();
     float distancia_ultrasonico();
 };
-
 ultrasonico ultrasonico_izq;
-
 ultrasonico ultrasonico_der;
-
 ultrasonico ultrasonico_frente;
 
 class infrarrojo
@@ -28,7 +25,8 @@ private:
 public:
     infrarrojo();
     void setPins(uint8_t newPin);
-    bool hay_blanco(infrarrojo);
+    void begin();
+    bool hay_blanco();
 };
 
 infrarrojo infrarrojo_izq;
