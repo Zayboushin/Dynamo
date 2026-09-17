@@ -17,21 +17,25 @@ private:
     uint8_t vel;
 
 public:
+    // sigo sin entender como funcionan los constructores, pero por ahora lo dejo asi
     motor()
     {
         m1 = 0;
         m2 = 0;
-        pin_pwm = A0;
+        pin_pwm = 0;
         dir = 0;
         vel = 0;
     }
 
-    void setPins(uint8_t newM1, uint8_t newM2, uint8_t newPin_pwm)
+    void setPins(uint8_t pin1, uint8_t pin2, uint8_t newPin_pwm)
     {
-        m1 = newM1;
-        m2 = newM2;
+        m1 = pin1;
+        m2 = pin2;
         pin_pwm = newPin_pwm;
+    }
 
+    void begin()
+    {
         pinMode(m1, OUTPUT);
         pinMode(m2, OUTPUT);
         pinMode(pin_pwm, OUTPUT);
@@ -69,20 +73,23 @@ public:
     }
 };
 
-// Instancia de los motores (falta declarar pines correctos)
-motor motor_izq_front;
-motor_izq_front.setPins(2, 3, 4); // Pines del motor izquierdo delantero
+motor motor_izq_front, motor_izq_back, motor_der_front, motor_der_back;
 
-motor motor_izq_back;
-motor_izq_back.setPins(5, 6, 7); // Pines del motor izquierdo trasero
+void iniciar_motores()
+{
+    // Instancia de los motores (falta declarar pines correctos)
 
-motor motor_der_front;
-motor_der_front.setPins(8, 9, 10); // Pines del motor derecho delantero
+    motor_izq_front.setPins(2, 3, 4);
+    motor_izq_back.setPins(5, 6, 7);
+    motor_der_front.setPins(8, 9, 10);
+    motor_der_back.setPins(11, 12, 13);
+    // funciones de movimiento
 
-motor motor_der_back;
-motor_der_back.setPins(11, 12, 13); // Pines del motor derecho trasero
-
-// funciones de movimiento
+    motor_der_back.begin();  // Pines del motor derecho trasero
+    motor_der_front.begin(); // Pines del motor derecho delantero
+    motor_izq_front.begin(); // Pines del motor izquierdo delantero
+    motor_izq_back.begin();  // Pines del motor izquierdo trasero
+}
 
 void avanzar(uint8_t PWM_Izq, uint8_t PWM_der)
 {
