@@ -1,5 +1,6 @@
 #include <Arduino.h>
 #include "motores/motores.h"
+#include "sensores/sensores.h"
 #include "pistaA.h"
 // primer pista
 
@@ -11,7 +12,6 @@ char posiciones_avance[MAX_TURNS];
 //  r = “right”;
 //  u = “up”;
 //  d = “down”;
-// test
 
 // variables de control (falta cambiar)
 int P = 0;
@@ -36,4 +36,41 @@ void setup()
 
 void loop()
 {
+    if (lateralidad == 0)
+    {
+        if (!pared(ultrasonico_izq))
+        {
+            lateralidad = 1;
+        }
+
+        if (!pared(ultrasonico_der))
+        {
+            lateralidad = 2;
+        }
+    }
+    /*
+        if (lateralidad == 0)
+            if (!pared(Ultrasónico izquierdo))
+                lateralidad = 1 FinSi
+
+                    Si !pared(Ultrasónico derecho)
+                        lateralidad = 2 FinSi FinSi
+    */
+}
+
+bool pared(ultrasonico ultrasonico_entrada)
+{
+    // De entrada, se recibe uno de los 3 ultrasónicos (enfrente, izquierda, derecha)
+
+    float distancia = ultrasonico_entrada.distancia_ultrasonico();
+
+    if (distancia < choque_inminente)
+    {
+        return true; // devuelve verdadero si hay pared
+    }
+
+    else
+    {
+        return false; // devuelve falso si no hay pared
+    }
 }
