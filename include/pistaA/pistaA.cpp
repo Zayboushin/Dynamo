@@ -1,5 +1,5 @@
 #include <Arduino.h>
-#include "motores.h"
+#include "motores/motores.h"
 #include "pistaA.h"
 // primer pista
 
