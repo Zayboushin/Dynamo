@@ -1,11 +1,13 @@
 #include <Arduino.h>
-#include "motores.h"
-
-int myFunction(int, int);
+#include "motores/motores.h"
+#include "sensores/sensores.h"
 
 void setup()
 {
   Serial.begin(9600);
+  iniciar_motores();
+  iniciar_sensores();
+
   // put your setup code here, to run once:
 }
 
@@ -14,33 +16,7 @@ void loop()
   // put your main code here, to run repeatedly:
 }
 
-// put function definitions here:
-int myFunction(int x, int y)
-{
-  return x + y;
-}
-
 /*
-
-
-//inicio de funciones
-//Movimiento simple del carrito
-funcion control_motor_izq(dirección,PWM)
-  //dirección = 1 -> avanzar
-  //dirección = 0 -> detenerse
-//dirección = -1 -> retroceder
-FinFuncion
-
-funcion control_motor_der(dirección)
-  //dirección = 1 -> avanzar
-  //dirección = 0 -> detenerse
-//dirección = -1 -> retroceder
-FinFuncion
-
-funcion avanzar(PWM_Izq, PWM_der)
-  control_motor_izq(1, PWM_Izq)
-  control_motor_der(1, PWM_der)
-FinFuncion
 
 funcion giro(lateralidad, PWM_Izq, PWM_der)
 si lateralidad == 1
