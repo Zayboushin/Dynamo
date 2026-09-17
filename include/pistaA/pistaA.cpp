@@ -48,14 +48,6 @@ void loop()
             lateralidad = 2;
         }
     }
-    /*
-        if (lateralidad == 0)
-            if (!pared(Ultrasónico izquierdo))
-                lateralidad = 1 FinSi
-
-                    Si !pared(Ultrasónico derecho)
-                        lateralidad = 2 FinSi FinSi
-    */
 }
 
 bool pared(ultrasonico ultrasonico_entrada)
