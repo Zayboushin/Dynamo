@@ -1,6 +1,7 @@
 #include <Arduino.h>
 #include "sensores.h"
 
+// Clase para manejar los sensores ultrasónicos
 class ultrasonico
 {
 private:
@@ -8,7 +9,7 @@ private:
     uint8_t echo;
 
 public:
-    ultrasonico();
+    ultrasonico()
     {
         trig = 0;
         echo = 0;
@@ -17,12 +18,16 @@ public:
     {
         trig = newTrig;
         echo = newEcho;
+    }
 
+    void begin()
+    {
         pinMode(trig, OUTPUT);
         pinMode(echo, INPUT);
         digitalWrite(trig, LOW);
     }
-    float distancia_ultrasonico(ultrasonico);
+
+    float distancia_ultrasonico(ultrasonico)
     {
         long t = 0;
 
@@ -31,7 +36,7 @@ public:
         digitalWrite(trig, LOW);
 
         t = pulseIn(echo, HIGH);
-        return (t / 58.2) f; // distancia en cm
+        return t / 58.2f; // distancia en cm
     }
 };
 
@@ -41,9 +46,57 @@ ultrasonico ultrasonico_der;
 
 ultrasonico ultrasonico_frente;
 
-void setup()
+// Función para iniciar los sensores ultrasónicos
+class infrarrojo
 {
+private:
+    uint8_t pin;
+
+public:
+    infrarrojo()
+    {
+        pin = 0;
+    }
+    void setPins(uint8_t newPin)
+    {
+        pin = newPin;
+    }
+
+    void begin()
+    {
+        pinMode(pin, INPUT);
+    }
+
+    bool hay_blanco(infrarrojo){
+
+        // calibrar el sensor infrarrojo para detectar el color blanco y negro
+
+        bool hay_blanco(infrarrojo){
+            // calibrar el sensor infrarrojo para detectar el color blanco y negro
+            bool lectura = digitalRead(pin);
+    if (lectura)
+    {
+        return true; // Devuelve true si detecta blanco
+    }
+    else
+    {
+        return false;
+    }
+}
+}
+;
+
+infrarrojo infrarrojo_izq;
+infrarrojo infrarrojo_der;
+
+void iniciar_sensores()
+{
+    // Configuración de pines para los sensores ultrasónicos (falta configurarlos)
     ultrasonico_izq.setPins(2, 3);    // Pines del ultrasonico izquierdo
     ultrasonico_der.setPins(4, 5);    // Pines del ultrasonico derecho
     ultrasonico_frente.setPins(6, 7); // Pines del ultrasonico frente
+
+    ultrasonico_izq.begin();
+    ultrasonico_der.begin();
+    ultrasonico_frente.begin();
 }
