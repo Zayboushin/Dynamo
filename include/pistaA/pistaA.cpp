@@ -19,6 +19,10 @@ int I = 0;
 int D = 0;
 int vel = 250;
 
+// variables nativas de sensores
+float distancia_ultrasonico_izq = 0;
+float distancia_ultrasonico_der = 0;
+
 // logica
 bool giro_pendiente = false;
 
@@ -29,6 +33,11 @@ byte lateralidad = 0;
 byte cercania_pared = 5; // valor que define que tan cerca estara de la pared una vez se defina la lateralidad. revisar que valor es mejor
 
 byte choque_inminente = 15; // distancia en donde se detecta que hay una pared
+
+// funciones
+bool pared(ultrasonico ultrasonico_entrada);
+int calibracion(float distancia_ultrasonico_izq, float distancia_ultrasonico_der);
+void correcion_drift();
 
 void setup()
 {
@@ -48,6 +57,20 @@ void loop()
             lateralidad = 2;
         }
     }
+
+    if (!giro_pendiente)
+    {
+        distancia_ultrasonico_izq = ultrasonico_izq.distancia_ultrasonico();
+        distancia_ultrasonico_der = ultrasonico_der.distancia_ultrasonico();
+
+        int corrección = calibracion(distancia_ultrasonico_izq, distancia_ultrasonico_der);
+        // regresa los valores de corrección para determinar el PWM final de los motores
+
+        avanzar(vel - corrección, vel + corrección);
+        // revisar signos
+
+        correcion_drift();
+    }
 }
 
 bool pared(ultrasonico ultrasonico_entrada)
@@ -65,4 +88,42 @@ bool pared(ultrasonico ultrasonico_entrada)
     {
         return false; // devuelve falso si no hay pared
     }
+}
+
+int calibracion(float distancia_ultrasonico_izq, float distancia_ultrasonico_der)
+{
+    int corrección = 0;
+    float error = 0;
+
+    if (lateralidad == 0)
+    {
+        error = distancia_ultrasonico_izq - distancia_ultrasonico_der;
+    }
+    else
+    {
+        switch (lateralidad)
+        {
+
+        case 1:
+            error = distancia_ultrasonico_izq - cercania_pared;
+            break;
+        case 2:
+            error = cercania_pared - distancia_ultrasonico_der;
+            break;
+        }
+    }
+
+    // P
+    corrección = error * P;
+
+    // I
+
+    // D
+
+    return corrección;
+}
+
+void correcion_drift()
+{
+    // revisar que el drift no sea mayor a N centimetros.
 }
