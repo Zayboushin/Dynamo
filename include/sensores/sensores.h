@@ -1,11 +1,39 @@
 #ifndef SENSORES_H
 #define SENSORES_H
 
-void setPins(uint8_t newTrig, uint8_t newEcho);
+class ultrasonico
+{
+private:
+    uint8_t trig;
+    uint8_t echo;
 
-void begin();
+public:
+    ultrasonico();
+    void setPins(uint8_t newTrig, uint8_t newEcho);
+    void begin();
+    float distancia_ultrasonico();
+};
 
-float distancia_ultrasonico(ultrasonico);
+ultrasonico ultrasonico_izq;
+
+ultrasonico ultrasonico_der;
+
+ultrasonico ultrasonico_frente;
+
+class infrarrojo
+{
+private:
+    uint8_t pin;
+
+public:
+    infrarrojo();
+    void setPins(uint8_t newPin);
+    bool hay_blanco(infrarrojo);
+};
+
+infrarrojo infrarrojo_izq;
+infrarrojo infrarrojo_der;
 
 void iniciar_sensores();
+
 #endif
