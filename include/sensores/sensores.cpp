@@ -27,7 +27,7 @@ public:
         digitalWrite(trig, LOW);
     }
 
-    float distancia_ultrasonico(ultrasonico)
+    float distancia_ultrasonico()
     {
         long t = 0;
 
@@ -67,28 +67,28 @@ public:
         pinMode(pin, INPUT);
     }
 
-    bool hay_blanco(infrarrojo){
+    // calibrar el sensor infrarrojo para detectar el color blanco y negro
 
+    bool hay_blanco()
+    {
         // calibrar el sensor infrarrojo para detectar el color blanco y negro
+        bool lectura = digitalRead(pin);
 
-        bool hay_blanco(infrarrojo){
-            // calibrar el sensor infrarrojo para detectar el color blanco y negro
-            bool lectura = digitalRead(pin);
-    if (lectura)
-    {
-        return true; // Devuelve true si detecta blanco
+        if (lectura)
+        {
+            return true; // Devuelve true si detecta blanco
+        }
+        else
+        {
+            return false;
+        }
     }
-    else
-    {
-        return false;
-    }
-}
-}
-;
+};
 
 infrarrojo infrarrojo_izq;
 infrarrojo infrarrojo_der;
 
+// funcion final para iniciación de sensores
 void iniciar_sensores()
 {
     // Configuración de pines para los sensores ultrasónicos (falta configurarlos)
@@ -99,4 +99,10 @@ void iniciar_sensores()
     ultrasonico_izq.begin();
     ultrasonico_der.begin();
     ultrasonico_frente.begin();
+
+    infrarrojo_izq.setPins(8); // Pines del sensor infrarrojo izquierdo
+    infrarrojo_der.setPins(9); // Pines del sensor infrarrojo derecho
+
+    infrarrojo_izq.begin();
+    infrarrojo_der.begin();
 }
