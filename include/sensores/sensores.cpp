@@ -41,9 +41,7 @@ public:
 };
 
 ultrasonico ultrasonico_izq;
-
 ultrasonico ultrasonico_der;
-
 ultrasonico ultrasonico_frente;
 
 // Función para iniciar los sensores ultrasónicos
