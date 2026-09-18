@@ -131,7 +131,43 @@ void detener()
     motor_der_back.motor_individual(0, 0);
 }
 
+//Funciones de karla :))
+
+void desp_front(uint8_t PWM)
+{
+    motor_izq_front.motor_individual(1, PWM);
+    motor_izq_back.motor_individual(1, PWM);
+    motor_der_front.motor_individual(1, PWM);
+    motor_der_back.motor_individual(1, PWM);
+}
+
+void desp_back(uint8_t PWM)
+{
+    motor_izq_front.motor_individual(-1, PWM);
+    motor_izq_back.motor_individual(-1, PWM);
+    motor_der_front.motor_individual(-1, PWM);
+    motor_der_back.motor_individual(-1, PWM);
+}
+
+void desp_der(uint8_t PWM)
+{
+    motor_izq_front.motor_individual(1, PWM);
+    motor_izq_back.motor_individual(-1, PWM);
+    motor_der_front.motor_individual(-1, PWM);
+    motor_der_back.motor_individual(1, PWM);
+}
+
+void desp_izq(uint8_t PWM)
+{
+    motor_izq_front.motor_individual(-1, PWM);
+    motor_izq_back.motor_individual(1, PWM);
+    motor_der_front.motor_individual(1, PWM);
+    motor_der_back.motor_individual(-1, PWM);
+}
+
 /*
+
+
 
 funcion giro(lateralidad, PWM_Izq, PWM_der)
 si lateralidad == 1 control_motor_izq(-1, PWM_Izq) control_motor_der(1, PWM_der) FinSi si lateralidad == 2 control_motor_izq(1, PWM_Izq) control_motor_der(-1, PWM_der) FinSi
