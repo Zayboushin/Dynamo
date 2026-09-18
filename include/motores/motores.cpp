@@ -91,36 +91,36 @@ void iniciar_motores()
     motor_izq_back.begin();  // Pines del motor izquierdo trasero
 }
 
-void avanzar(uint8_t PWM_Izq, uint8_t PWM_der)
+void avanzar(uint8_t PWM)
 {
-    motor_izq_front.motor_individual(1, PWM_Izq);
-    motor_izq_back.motor_individual(1, PWM_Izq);
-    motor_der_front.motor_individual(1, PWM_der);
-    motor_der_back.motor_individual(1, PWM_der);
+    motor_izq_front.motor_individual(1, PWM);
+    motor_izq_back.motor_individual(1, PWM);
+    motor_der_front.motor_individual(1, PWM);
+    motor_der_back.motor_individual(1, PWM);
 }
 
-void retroceder(uint8_t PWM_Izq, uint8_t PWM_der)
+void retroceder(uint8_t PWM)
 {
-    motor_izq_front.motor_individual(-1, PWM_Izq);
-    motor_izq_back.motor_individual(-1, PWM_Izq);
-    motor_der_front.motor_individual(-1, PWM_der);
-    motor_der_back.motor_individual(-1, PWM_der);
+    motor_izq_front.motor_individual(-1, PWM);
+    motor_izq_back.motor_individual(-1, PWM);
+    motor_der_front.motor_individual(-1, PWM);
+    motor_der_back.motor_individual(-1, PWM);
 }
 
-void izquierda(uint8_t PWM_Izq, uint8_t PWM_der)
+void izquierda(uint8_t PWM)
 {
-    motor_izq_front.motor_individual(-1, PWM_Izq);
-    motor_izq_back.motor_individual(-1, PWM_Izq);
-    motor_der_front.motor_individual(1, PWM_der);
-    motor_der_back.motor_individual(1, PWM_der);
+    motor_izq_front.motor_individual(-1, PWM);
+    motor_izq_back.motor_individual(-1, PWM);
+    motor_der_front.motor_individual(1, PWM);
+    motor_der_back.motor_individual(1, PWM);
 }
 
-void derecha(uint8_t PWM_Izq, uint8_t PWM_der)
+void derecha(uint8_t PWM)
 {
-    motor_izq_front.motor_individual(1, PWM_Izq);
-    motor_izq_back.motor_individual(1, PWM_Izq);
-    motor_der_front.motor_individual(-1, PWM_der);
-    motor_der_back.motor_individual(-1, PWM_der);
+    motor_izq_front.motor_individual(1, PWM);
+    motor_izq_back.motor_individual(1, PWM);
+    motor_der_front.motor_individual(-1, PWM);
+    motor_der_back.motor_individual(-1, PWM);
 }
 
 void detener()
