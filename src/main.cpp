@@ -4,7 +4,7 @@
 
 void setup()
 {
-  Serial.begin(9600);
+  Serial.begin(115200);
   iniciar_motores();
   iniciar_sensores();
 }

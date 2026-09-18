@@ -11,13 +11,13 @@ void motor_individual(int dir, uint8_t vel);
 
 void iniciar_motores();
 
-void avanzar(uint8_t PWM_Izq, uint8_t PWM_der);
+void avanzar(uint8_t PWM);
 
-void retroceder(uint8_t PWM_Izq, uint8_t PWM_der);
+void retroceder(uint8_t PWM);
 
-void izquierda(uint8_t PWM_Izq, uint8_t PWM_der);
+void izquierda(uint8_t PWM);
 
-void derecha(uint8_t, uint8_t);
+void derecha(uint8_t PWM);
 
 void detener();
 
