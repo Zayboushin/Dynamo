@@ -45,6 +45,7 @@ void setup()
 
 void loop()
 {
+
     if (lateralidad == 0)
     {
         if (!pared(ultrasonico_izq))
