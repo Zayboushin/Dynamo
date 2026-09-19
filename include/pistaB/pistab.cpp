@@ -17,13 +17,11 @@ void loop() {
     if (ultrasónico_der > 45) {
     avanzar(200);
     //despues del avanzar lo de abajo se haría si la dist del ultr_der es menor a 45,
-    indicando que es la entrada a la pelota
-    detener()
-    izquierda(200)
-    
-
-    //aqui pondria mis funciones de motores para q gire y no se desplace, para que el intake quede viendo a la pelota
-    retroceder():
+    //indicando que es la entrada a la pelota
+    detener();
+    izquierda(200);//aqui ocupo ponerlo en 90° especif para que el intake tome la pelota
+    encender_intake(); //aun no esta esta funcion pero es u ejemplo
+    retroceder();
 
     
 else if 
@@ -34,21 +32,45 @@ detener()
 
 //Salir de seccion 1
 
-if (ultrasonico_front >10) {
+    while (ultrasonico_front() >10) { //para salir de donde estaba la pelota
     avanzar(200);
+}
+detener();
+
+if (ultrasonico_front() >30) {
+    while(leer_color() != rojo && ultrasonico_front() >10) { //la funcion leercolor es suposicion junto con rojo porq aun no tenemos esas funciojes
+        avanzar(150);
+    }
     detener();
 
-while (ultrasonico_der >10) {
-    desp_der(200);
-}
-detener()
-
-else if (ultrasonico_front > 20) {
-    desp_front(200);
-    while
-
+else {
+    while (ultrasonico_der() >10) { 
+        desp_der(200);
+    }
+    detener();
 }
 
+retroceder();
+delay(500);
 
+while(ultrasonico_izq() <10 && ultrasonico_der() <10){
+    retroceder(200);
 }
+detener();
+
+if (ultrasonico_izq() >10) {
+    while (leer_color() !=rojo) {
+        desp_izq(200);
+    }
+}
+    detener();
+}
+else (ultrasonico_der() >10) {
+    while (leer_color() !=rojo) {
+        desp_der(200);
+    }
+    detener();
+}
+
+
 
