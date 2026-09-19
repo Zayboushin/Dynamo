@@ -1,7 +1,8 @@
 #include <Arduino.h>
 #include "sensores/sensores.h"
+#include "motores/motores.h"
 
-//Sensores
+//Sensores(creo)
 #include <WString.h>
 long  dist_ultrasonico;
 String leer_color;
@@ -14,11 +15,15 @@ void loop() {
     //Seccion 1
 
     if (ultrasónico_der > 45) {
-    avanzar()
-    //despues del avanzar lo de abajo se haría si la dist del ultr_der es menor a 45, indicando que es la entrada a la pelota
+    avanzar(200);
+    //despues del avanzar lo de abajo se haría si la dist del ultr_der es menor a 45,
+    indicando que es la entrada a la pelota
     detener()
+    izquierda(200)
+    
+
     //aqui pondria mis funciones de motores para q gire y no se desplace, para que el intake quede viendo a la pelota
-    retroceder()
+    retroceder():
 
     
 else if 
@@ -39,7 +44,7 @@ while (ultrasonico_der >10) {
 detener()
 
 else if (ultrasonico_front > 20) {
-    avanzar(200)
+    desp_front(200);
     while
 
 }
