@@ -133,22 +133,6 @@ void detener()
 
 //Funciones de karla :))
 
-void desp_front(uint8_t PWM)
-{
-    motor_izq_front.motor_individual(1, PWM);
-    motor_izq_back.motor_individual(1, PWM);
-    motor_der_front.motor_individual(1, PWM);
-    motor_der_back.motor_individual(1, PWM);
-}
-
-void desp_back(uint8_t PWM)
-{
-    motor_izq_front.motor_individual(-1, PWM);
-    motor_izq_back.motor_individual(-1, PWM);
-    motor_der_front.motor_individual(-1, PWM);
-    motor_der_back.motor_individual(-1, PWM);
-}
-
 void desp_der(uint8_t PWM)
 {
     motor_izq_front.motor_individual(1, PWM);
