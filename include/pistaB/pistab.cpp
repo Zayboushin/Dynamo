@@ -73,4 +73,25 @@ else (ultrasonico_der() >10) {
 }
 
 
+//Seccion 2
 
+if (sensor_rgb.leer_color()== rojo) { //creo q funcionaria para salir de secc 2
+    detener();
+}
+//aqui creo q podria poner el cod de la seccion 3, para no poner whiles
+
+else (infrarojo_izq.hay_blanco() && infrarojo_der.hay_blanco()) {
+    detener();
+    retroceder(150);
+    delay(200);
+    detener();
+}
+else (infrarojo_izq.hay_blanco()) {
+    desp_der(200);
+}
+else (infrarojo_der.hay_blanco()) {
+    desp_izq(200);
+}
+else {
+    avanzar(200);
+}
