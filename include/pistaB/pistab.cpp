@@ -80,6 +80,9 @@ if (sensor_rgb.leer_color()== rojo) { //creo q funcionaria para salir de secc 2
 }
 //aqui creo q podria poner el cod de la seccion 3, para no poner whiles
 
+//seccion 3, faltan funciones de colores y direcciones
+
+
 else (infrarojo_izq.hay_blanco() && infrarojo_der.hay_blanco()) {
     detener();
     retroceder(150);
