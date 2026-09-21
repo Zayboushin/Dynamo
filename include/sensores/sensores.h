@@ -32,6 +32,30 @@ public:
 infrarrojo infrarrojo_izq;
 infrarrojo infrarrojo_der;
 
+class RGB
+{
+private:
+    uint8_t s0;
+    uint8_t s1;
+    uint8_t s2;
+    uint8_t s3;
+    uint8_t out;
+
+    uint8_t r;
+    uint8_t v;
+    uint8_t c;
+
+public:
+    RGB();
+
+    void setPins(uint8_t newS0, uint8_t newS1, uint8_t newS2, uint8_t newS3, uint8_t newOut);
+
+    void begin();
+    String leer_color();
+};
+
+RGB sensor_rgb;
+
 void iniciar_sensores();
 
 #endif
