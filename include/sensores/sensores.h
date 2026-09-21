@@ -26,7 +26,7 @@ public:
     infrarrojo();
     void setPins(uint8_t newPin);
     void begin();
-    bool hay_blanco();
+    bool linea_blanca();
 };
 
 infrarrojo infrarrojo_izq;
