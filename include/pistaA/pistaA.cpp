@@ -14,10 +14,6 @@ char posiciones_avance[MAX_TURNS];
 //  d = “down”;
 
 // variables de control (falta cambiar)
-int P = 0;
-int I = 0;
-int D = 0;
-int vel = 250;
 
 // variables nativas de sensores
 float distancia_ultrasonico_izq = 0;
