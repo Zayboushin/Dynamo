@@ -35,15 +35,8 @@ byte cercania_pared = 5; // valor que define que tan cerca estara de la pared un
 byte choque_inminente = 15; // distancia en donde se detecta que hay una pared
 
 // funciones
-bool pared(ultrasonico ultrasonico_entrada);
-int calibracion(float distancia_ultrasonico_izq, float distancia_ultrasonico_der);
-void correcion_drift();
 
-void setup()
-{
-}
-
-void loop()
+void pistaA()
 {
 
     if (lateralidad == 0)
