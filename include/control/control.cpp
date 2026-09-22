@@ -45,7 +45,7 @@ void avanzar_control(float &xy[2], float distancia_ultrasonico_izq, float distan
 
     // D
 
-    xy = {1f, 2.2};
+    xy = {1f, 2.2f};
 }
 
 bool logica_90grados(bool &giro_pendiente)
