@@ -51,7 +51,7 @@ public:
 
         switch (dir)
         {
-        case -1:
+        case 1:
         {
             digitalWrite(m1, LOW);
             digitalWrite(m2, HIGH);
@@ -63,7 +63,7 @@ public:
             digitalWrite(m2, LOW);
             break;
         }
-        case 1:
+        case -1:
         {
             digitalWrite(m1, HIGH);
             digitalWrite(m2, LOW);
@@ -91,12 +91,12 @@ void iniciar_motores()
     motor_izq_back.begin();  // Pines del motor izquierdo trasero
 }
 
-void avanzar(uint8_t PWM)
+void avanzar(uint8_t PWM_izq, uint8_t PWM_der)
 {
-    motor_izq_front.motor_individual(1, PWM);
-    motor_izq_back.motor_individual(1, PWM);
-    motor_der_front.motor_individual(1, PWM);
-    motor_der_back.motor_individual(1, PWM);
+    motor_izq_front.motor_individual(1, PWM_izq);
+    motor_izq_back.motor_individual(1, PWM_izq);
+    motor_der_front.motor_individual(1, PWM_der);
+    motor_der_back.motor_individual(1, PWM_der);
 }
 
 void retroceder(uint8_t PWM)
@@ -131,20 +131,23 @@ void detener()
     motor_der_back.motor_individual(0, 0);
 }
 
-/*
-
-funcion giro(lateralidad, PWM_Izq, PWM_der)
-si lateralidad == 1 control_motor_izq(-1, PWM_Izq) control_motor_der(1, PWM_der) FinSi si lateralidad == 2 control_motor_izq(1, PWM_Izq) control_motor_der(-1, PWM_der) FinSi
-
-    FinFuncion
-
-    funcion detener() control_motor_izq(0) control_motor_der(0) FinFuncion
-
-    Funcion giro90(lateralidad_elegida, giro_pendiente, posiciones x y z) Si(giro_pendiente y no ha girado 90 % -el giro se define con las posiciones guardadas en la condicion anterior -)
-
-        giro(lateralidad_elegida, vel, vel)
-
-            FinSi
-
-    FinFuncion
-*/
+void giro(int lateralidad)
+{
+    // funciones a calibrar para que de un giro limpio
+    uint8_t PWM_menor = 50;
+    uint8_t PWM_mayor = 150;
+    if (lateralidad == 1)
+    {
+        motor_izq_front.motor_individual(1, PWM_menor);
+        motor_izq_back.motor_individual(1, PWM_menor);
+        motor_der_front.motor_individual(1, PWM_mayor);
+        motor_der_back.motor_individual(1, PWM_mayor);
+    }
+    else if (lateralidad == 2)
+    {
+        motor_izq_front.motor_individual(1, PWM_mayor);
+        motor_izq_back.motor_individual(1, PWM_mayor);
+        motor_der_front.motor_individual(1, PWM_menor);
+        motor_der_back.motor_individual(1, PWM_menor);
+    }
+}
