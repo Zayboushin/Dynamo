@@ -2,15 +2,13 @@
 
 #include <Arduino.h>
 #include <Adafruit_MPU6050.h>
-#include <Adafruit_Sensor.h>
 
 Adafruit_MPU6050 IMU;
 
-// tal vez funcione. Revisar valores
-#define P 0
-#define I 0
-#define D 0
-#define vel 250
+int P = 0;
+int I = 0;
+int D = 0;
+int vel = 250;
 
 void begin()
 {
@@ -24,7 +22,6 @@ void begin()
     }
 }
 
-// puede que haya un error en el código por no agregar estas variables
 sensors_event_t a, g, temp;
 
 void activacion_IMU()
@@ -34,7 +31,7 @@ void activacion_IMU()
 
 // Retorna la aceleración en el eje X
 
-void control(float &izq, float &der, float distancia_ultrasonico_izq, float distancia_ultrasonico_der)
+void avanzar_control(float &xy[2], float distancia_ultrasonico_izq, float distancia_ultrasonico_der)
 {
     static float error = 0;
 
@@ -48,8 +45,7 @@ void control(float &izq, float &der, float distancia_ultrasonico_izq, float dist
 
     // D
 
-    izq = 1.2f;
-    der = 1.1f;
+    xy = {1f, 2.2f};
 }
 
 bool logica_90grados(bool &giro_pendiente)
