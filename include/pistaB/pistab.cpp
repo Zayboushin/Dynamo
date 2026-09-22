@@ -38,7 +38,7 @@ detener()
 detener();
 
 if (ultrasonico_front() >30) {
-    while(leer_color() != rojo && ultrasonico_front() >10) { //la funcion leercolor es suposicion junto con rojo porq aun no tenemos esas funciojes
+    if(leer_color() != rojo && ultrasonico_front() >10) { //la funcion leercolor es suposicion junto con rojo porq aun no tenemos esas funciojes
         avanzar(150);
     }
     detener();
@@ -72,29 +72,40 @@ else (ultrasonico_der() >10) {
     detener();
 }
 
+//parte seccion 2
+
+
+void eleccion_desplazamiento(string direccion) {
+    float dist_izq = ultrasonido_izq.distancia_ultrasonico();
+    float dist_der = ultrasonido_der.distancia_ultrasonico();
+
+    if (dist_izq < dist_der) {
+        desp_der(200);
+    }
+    else if (dist_der < dist_izq) {
+        desp_izq(200);
+    }
+    else {
+    if (direccion == "izquierda") {
+        desp_izq(200);
+    }
+else if direccion == "derecha" {
+    desp_der(200);
+    }
+
+    }
+
+}
 
 //Seccion 2
-
-if (sensor_rgb.leer_color()== rojo) { //creo q funcionaria para salir de secc 2
-    detener();
-}
-//aqui creo q podria poner el cod de la seccion 3, para no poner whiles
-
-//seccion 3, faltan funciones de colores y direcciones
-
-
-else (infrarojo_izq.hay_blanco() && infrarojo_der.hay_blanco()) {
-    detener();
-    retroceder(150);
-    delay(200);
-    detener();
-}
-else (infrarojo_izq.hay_blanco()) {
-    desp_der(200);
-}
-else (infrarojo_der.hay_blanco()) {
-    desp_izq(200);
-}
-else {
-    avanzar(200);
-}
+bool linea_blanca_izq = infrarrojo_izq.hay_linea();
+bool linea_blanca_der = infrarrojo_der.hay_linea();
+    if (linea_blanca_izq) {
+        eleccion_desplazamiento("derecha"); 
+    }
+    else if (linea_blanca_der) {
+        eleccion_desplazamiento("izquierda");
+    }
+    else {
+        avanzar();
+    }
