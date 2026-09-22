@@ -4,7 +4,8 @@
 void begin();
 
 void activacion_IMU();
-list<float> avanzar_control(float distancia_ultrasonico_izq, float distancia_ultrasonico_der);
-bool logica_90grados(bool &giro_pendiente);
 
+void control(float &izq, float &der, float distancia_ultrasonico_izq, float distancia_ultrasonico_der);
+
+bool logica_90grados(bool &giro_pendiente);
 #endif
