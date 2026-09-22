@@ -1,6 +1,7 @@
 #include <Arduino.h>
 #include "motores/motores.h"
 #include "sensores/sensores.h"
+#include "control/control.h"
 #include "pistaA.h"
 // primer pista
 
@@ -12,8 +13,6 @@ char posiciones_avance[MAX_TURNS];
 //  r = “right”;
 //  u = “up”;
 //  d = “down”;
-
-// variables de control (falta cambiar)
 
 // variables nativas de sensores
 float distancia_ultrasonico_izq = 0;
@@ -35,6 +34,7 @@ byte choque_inminente = 15; // distancia en donde se detecta que hay una pared
 void pistaA()
 {
 
+    // define la lateridad
     if (lateralidad == 0)
     {
         if (!pared(ultrasonico_izq))
@@ -48,21 +48,29 @@ void pistaA()
         }
     }
 
+    giro_pendiente = revision_giro(lateralidad);
     if (!giro_pendiente)
     {
         distancia_ultrasonico_izq = ultrasonico_izq.distancia_ultrasonico();
         distancia_ultrasonico_der = ultrasonico_der.distancia_ultrasonico();
 
-        int corrección = calibracion(distancia_ultrasonico_izq, distancia_ultrasonico_der);
+        float correcion_izq = 0;
+        float correcion_der = 0;
+
+        avanzar_control(correcion_izq, correcion_der, distancia_ultrasonico_izq, distancia_ultrasonico_der);
         // regresa los valores de corrección para determinar el PWM final de los motores
 
-        avanzar(vel - corrección, vel + corrección);
+        avanzar(correcion_izq, correcion_der);
         // revisar signos
-
-        correcion_drift();
+    }
+    else
+    {
+        giro(lateralidad);
+        logica_90grados(giro_pendiente);
     }
 }
 
+// funcion que determina si hay una pared cerca
 bool pared(ultrasonico ultrasonico_entrada)
 {
     // De entrada, se recibe uno de los 3 ultrasónicos (enfrente, izquierda, derecha)
@@ -80,37 +88,34 @@ bool pared(ultrasonico ultrasonico_entrada)
     }
 }
 
-int calibracion(float distancia_ultrasonico_izq, float distancia_ultrasonico_der)
+bool revision_giro(int lateralidad)
 {
-    int corrección = 0;
-    float error = 0;
 
-    if (lateralidad == 0)
+    bool izq = false;
+    bool der = false;
+    bool frente = false;
+    switch (lateralidad)
     {
-        error = distancia_ultrasonico_izq - distancia_ultrasonico_der;
-    }
-    else
-    {
-        switch (lateralidad)
+    case 1:
+
+        if (!pared(ultrasonico_izq))
         {
-
-        case 1:
-            error = distancia_ultrasonico_izq - cercania_pared;
-            break;
-        case 2:
-            error = cercania_pared - distancia_ultrasonico_der;
-            break;
+            return true;
         }
+        break;
+
+    case 2:
+        if (!pared(ultrasonico_der))
+        {
+            return true;
+        }
+        break;
     }
 
-    // P
-    corrección = error * P;
-
-    // I
-
-    // D
-
-    return corrección;
+    if (pared(ultrasonico_frente))
+    {
+        return true;
+    }
 }
 
 void correcion_drift()
