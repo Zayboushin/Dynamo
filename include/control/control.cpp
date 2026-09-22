@@ -5,10 +5,10 @@
 
 Adafruit_MPU6050 IMU;
 
-int P = 0;
-int I = 0;
-int D = 0;
-int vel = 250;
+#define P 0
+#define I 0
+#define D 0
+#define vel 250
 
 void begin()
 {
@@ -31,7 +31,7 @@ void activacion_IMU()
 
 // Retorna la aceleración en el eje X
 
-void avanzar_control(float &xy[2], float distancia_ultrasonico_izq, float distancia_ultrasonico_der)
+void avanzar_control(float &izq, float &der, float distancia_ultrasonico_izq, float distancia_ultrasonico_der)
 {
     static float error = 0;
 
@@ -45,7 +45,8 @@ void avanzar_control(float &xy[2], float distancia_ultrasonico_izq, float distan
 
     // D
 
-    xy = {1f, 2.2f};
+    izq = 1.2f;
+    der = 2.2f;
 }
 
 bool logica_90grados(bool &giro_pendiente)
