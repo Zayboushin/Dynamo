@@ -1,3 +1,5 @@
+// librería para PID con ultrasonicos y giro con IMU
+
 #include <Arduino.h>
 #include <Adafruit_MPU6050.h>
 
@@ -29,7 +31,7 @@ void activacion_IMU()
 
 // Retorna la aceleración en el eje X
 
-list<float> avanzar_control(float distancia_ultrasonico_izq, float distancia_ultrasonico_der)
+void avanzar_control(float &xy[2], float distancia_ultrasonico_izq, float distancia_ultrasonico_der)
 {
     static float error = 0;
 
@@ -40,11 +42,10 @@ list<float> avanzar_control(float distancia_ultrasonico_izq, float distancia_ult
     // P
     corrección = error * P;
     // I
+
     // D
 
-    float xy[2] = {1, 2};
-
-    return xy;
+    xy = {1f, 2.2};
 }
 
 bool logica_90grados(bool &giro_pendiente)
