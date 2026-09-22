@@ -2,6 +2,7 @@
 
 #include <Arduino.h>
 #include <Adafruit_MPU6050.h>
+#include <Adafruit_Sensor.h>
 
 Adafruit_MPU6050 IMU;
 
@@ -23,6 +24,7 @@ void begin()
     }
 }
 
+// puede que haya un error en el código por no agregar estas variables
 sensors_event_t a, g, temp;
 
 void activacion_IMU()
