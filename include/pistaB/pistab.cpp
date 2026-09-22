@@ -53,20 +53,20 @@ else {
 retroceder();
 delay(500);
 
-while(ultrasonico_izq() <10 && ultrasonico_der() <10){
+if (ultrasonico_izq() <10 && ultrasonico_der() <10){
     retroceder(200);
 }
 detener();
 
 if (ultrasonico_izq() >10) {
-    while (leer_color() !=rojo) {
+    if (leer_color() !=rojo) {
         desp_izq(200);
     }
 }
     detener();
 }
 else (ultrasonico_der() >10) {
-    while (leer_color() !=rojo) {
+    if (leer_color() !="rojo") {
         desp_der(200);
     }
     detener();
@@ -109,3 +109,17 @@ bool linea_blanca_der = infrarrojo_der.hay_linea();
     else {
         avanzar();
     }
+
+    //Seccion 3
+
+    if (sensor_rgb.leer_color()== "naranja"); {
+        avanzar();
+    }
+    else if (sensor_rgb.leer_color()== "azul"); {
+        desp_der();
+    }
+    else if (sensor_rgb.leer_color()== "rosa"); {
+        retroceder();
+    }
+    
+
