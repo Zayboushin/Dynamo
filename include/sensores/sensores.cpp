@@ -1,3 +1,5 @@
+// author:leonardo Rodríguez
+
 #include <Arduino.h>
 #include "sensores.h"
 
