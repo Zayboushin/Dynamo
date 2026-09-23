@@ -57,9 +57,6 @@ bool logica_90grados(bool &giro_pendiente)
     static long antes = 0;
 
     void activacion_IMU();
-    a.gyro.x;
-    a.gyro.y;
-    a.gyro.z;
 
     long ahora = millis();
     long segundos = (ahora - antes) / 1000;
@@ -74,6 +71,11 @@ bool logica_90grados(bool &giro_pendiente)
         ;
     {
         // indica que ya se pasó del giro de 90 grados, deteniendo el uso de esta funcion
+
+        //
+        grados_x = 0;
+        grados_y = 0;
+        grados_z = 0;
         giro_pendiente = false;
         return giro_pendiente;
     }
