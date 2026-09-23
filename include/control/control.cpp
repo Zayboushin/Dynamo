@@ -1,4 +1,5 @@
-// librería para PID con ultrasonicos y giro con IMU
+// author:leonardo Rodríguez
+//  librería para PID con ultrasonicos y giro con IMU
 
 #include <Arduino.h>
 #include <Adafruit_MPU6050.h>

@@ -1,3 +1,4 @@
+// author:leonardo Rodríguez
 #ifndef SENSORES_H
 #define SENSORES_H
 
