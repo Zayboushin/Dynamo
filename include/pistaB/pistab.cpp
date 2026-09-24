@@ -7,25 +7,49 @@
 long  dist_ultrasonico;
 String leer_color;
 bool linea_blanca;
-
-void setup
-
+byte pared_front = 10; //valor q define dist de ult_front con pared
+byte pared_izq = 50; //valor q define dist de ult_izq con carrito, en caso de girar a la izq
+byte  pared_der = 50;// valor que define dist de ult_der con carrito, en caso de girar a la der
+bool giro_pendiente = false; //variable q define si hay giro pendiente, para q no se quede en un loop infinito
+bool pelota_detectada = true; //
 void loop() {
 
     //Seccion 1
 
-    if (ultrasónico_der > 45) {
-    avanzar(200);
+    if (pelota_detectada != true) {
+    }
+    else if (pelota_detectada == true) {
+    }
+
+    if (ultrasonico_der < 45 && ultrasonico_front < 40) { 
+        pelota_detectada != true;
     //despues del avanzar lo de abajo se haría si la dist del ultr_der es menor a 45,
     //indicando que es la entrada a la pelota
-    detener();
-    izquierda(200);//aqui ocupo ponerlo en 90° especif para que el intake tome la pelota
-    encender_intake(); //aun no esta esta funcion pero es u ejemplo
-    retroceder();
+       detener();
+       izquierda();//aqui ocupo ponerlo en 90° especif para que el intake tome la pelota
+       encender_intake(); //aun no esta esta funcion pero es u ejemplo
+       retroceder();
+       pelota_detectada == true;
+    }
 
+    else {
+       avanzar();
+    }
+
+    if (ultrasonico_front < 10 && ultrasonico_der > 50) {
+    giro_pendiente = true;
+    }
     
-else if 
-detener()
+
+    if (giro_pendiente) {
+        if (ultrasonico_der < 10) {
+            giro_pendiente = false;
+        }
+        else {
+            desp_der(200);
+        }
+    }
+
 
 }
 
