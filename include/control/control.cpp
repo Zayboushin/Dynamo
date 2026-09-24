@@ -52,15 +52,26 @@ void avanzar_control(float &izq, float &der, float distancia_ultrasonico_izq, fl
 
 bool logica_90grados(bool &giro_pendiente)
 {
+    // revisar si esto funciona para mi caso
     static float grados_x = 0;
     static float grados_y = 0;
     static float grados_z = 0;
     static long antes = 0;
+    static long segundos = 0;
 
     void activacion_IMU();
 
     long ahora = millis();
-    long segundos = (ahora - antes) / 1000;
+
+    if (antes == 0)
+    {
+        segundos = 0;
+    }
+    else
+    {
+        segundos = (ahora - antes) / 1000;
+    }
+
     antes = ahora;
 
     grados_x += a.gyro.x * segundos;
@@ -68,8 +79,7 @@ bool logica_90grados(bool &giro_pendiente)
     grados_z += a.gyro.z * segundos;
 
     // funcion que determina que se detenga el giro
-    if (grados_x == 3.14159 / 2)
-        ;
+    if (grados_x >= 3.14159 / 2)
     {
         // indica que ya se pasó del giro de 90 grados, deteniendo el uso de esta funcion
 
