@@ -1,3 +1,5 @@
+// author:leonardo Rodríguez
+
 #include <Arduino.h>
 #include "sensores.h"
 
@@ -76,7 +78,7 @@ public:
 
     // calibrar el sensor infrarrojo para detectar el color blanco y negro
 
-    bool hay_blanco()
+    bool linea_blanca()
     {
         // calibrar el sensor infrarrojo para detectar el color blanco y negro
         bool lectura = digitalRead(pin);
