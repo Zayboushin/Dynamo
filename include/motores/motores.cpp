@@ -152,3 +152,40 @@ void giro(int lateralidad)
         motor_der_back.motor_individual(1, PWM_menor);
     }
 }
+//Funciones de karla :))
+
+void desp_der(uint8_t PWM)
+{
+    motor_izq_front.motor_individual(1, PWM);
+    motor_izq_back.motor_individual(-1, PWM);
+    motor_der_front.motor_individual(-1, PWM);
+    motor_der_back.motor_individual(1, PWM);
+}
+
+void desp_izq(uint8_t PWM)
+{
+    motor_izq_front.motor_individual(-1, PWM);
+    motor_izq_back.motor_individual(1, PWM);
+    motor_der_front.motor_individual(1, PWM);
+    motor_der_back.motor_individual(-1, PWM);
+}
+
+/*
+
+
+
+funcion giro(lateralidad, PWM_Izq, PWM_der)
+si lateralidad == 1 control_motor_izq(-1, PWM_Izq) control_motor_der(1, PWM_der) FinSi si lateralidad == 2 control_motor_izq(1, PWM_Izq) control_motor_der(-1, PWM_der) FinSi
+
+    FinFuncion
+
+    funcion detener() control_motor_izq(0) control_motor_der(0) FinFuncion
+
+    Funcion giro90(lateralidad_elegida, giro_pendiente, posiciones x y z) Si(giro_pendiente y no ha girado 90 % -el giro se define con las posiciones guardadas en la condicion anterior -)
+
+        giro(lateralidad_elegida, vel, vel)
+
+            FinSi
+
+    FinFuncion
+*/
