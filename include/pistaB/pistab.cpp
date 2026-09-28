@@ -11,37 +11,49 @@ byte pared_front = 10; //valor q define dist de ult_front con pared
 byte pared_izq = 50; //valor q define dist de ult_izq con carrito, en caso de girar a la izq
 byte  pared_der = 50;// valor que define dist de ult_der con carrito, en caso de girar a la der
 bool giro_pendiente = false; //variable q define si hay giro pendiente, para q no se quede en un loop infinito
-bool pelota_detectada = true; //
-bool giro_der = true; // para q sepa a que lado girar en grados
+bool pelota_detectada = false //
+bool giro_der = false; // para q sepa a que lado girar en grados
+bool giro_izq =false;
+bool pelota_tomada = false;
+
 
 void loop() {
 
     //Seccion 1
 
-    if (pelota_detectada = false) {
-    if (ultrasonico_der < 45 && ultrasonico_front < 40) { //encuentra el recuadro de la pelota
+    if (!pelota_detectada) {
+        if (ultrasonico_der < 45 && ultrasonico_front < 40) { //encuentra el recuadro de la pelota
 
-        pelota_detectada = true;
-        giro_pendiente = true;
-        giro_der = false;
-    }
-    //
-    }
-
-    if (pelota_detectada) {
-        giro_der = false;
-        logica_90grados(giro_pendiente);
+            pelota_detectada = true;
+            giro_pendiente = true;
+            giro_der = true; //corregir
         }
-
-    else {
-       avanzar();
+        else {
+            avanzar();
+        }
     }
 
+    if (pelota_detectada && !pelota_tomada) {
+        if (giro_pendiente) {
+            logica_90grados(giro_pendiente);
+        }
+        else if(!limit_switch) {
+            encender_intake();//falta agregar
+            retroceder();
+        }
+        else 
+            detener();
+            apagar_intake();//falta
+            pelota_tomada = true
+        }
+        else if (pelota_tomada){
+        avanzar(); 
+        }
+    
     if (ultrasonico_front < 10 && ultrasonico_der > 50) { //giro a la derecha por pasillo-
         giro_pendiente = true;
         giro_der = true;
         logica_90grados(giro_pendiente);
-        avanzar();
     }
     
     else {
@@ -93,13 +105,16 @@ bool linea_blanca_der = infrarrojo_der.hay_linea();
 
     //Seccion 3
 
-    if (sensor_rgb.leer_color()== "naranja"); {
+    if (sensor_rgb.leer_color()== "naranja") {
         avanzar();
     }
-    else if (sensor_rgb.leer_color()== "azul"); {
+    else if (sensor_rgb.leer_color()== "azul") {
         desp_der();
     }
-    else if (sensor_rgb.leer_color()== "rosa"); {
+    else if (sensor_rgb.leer_color()== "amarillo") {
+        desp_izq();
+    }
+    else if (sensor_rgb.leer_color()== "rosa") {
         retroceder();
     }
     
