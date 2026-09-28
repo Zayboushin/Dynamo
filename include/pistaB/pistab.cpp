@@ -2,6 +2,7 @@
 #include "sensores/sensores.h"
 #include "motores/motores.h"
 
+
 //Sensores(creo)
 #include <WString.h>
 long  dist_ultrasonico;
@@ -41,27 +42,22 @@ void loop() {
             encender_intake();//falta agregar
             retroceder();
         }
-        else 
+        else {
             detener();
             apagar_intake();//falta
             pelota_tomada = true
         }
-        else if (pelota_tomada){
-        avanzar(); 
+        else if (pelota_tomada) {
+            salida1();
         }
-    
-    if (ultrasonico_front < 10 && ultrasonico_der > 50) { //giro a la derecha por pasillo-
-        giro_pendiente = true;
-        giro_der = true;
-        logica_90grados(giro_pendiente);
-    }
-    
-    else {
-        avanzar();
-    }
+
+        void navegacion() {
+        }
+        }
 
 
 //Salir de seccion 1
+
 
     
 //parte seccion 2
