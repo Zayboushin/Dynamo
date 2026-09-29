@@ -30,7 +30,7 @@ void loop() {
             giro_der = true; //corregir
         }
         else {
-            avanzar();
+            navegacion();
         }
     }
 
@@ -47,13 +47,15 @@ void loop() {
             apagar_intake();//falta
             pelota_tomada = true
         }
-        else if (pelota_tomada) {
-            salida1();
         }
-
-        void navegacion() {
+    if (pelota_tomada) {
+        if (giro_pendiente) {
+            logica_90grados(giro_pendiente);
         }
-        }
+    else 
+        salida1();
+        navegacion();
+    }
 
 
 //Salir de seccion 1
