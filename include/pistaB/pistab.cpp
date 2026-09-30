@@ -16,6 +16,24 @@ bool pelota_detectada = false //
 bool giro_der = false; // para q sepa a que lado girar en grados
 bool giro_izq =false;
 bool pelota_tomada = false;
+    //karla
+void navegacion() {
+     if (ultrasonico_front < 10 && ultrasonico_der > 50) { //giro a la derecha por pasillo-
+        giro_pendiente = true;
+        giro_der = true;
+        logica_90grados(giro_pendiente);
+     }
+    else {
+        avanzar();
+    }
+}
+void salida1() { //condiciones para salir de secc 1
+    if (pelota_tomada && ultrasonico_front >20 && ultrasonico_izq > 40 && ultrasonico_der < 20) {
+        giro_pendiente = true;
+        giro_izq = true;
+        logica_90grados(giro_pendiente);
+    }
+}
 
 
 void loop() {
@@ -45,18 +63,21 @@ void loop() {
         else {
             detener();
             apagar_intake();//falta
-            pelota_tomada = true
+            pelota_tomada = true;
         }
         }
     if (pelota_tomada) {
         if (giro_pendiente) {
             logica_90grados(giro_pendiente);
         }
-    else 
+    else if (pelota_tomada) {
         salida1();
+    }
+    else {
         navegacion();
     }
-
+    }
+    }//last
 
 //Salir de seccion 1
 
