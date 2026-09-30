@@ -12,6 +12,8 @@ String colores[] = {"azul",
                     "blanco",
                     "negro"};
 
+
+
 // Clase para manejar los sensores ultrasónicos
 class ultrasonico
 {
@@ -201,3 +203,26 @@ void iniciar_sensores()
     sensor_rgb.setPins(10, 11, 12, 13, 14); // Pines del sensor RGB
     sensor_rgb.begin();
 }
+
+// Karla :)
+
+void navegacion() {
+     if (ultrasonico_front < 10 && ultrasonico_der > 50) { //giro a la derecha por pasillo-
+        giro_pendiente = true;
+        giro_der = true;
+        logica_90grados(giro_pendiente);
+     }
+    else {
+        avanzar();
+    }
+}
+
+void salida1() { //condiciones para salir de secc 1
+    if (pelota_tomada && ultrasonico_front >20 && ultrasonico_izq > 40 && ultrasonico_der < 20) {
+        giro_pendiente = true;
+        giro_izq = true;
+        logica_90grados(giro_pendiente);
+
+    }
+}
+
