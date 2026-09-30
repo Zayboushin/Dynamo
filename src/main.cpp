@@ -10,7 +10,7 @@ void setup()
   Serial.begin(115200);
   iniciar_motores();
   iniciar_sensores();
-  begin();
+  iniciar_IMU();
 }
 
 void loop()
