@@ -11,7 +11,7 @@ Adafruit_MPU6050 IMU;
 #define D 0
 #define vel 250
 
-void begin()
+void iniciar_IMU()
 {
     while (!Serial)
         delay(10);
@@ -25,7 +25,7 @@ void begin()
 
 sensors_event_t a, g, temp;
 
-void activacion_IMU()
+void IMU()
 {
     IMU.getEvent(&a, &g, &temp);
 }
@@ -59,7 +59,7 @@ bool logica_90grados(bool &giro_pendiente)
     static long antes = 0;
     static long segundos = 0;
 
-    void activacion_IMU();
+    IMU();
 
     long ahora = millis();
 
@@ -89,5 +89,9 @@ bool logica_90grados(bool &giro_pendiente)
         grados_z = 0;
         giro_pendiente = false;
         return giro_pendiente;
+    }
+    else
+    {
+        return true;
     }
 }
