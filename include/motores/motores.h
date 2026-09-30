@@ -2,8 +2,6 @@
 #ifndef MOTORES_H
 #define MOTORES_H
 
-using namespace std;
-
 void setPins(uint8_t pin1, uint8_t pin2, uint8_t newPin_pwm);
 
 void begin();
