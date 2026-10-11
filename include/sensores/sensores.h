@@ -14,9 +14,9 @@ public:
     void begin();
     float distancia_ultrasonico();
 };
-ultrasonico ultrasonico_izq;
-ultrasonico ultrasonico_der;
-ultrasonico ultrasonico_frente;
+extern ultrasonico ultrasonico_izq;
+extern ultrasonico ultrasonico_der;
+extern ultrasonico ultrasonico_frente;
 
 class infrarrojo
 {
