@@ -35,8 +35,9 @@ byte choque_inminente = 15; // distancia en donde se detecta que hay una pared
 
 void pistaA()
 {
-
-    // define la lateridad
+while(true)
+    {
+        // define la lateridad
     if (lateralidad == 0)
     {
         if (!pared(ultrasonico_izq))
@@ -69,6 +70,7 @@ void pistaA()
     {
         giro(lateralidad);
         logica_90grados(giro_pendiente);
+    }
     }
 }
 
