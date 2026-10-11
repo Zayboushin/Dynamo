@@ -12,9 +12,14 @@ void setup()
   iniciar_motores();
   iniciar_sensores();
   iniciar_IMU();
+
+  if (true)
+  {
+    pistaA();
+  }
 }
 
 void loop()
 {
-  pistaA(); // put your main code here, to run repeatedly:
+   // put your main code here, to run repeatedly:
 }
