@@ -1,8 +1,8 @@
 #include <Arduino.h>
-#include "motores/motores.h"
-#include "sensores/sensores.h"
-#include "control/control.h"
-#include "pistaA/pistaA.h"
+#include "motores.h"
+#include "sensores.h"
+#include "control.h"
+#include "pistaA.h"
 #include "pistaB/pistaB.h"
 
 void setup()
