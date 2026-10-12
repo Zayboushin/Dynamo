@@ -1,9 +1,9 @@
 // author:leonardo Rodríguez
 
 #include <Arduino.h>
-#include "motores/motores.h"
-#include "sensores/sensores.h"
-#include "control/control.h"
+#include "motores.h"
+#include "sensores.h"
+#include "control.h"
 #include "pistaA.h"
 // primer pista
 
