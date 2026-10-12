@@ -25,7 +25,7 @@ void iniciar_IMU()
 
 sensors_event_t a, g, temp;
 
-void IMU()
+void activacion_IMU()
 {
     IMU.getEvent(&a, &g, &temp);
 }
@@ -52,7 +52,6 @@ void avanzar_control(float &izq, float &der, float distancia_ultrasonico_izq, fl
 
 bool logica_90grados(bool &giro_pendiente)
 {
-    // revisar si esto funciona para mi caso
     static float grados_x = 0;
     static float grados_y = 0;
     static float grados_z = 0;
