@@ -11,7 +11,7 @@ Adafruit_MPU6050 IMU;
 #define D 0
 #define vel 250
 
-void begin()
+void iniciar_IMU()
 {
     while (!Serial)
         delay(10);
@@ -56,11 +56,21 @@ bool logica_90grados(bool &giro_pendiente)
     static float grados_y = 0;
     static float grados_z = 0;
     static long antes = 0;
+    static long segundos = 0;
 
-    void activacion_IMU();
+    IMU();
 
     long ahora = millis();
-    long segundos = (ahora - antes) / 1000;
+
+    if (antes == 0)
+    {
+        segundos = 0;
+    }
+    else
+    {
+        segundos = (ahora - antes) / 1000;
+    }
+
     antes = ahora;
 
     grados_x += a.gyro.x * segundos;
@@ -68,8 +78,7 @@ bool logica_90grados(bool &giro_pendiente)
     grados_z += a.gyro.z * segundos;
 
     // funcion que determina que se detenga el giro
-    if (grados_x == 3.14159 / 2)
-        ;
+    if (grados_x >= 3.14159 / 2)
     {
         // indica que ya se pasó del giro de 90 grados, deteniendo el uso de esta funcion
 
@@ -79,5 +88,9 @@ bool logica_90grados(bool &giro_pendiente)
         grados_z = 0;
         giro_pendiente = false;
         return giro_pendiente;
+    }
+    else
+    {
+        return true;
     }
 }
