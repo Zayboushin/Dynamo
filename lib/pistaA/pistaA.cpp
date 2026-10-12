@@ -32,7 +32,10 @@ static byte cercania_pared = 5; // valor que define que tan cerca estara de la p
 static byte choque_inminente = 15; // distancia en donde se detecta que hay una pared
 
 // funciones
+static bool pared(ultrasonico &u);   
+static bool revision_giro(int lateralidad);
 
+//Funcion principal
 void pistaA()
 {
 while(true)
