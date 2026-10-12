@@ -3,7 +3,7 @@
 #include "sensores.h"
 #include "control.h"
 #include "pistaA.h"
-#include "pistaB/pistaB.h"
+#include "pistaB.h"
 
 void setup()
 {
