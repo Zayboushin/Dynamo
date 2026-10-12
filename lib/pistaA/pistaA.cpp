@@ -75,11 +75,11 @@ while(true)
 }
 
 // funcion que determina si hay una pared cerca
-static bool pared(ultrasonico ultrasonico_entrada)
+static bool pared(ultrasonico &u)
 {
     // De entrada, se recibe uno de los 3 ultrasónicos (enfrente, izquierda, derecha)
 
-    float distancia = ultrasonico_entrada.distancia_ultrasonico();
+    float distancia = u.distancia_ultrasonico();
 
     if (distancia < choque_inminente)
     {
