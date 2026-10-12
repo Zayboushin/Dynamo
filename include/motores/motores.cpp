@@ -74,7 +74,7 @@ public:
     }
 };
 
-motor motor_izq_front, motor_izq_back, motor_der_front, motor_der_back;
+motor motor_izq_front, motor_izq_back, motor_der_front, motor_der_back, motor_intake;
 
 void iniciar_motores()
 {
@@ -84,12 +84,14 @@ void iniciar_motores()
     motor_izq_back.setPins(5, 6, 7);
     motor_der_front.setPins(8, 9, 10);
     motor_der_back.setPins(11, 12, 13);
+    motor_intake.setPins(A0, A1, 6)
     // funciones de movimiento
 
     motor_der_back.begin();  // Pines del motor derecho trasero
     motor_der_front.begin(); // Pines del motor derecho delantero
     motor_izq_front.begin(); // Pines del motor izquierdo delantero
     motor_izq_back.begin();  // Pines del motor izquierdo trasero
+    motor_intake.begin();     // Pines del motor del intake
 }
 
 void avanzar(uint8_t PWM_izq, uint8_t PWM_der)
@@ -169,6 +171,25 @@ void desp_izq(uint8_t PWM)
     motor_der_front.motor_individual(1, PWM);
     motor_der_back.motor_individual(-1, PWM);
 }
+
+//pines del driver del intake y limit switch
+#define PIN_STBY_A2
+#define LIMIT_SWITCH_D12
+
+void encender_intake(uint8_t PWM)
+{
+    motor_intake.motor_individual(1, PWM); // Encender el motor del intake 
+}
+void apagar_intake(uint8_t PWM) {
+    motor_intake.motor_individual(0, PWM);
+}
+
+//limit switch
+bool limit_switch() {
+    return digitalRead(LIMIT_SWITCH_D12) == LOW; // Devuelve true si el limit switch está activado (LOW)
+}
+
+
 
 /*
 
