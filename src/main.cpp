@@ -1,8 +1,9 @@
 #include <Arduino.h>
-#include "motores/motores.h"
-#include "sensores/sensores.h"
-#include "control/control.h"
-#include "pistaA/pistaA.h"
+#include "motores.h"
+#include "sensores.h"
+#include "control.h"
+#include "pistaA.h"
+#include "pistaB/pistaB.h"
 
 void setup()
 {
@@ -10,10 +11,15 @@ void setup()
   Serial.begin(115200);
   iniciar_motores();
   iniciar_sensores();
-  begin();
+  iniciar_IMU();
+
+  if (true)
+  {
+    pistaA();
+  }
 }
 
 void loop()
 {
-  pistaA(); // put your main code here, to run repeatedly:
+   // put your main code here, to run repeatedly:
 }

@@ -27,16 +27,20 @@ byte lateralidad = 0;
 // izquierda = 1
 // derecha = 2
 
-byte cercania_pared = 5; // valor que define que tan cerca estara de la pared una vez se defina la lateralidad. revisar que valor es mejor
+static byte cercania_pared = 5; // valor que define que tan cerca estara de la pared una vez se defina la lateralidad. revisar que valor es mejor
 
-byte choque_inminente = 15; // distancia en donde se detecta que hay una pared
+static byte choque_inminente = 15; // distancia en donde se detecta que hay una pared
 
 // funciones
+static bool pared(ultrasonico &u);   
+static bool revision_giro(int lateralidad);
 
+//Funcion principal
 void pistaA()
 {
-
-    // define la lateridad
+while(true)
+    {
+        // define la lateridad
     if (lateralidad == 0)
     {
         if (!pared(ultrasonico_izq))
@@ -70,14 +74,15 @@ void pistaA()
         giro(lateralidad);
         logica_90grados(giro_pendiente);
     }
+    }
 }
 
 // funcion que determina si hay una pared cerca
-bool pared(ultrasonico ultrasonico_entrada)
+static bool pared(ultrasonico &u)
 {
     // De entrada, se recibe uno de los 3 ultrasónicos (enfrente, izquierda, derecha)
 
-    float distancia = ultrasonico_entrada.distancia_ultrasonico();
+    float distancia = u.distancia_ultrasonico();
 
     if (distancia < choque_inminente)
     {
@@ -90,7 +95,7 @@ bool pared(ultrasonico ultrasonico_entrada)
     }
 }
 
-bool revision_giro(int lateralidad)
+static bool revision_giro(int lateralidad)
 {
 
     bool izq = false;
@@ -120,7 +125,7 @@ bool revision_giro(int lateralidad)
     }
 }
 
-void correcion_drift()
+static void correcion_drift()
 {
     // revisar que el drift no sea mayor a N centimetros.
 }

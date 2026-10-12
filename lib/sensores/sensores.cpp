@@ -12,8 +12,6 @@ String colores[] = {"azul",
                     "blanco",
                     "negro"};
 
-
-
 // Clase para manejar los sensores ultrasónicos
 class ultrasonico
 {
