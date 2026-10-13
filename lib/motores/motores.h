@@ -4,12 +4,6 @@
 
 using namespace std;
 
-void setPins(uint8_t pin1, uint8_t pin2, uint8_t newPin_pwm);
-
-void begin();
-
-void motor_individual(int dir, uint8_t vel);
-
 void iniciar_motores();
 
 void avanzar(uint8_t PWM_izq, uint8_t PWM_der);

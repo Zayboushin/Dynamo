@@ -97,7 +97,7 @@ static bool pared(ultrasonico &u)
 
 static bool revision_giro(int lateralidad)
 {
-
+//agregar condiciones que consideren los lados del sensor necesarios
     bool izq = false;
     bool der = false;
     bool frente = false;
@@ -123,6 +123,8 @@ static bool revision_giro(int lateralidad)
     {
         return true;
     }
+
+    return false;
 }
 
 static void correcion_drift()

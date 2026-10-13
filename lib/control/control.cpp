@@ -25,7 +25,7 @@ void iniciar_IMU()
 
 sensors_event_t a, g, temp;
 
-void activacion_IMU()
+void leer_IMU()
 {
     IMU.getEvent(&a, &g, &temp);
 }
@@ -36,12 +36,12 @@ void avanzar_control(float &izq, float &der, float distancia_ultrasonico_izq, fl
 {
     static float error = 0;
 
-    int corrección = 0;
+    int correccion = 0;
 
     error = distancia_ultrasonico_izq - distancia_ultrasonico_der;
 
     // P
-    corrección = error * P;
+    correccion = error * P;
     // I
 
     // D
@@ -58,7 +58,7 @@ bool logica_90grados(bool &giro_pendiente)
     static long antes = 0;
     static long segundos = 0;
 
-    IMU();
+    leer_IMU();
 
     long ahora = millis();
 
@@ -68,7 +68,7 @@ bool logica_90grados(bool &giro_pendiente)
     }
     else
     {
-        segundos = (ahora - antes) / 1000;
+        segundos = (ahora - antes) / 1000.0f;
     }
 
     antes = ahora;
