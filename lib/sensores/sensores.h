@@ -1,4 +1,5 @@
 // author:leonardo Rodríguez
+#include <Arduino.h>
 #ifndef SENSORES_H
 #define SENSORES_H
 
@@ -30,8 +31,8 @@ public:
     bool linea_blanca();
 };
 
-infrarrojo infrarrojo_izq;
-infrarrojo infrarrojo_der;
+extern infrarrojo infrarrojo_izq;
+extern infrarrojo infrarrojo_der;
 
 class RGB
 {
@@ -55,7 +56,7 @@ public:
     String leer_color();
 };
 
-RGB sensor_rgb;
+extern RGB sensor_rgb;
 
 void iniciar_sensores();
 
