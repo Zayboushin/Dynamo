@@ -68,7 +68,7 @@ bool logica_90grados(bool &giro_pendiente)
     }
     else
     {
-        segundos = (ahora - antes) / 1000;
+        segundos = (ahora - antes) / 1000.0f;
     }
 
     antes = ahora;
