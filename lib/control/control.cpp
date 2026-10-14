@@ -12,6 +12,10 @@ const float P = 4.0f;
 const float I = 0.5f;
 const float D = 0.3f;
 
+//variable de movimiento
+const float vel = 180.0f; 
+
+
 sensors_event_t a, g, temp;
 
 void iniciar_IMU()
