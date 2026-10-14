@@ -12,6 +12,8 @@ const float P = 4.0f;
 const float I = 0.5f;
 const float D = 0.3f;
 
+sensors_event_t a, g, temp;
+
 void iniciar_IMU()
 {
     while (!Serial)
@@ -23,8 +25,6 @@ void iniciar_IMU()
             delay(10);
     }
 }
-
-sensors_event_t a, g, temp;
 
 void leer_IMU()
 {
