@@ -13,7 +13,11 @@ const float I = 0.5f;
 const float D = 0.3f;
 
 //variable de movimiento
-const float vel = 180.0f; 
+const float vel = 180.0f;
+
+//variables importantes para I 
+const float limite_I = 30.0f;     
+const float zona_I   = 6.0f; 
 
 
 sensors_event_t a, g, temp;
