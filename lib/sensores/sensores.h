@@ -116,7 +116,6 @@ public:
         s3 = newS3;
         out = newOut;
     }
-
     void begin()
     {
         pinMode(s0, OUTPUT);
@@ -165,7 +164,6 @@ public:
         return "R: " + String(r) + " V: " + String(v) + " C: " + String(c);
     }
 };
-
 
 extern RGB sensor_rgb;
 
