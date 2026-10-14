@@ -7,10 +7,10 @@
 
 Adafruit_MPU6050 IMU;
 
-#define P 0
-#define I 0
-#define D 0
-#define vel 250
+//valores de PID random (por calibrar)
+const float P = 4.0f;            
+const float I = 0.5f;
+const float D = 0.3f;
 
 void iniciar_IMU()
 {
