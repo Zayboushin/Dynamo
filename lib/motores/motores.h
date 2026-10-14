@@ -48,8 +48,8 @@ public:
         {
         case 1:
         {
-            digitalWrite(m1, LOW);
-            digitalWrite(m2, HIGH);
+            digitalWrite(m1, HIGH);
+            digitalWrite(m2, LOW);
             break;
         }
         case 0:
@@ -60,8 +60,8 @@ public:
         }
         case -1:
         {
-            digitalWrite(m1, HIGH);
-            digitalWrite(m2, LOW);
+            digitalWrite(m1, LOW);
+            digitalWrite(m2, HIGH);
             break;
         }
         }
