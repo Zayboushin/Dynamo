@@ -4,7 +4,7 @@
 
 void iniciar_IMU();
 
-void IMU();
+void leer_IMU();
 
 void avanzar_control(float &izq, float &der, float distancia_ultrasonico_izq, float distancia_ultrasonico_der);
 
