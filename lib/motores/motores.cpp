@@ -13,11 +13,11 @@ motor motor_izq_front, motor_izq_back, motor_der_front, motor_der_back, motor_in
 void iniciar_motores()
 {
     // Instancia de los motores (falta declarar pines correctos)
-
-    motor_izq_front.setPins(2, 3, 4);
-    motor_izq_back.setPins(5, 6, 7);
-    motor_der_front.setPins(8, 9, 10);
-    motor_der_back.setPins(11, 12, 13);
+    //pin1, pin2, Pin_pwm
+    motor_izq_front.setPins(A15, A14, 5);
+    motor_izq_back.setPins(A9, A8, 2);
+    motor_der_front.setPins(A12, A13, 4);
+    motor_der_back.setPins(A10, A11, 3);
     motor_intake.setPins(A0, A1, 6);
     // funciones de movimiento
 
