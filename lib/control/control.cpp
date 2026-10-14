@@ -2,6 +2,7 @@
 //  librería para PID con ultrasonicos y giro con IMU
 
 #include <Arduino.h>
+#include "control.h"
 #include <Adafruit_MPU6050.h>
 
 Adafruit_MPU6050 IMU;

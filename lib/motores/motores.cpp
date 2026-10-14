@@ -8,83 +8,17 @@
 // dirección = 0 -> detenerse
 // dirección = -1 -> retroceder
 
-class motor
-{
-private:
-    uint8_t m1;
-    uint8_t m2;
-    uint8_t pin_pwm;
-    int dir;
-    uint8_t vel;
-
-public:
-    // sigo sin entender como funcionan los constructores, pero por ahora lo dejo asi
-    motor()
-    {
-        m1 = 0;
-        m2 = 0;
-        pin_pwm = 0;
-        dir = 0;
-        vel = 0;
-    }
-
-    void setPins(uint8_t pin1, uint8_t pin2, uint8_t newPin_pwm)
-    {
-        m1 = pin1;
-        m2 = pin2;
-        pin_pwm = newPin_pwm;
-    }
-
-    void begin()
-    {
-        pinMode(m1, OUTPUT);
-        pinMode(m2, OUTPUT);
-        pinMode(pin_pwm, OUTPUT);
-    }
-
-    void motor_individual(int dir, uint8_t vel)
-    {
-        analogWrite(pin_pwm, vel);
-
-        // dirección = 1 -> avanzar
-        // dirección = 0 -> detenerse
-        // dirección = -1 -> retroceder
-
-        switch (dir)
-        {
-        case 1:
-        {
-            digitalWrite(m1, LOW);
-            digitalWrite(m2, HIGH);
-            break;
-        }
-        case 0:
-        {
-            digitalWrite(m1, LOW);
-            digitalWrite(m2, LOW);
-            break;
-        }
-        case -1:
-        {
-            digitalWrite(m1, HIGH);
-            digitalWrite(m2, LOW);
-            break;
-        }
-        }
-    }
-};
-
 motor motor_izq_front, motor_izq_back, motor_der_front, motor_der_back, motor_intake;
 
 void iniciar_motores()
 {
     // Instancia de los motores (falta declarar pines correctos)
-
-    motor_izq_front.setPins(2, 3, 4);
-    motor_izq_back.setPins(5, 6, 7);
-    motor_der_front.setPins(8, 9, 10);
-    motor_der_back.setPins(11, 12, 13);
-    motor_intake.setPins(A0, A1, 6)
+    //pin1, pin2, Pin_pwm
+    motor_izq_front.setPins(A15, A14, 5);
+    motor_izq_back.setPins(A9, A8, 2);
+    motor_der_front.setPins(A12, A13, 4);
+    motor_der_back.setPins(A10, A11, 3);
+    motor_intake.setPins(A0, A1, 6);
     // funciones de movimiento
 
     motor_der_back.begin();  // Pines del motor derecho trasero
@@ -173,8 +107,8 @@ void desp_izq(uint8_t PWM)
 }
 
 //pines del driver del intake y limit switch
-#define PIN_STBY_A2
-#define LIMIT_SWITCH_D12
+ const uint8_t PIN_STBY = A2;
+ const uint8_t LIMIT_SWITCH = 12;
 
 void encender_intake(uint8_t PWM)
 {
@@ -186,7 +120,7 @@ void apagar_intake(uint8_t PWM) {
 
 //limit switch
 bool limit_switch() {
-    return digitalRead(LIMIT_SWITCH_D12) == LOW; // Devuelve true si el limit switch está activado (LOW)
+    return digitalRead(LIMIT_SWITCH) == LOW; // Devuelve true si el limit switch está activado (LOW)
 }
 
 

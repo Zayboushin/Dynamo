@@ -1,4 +1,4 @@
-#include <arduino.h>
+#include <Arduino.h>
 #include "motores.h"
 #include "sensores.h"
 #include "control.h"
