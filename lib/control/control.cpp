@@ -18,7 +18,11 @@ const float vel = 180.0f;
 //variables importantes para I 
 const float limite_I = 30.0f;     
 const float zona_I   = 6.0f; 
+static float integral = 0.0f;
 
+//variables importantes para registro de error
+static float error_anterior = 0.0f;
+static unsigned long antes_ms = 0;
 
 sensors_event_t a, g, temp;
 
