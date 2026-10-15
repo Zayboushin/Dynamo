@@ -3,6 +3,16 @@
 #ifndef SENSORES_H
 #define SENSORES_H
 
+String colores[] = {"azul",
+                    "amarillo",
+                    "naranja",
+                    "rosa",
+                    "rojo",
+                    "verde",
+                    "blanco",
+                    "negro"};
+
+
 class ultrasonico
 {
 private:
