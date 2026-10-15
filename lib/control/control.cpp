@@ -30,12 +30,6 @@ void iniciar_IMU()
 {
     while (!Serial)
         delay(10);
-    if (!IMU.begin())
-    {
-        Serial.println("Failed to find MPU6050 chip");
-        while (1)
-            delay(10);
-    }
 }
 
 void leer_IMU()
@@ -94,29 +88,30 @@ bool logica_90grados(bool &giro_pendiente)
     static float grados_y = 0;
     static float grados_z = 0;
     static long antes = 0;
-    static long segundos = 0;
-
+    
     leer_IMU();
 
-    long ahora = millis();
+    unsigned long ahora = millis();
 
+
+    float dt = 0.0f;
     if (antes == 0)
     {
-        segundos = 0;
+        dt = 0.0f;
     }
     else
     {
-        segundos = (ahora - antes) / 1000.0f;
+        dt = (ahora - antes) / 1000.0f;
     }
 
     antes = ahora;
 
-    grados_x += g.gyro.x * segundos;
-    grados_y += g.gyro.y * segundos;
-    grados_z += g.gyro.z * segundos;
+    grados_x += g.gyro.x * dt;
+    grados_y += g.gyro.y * dt;
+    grados_z += g.gyro.z * dt;
 
     // funcion que determina que se detenga el giro
-    if (grados_x >= 3.14159 / 2)
+    if ((fabs(grados_x) >= PI/2)
     {
         // indica que ya se pasó del giro de 90 grados, deteniendo el uso de esta funcion
 

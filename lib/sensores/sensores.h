@@ -38,7 +38,7 @@ public:
         delayMicroseconds(10);
         digitalWrite(trig, LOW);
 
-        t = pulseIn(echo, HIGH);
+        t = pulseIn(echo, HIGH, 25000UL);
         return t / 58.2f; // distancia en cm
     }
 };
