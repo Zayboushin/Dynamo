@@ -13,7 +13,7 @@ motor motor_izq_front, motor_izq_back, motor_der_front, motor_der_back, motor_in
 void iniciar_motores()
 {
     // Instancia de los motores (falta declarar pines correctos)
-    //pin1, pin2, Pin_pwm
+    // pin1, pin2, Pin_pwm
     motor_izq_front.setPins(A15, A14, 5);
     motor_izq_back.setPins(A9, A8, 2);
     motor_der_front.setPins(A12, A13, 4);
@@ -25,7 +25,7 @@ void iniciar_motores()
     motor_der_front.begin(); // Pines del motor derecho delantero
     motor_izq_front.begin(); // Pines del motor izquierdo delantero
     motor_izq_back.begin();  // Pines del motor izquierdo trasero
-    motor_intake.begin();     // Pines del motor del intake
+    motor_intake.begin();    // Pines del motor del intake
 }
 
 void avanzar(uint8_t PWM_izq, uint8_t PWM_der)
@@ -89,8 +89,7 @@ void giro(int lateralidad)
     }
 }
 
-/*
-//Funciones de karla :))
+// Funciones de karla :))
 
 void desp_der(uint8_t PWM)
 {
@@ -108,13 +107,14 @@ void desp_izq(uint8_t PWM)
     motor_der_back.motor_individual(-1, PWM);
 }
 
+/*
 //pines del driver del intake y limit switch
  const uint8_t PIN_STBY = A2;
  const uint8_t LIMIT_SWITCH = 12;
 
 void encender_intake(uint8_t PWM)
 {
-    motor_intake.motor_individual(1, PWM); // Encender el motor del intake 
+    motor_intake.motor_individual(1, PWM); // Encender el motor del intake
 }
 void apagar_intake(uint8_t PWM) {
     motor_intake.motor_individual(0, PWM);

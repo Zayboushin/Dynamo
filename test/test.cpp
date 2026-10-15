@@ -16,9 +16,8 @@ void setup()
 
 void loop()
 {
-  izquierda(200);   // put your main code here, to run repeatedly:
+  desplazamiento(200); // put your main code here, to run repeatedly:
 }
-
 
 /*
 
