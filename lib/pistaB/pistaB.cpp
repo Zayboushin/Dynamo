@@ -12,7 +12,7 @@ bool linea_blanca;
 byte pared_front = 10; //valor q define dist de ult_front con pared
 byte pared_izq = 50; //valor q define dist de ult_izq con carrito, en caso de girar a la izq
 byte  pared_der = 50;// valor que define dist de ult_der con carrito, en caso de girar a la der
-bool giro_pendiente = false; //variable q define si hay giro pendiente, para q no se quede en un loop infinito
+static bool giro_pendiente = false; //variable q define si hay giro pendiente, para q no se quede en un loop infinito
 bool pelota_detectada = false; //
 bool giro_der = false; // para q sepa a que lado girar en grados
 bool giro_izq =false;
@@ -154,12 +154,13 @@ void eleccion_desplazamiento(String direccion) {
         desp_izq(200);
     }
     }
-else if (direccion == "derecha") {
+    else if (direccion == "derecha") {
     desp_der(200);
     }
 
-    bool linea_blanca_izq = infrarrojo_izq.hay_linea();
-bool linea_blanca_der = infrarrojo_der.hay_linea();
+bool linea_blanca_izq = infrarrojo_izq.linea_blanca();
+bool linea_blanca_der = infrarrojo_der.linea_blanca();
+    
     if (linea_blanca_izq) {
         eleccion_desplazamiento("derecha"); 
     }
