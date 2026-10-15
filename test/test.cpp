@@ -1,45 +1,33 @@
 #include <Arduino.h>
-#include "motores.h"
-#include "sensores.h"
-#include "control.h"
-#include "pistaA.h"
-
-void setup()
-{
-
-  Serial.begin(115200);
-  iniciar_motores();
-  iniciar_sensores();
-  iniciar_IMU();
-  calibrar_IMU();
-}
-
-void loop()
-{
-  desplazamiento(200); // put your main code here, to run repeatedly:
-}
-
-/*
-
-#include <Arduino.h>
 #include <Wire.h>
+#include "motores.h"
 
 void setup()
 {
-    Serial.begin(115200);
-    Wire.begin();
-    for (uint8_t dir = 1; dir < 127; dir++)
+  Serial.begin(9600);
+  Wire.begin();
+  for (uint8_t dir = 1; dir < 127; dir++)
+  {
+    Wire.beginTransmission(dir);
+    if (dir == 0x69)
     {
-        Wire.beginTransmission(dir);
-        if (Wire.endTransmission() == 0)
-        {
-            Serial.print("Dispositivo en 0x");
-            Serial.println(dir, HEX);
-        }
+      avanzar(100, 100);
     }
-    Serial.println("Escaneo terminado");
+    /*
+    if (Wire.endTransmission() == 0)
+    {
+      Serial.print("Dispositivo en 0x");
+      Serial.println(dir, HEX);
+    }
+    */
+  }
+  Serial.println("Escaneo terminado");
 }
 
-void loop() {}
+void loop() {
 
-*/
+  if (dir == 0x69)
+    {
+      avanzar(100, 100);
+    }
+}
