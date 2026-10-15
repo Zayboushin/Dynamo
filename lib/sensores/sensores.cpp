@@ -2,15 +2,6 @@
 #include <Arduino.h>
 #include "sensores.h"
 
-String colores[] = {"azul",
-                    "amarillo",
-                    "naranja",
-                    "rosa",
-                    "rojo",
-                    "verde",
-                    "blanco",
-                    "negro"};
-
 // Clase para manejar los sensores ultrasónicos
 
 ultrasonico ultrasonico_izq;
@@ -48,7 +39,7 @@ void iniciar_sensores()
 }
 
 // Karla :)
-
+/*
 void navegacion() {
      if (ultrasonico_frente < 10 && ultrasonico_der > 50) { //giro a la derecha por pasillo-
         giro_pendiente = true;
@@ -115,3 +106,4 @@ if (rojo == 0 || verde == 0 || azul == 0) return "Desconocido";
     }
 
     
+*/

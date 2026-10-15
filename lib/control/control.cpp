@@ -41,9 +41,17 @@ void iniciar_IMU()
 void leer_IMU()
 {
     IMU.getEvent(&a, &g, &temp);
+
+    // Retorna la aceleración en el eje X
+
 }
 
-// Retorna la aceleración en el eje X
+void reiniciar_PID()
+{
+    integral = 0.0f;
+    error_anterior = 0.0f;
+    antes_ms = 0;
+}
 
 void avanzar_control(float &izq, float &der, float distancia_ultrasonico_izq, float distancia_ultrasonico_der)
 {
@@ -52,20 +60,35 @@ void avanzar_control(float &izq, float &der, float distancia_ultrasonico_izq, fl
     float dt = (ahora - antes_ms) / 1000.0f;
     antes_ms = ahora;
     
-    static float error = 0;
+    float error = constrain((dist_izq - dist_der), -20.0f, 20.0f);
 
-    int correccion = 0;
+    // P
+    float termino_p = P * error;
 
     error = distancia_ultrasonico_izq - distancia_ultrasonico_der;
 
-    // P
-    correccion = error * P;
+
     // I
+
+    if (!primera && fabs(error) < zona_I)
+    {
+        integral += I*error*dt;
+        integral = constrain(integral, -limite_I, limite_I)
+
+    }
 
     // D
 
-    izq = 1.2f;
-    der = 2.2f;
+    float termino_d = 0.0f;
+    if (!primera && dt > 0.0f)
+        termino_d = D * (error - error_anterior) / dt;
+    error_anterior = error;
+
+    float correccion = termino_p + integral + termino_d;
+
+
+    izq = constrain(vel - correccion, 0.0f, 255.0f);
+    der = constrain(vel + correccion, 0.0f, 255.0f);
 }
 
 bool logica_90grados(bool &giro_pendiente)
