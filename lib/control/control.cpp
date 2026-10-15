@@ -7,10 +7,24 @@
 
 Adafruit_MPU6050 IMU;
 
-#define P 0
-#define I 0
-#define D 0
-#define vel 250
+//valores de PID random (por calibrar)
+const float P = 4.0f;            
+const float I = 0.5f;
+const float D = 0.3f;
+
+//variable de movimiento
+const float vel = 180.0f;
+
+//variables importantes para I 
+const float limite_I = 30.0f;     
+const float zona_I   = 6.0f; 
+static float integral = 0.0f;
+
+//variables importantes para registro de error
+static float error_anterior = 0.0f;
+static unsigned long antes_ms = 0;
+
+sensors_event_t a, g, temp;
 
 void iniciar_IMU()
 {
@@ -24,8 +38,6 @@ void iniciar_IMU()
     }
 }
 
-sensors_event_t a, g, temp;
-
 void leer_IMU()
 {
     IMU.getEvent(&a, &g, &temp);
@@ -35,6 +47,11 @@ void leer_IMU()
 
 void avanzar_control(float &izq, float &der, float distancia_ultrasonico_izq, float distancia_ultrasonico_der)
 {
+    unsigned long ahora = millis();
+    bool primera = (antes_ms == 0);
+    float dt = (ahora - antes_ms) / 1000.0f;
+    antes_ms = ahora;
+    
     static float error = 0;
 
     int correccion = 0;

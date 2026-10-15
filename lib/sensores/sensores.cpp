@@ -1,5 +1,4 @@
 // author:leonardo Rodríguez
-
 #include <Arduino.h>
 #include "sensores.h"
 
@@ -51,7 +50,7 @@ void iniciar_sensores()
 // Karla :)
 
 void navegacion() {
-     if (ultrasonico_front < 10 && ultrasonico_der > 50) { //giro a la derecha por pasillo-
+     if (ultrasonico_frente < 10 && ultrasonico_der > 50) { //giro a la derecha por pasillo-
         giro_pendiente = true;
         giro_der = true;
         logica_90grados(giro_pendiente);
@@ -62,7 +61,7 @@ void navegacion() {
 }
 
 void salida1() { //condiciones para salir de secc 1
-    if (pelota_tomada && ultrasonico_front >20 && ultrasonico_izq > 40 && ultrasonico_der < 20) {
+    if (pelota_tomada && ultrasonico_frente >20 && ultrasonico_izq > 40 && ultrasonico_der < 20) {
         giro_pendiente = true;
         giro_izq = true;
         logica_90grados(giro_pendiente);

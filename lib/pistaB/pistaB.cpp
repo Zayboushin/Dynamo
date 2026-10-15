@@ -1,6 +1,6 @@
 #include <Arduino.h>
-#include "sensores/sensores.h"
-#include "motores/motores.h"
+#include "sensores.h"
+#include "motores.h"
 
 
 //Sensores(creo)
