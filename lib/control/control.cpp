@@ -47,6 +47,11 @@ void leer_IMU()
 
 void avanzar_control(float &izq, float &der, float distancia_ultrasonico_izq, float distancia_ultrasonico_der)
 {
+    unsigned long ahora = millis();
+    bool primera = (antes_ms == 0);
+    float dt = (ahora - antes_ms) / 1000.0f;
+    antes_ms = ahora;
+    
     static float error = 0;
 
     int correccion = 0;
