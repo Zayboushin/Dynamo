@@ -16,7 +16,7 @@ void setup()
 
 void loop()
 {
-  izquierda(200,200);   // put your main code here, to run repeatedly:
+  giro(200);   // put your main code here, to run repeatedly:
 }
 
 
