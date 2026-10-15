@@ -1,4 +1,28 @@
 #include <Arduino.h>
+#include "motores.h"
+#include "sensores.h"
+#include "control.h"
+#include "pistaA.h"
+
+void setup()
+{
+
+  Serial.begin(115200);
+  iniciar_motores();
+  iniciar_sensores();
+  iniciar_IMU();
+  calibrar_IMU();
+}
+
+void loop()
+{
+  avanzar(200,200);   // put your main code here, to run repeatedly:
+}
+
+
+/*
+
+#include <Arduino.h>
 #include <Wire.h>
 
 void setup()
@@ -18,3 +42,5 @@ void setup()
 }
 
 void loop() {}
+
+*/
