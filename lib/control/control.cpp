@@ -79,8 +79,8 @@ void avanzar_control(float &izq, float &der, float distancia_ultrasonico_izq, fl
     float correccion = termino_p + integral + termino_d;
 
 
-    izq = 1.2f;
-    der = 2.2f;
+    izq = constrain(vel - correccion, 0.0f, 255.0f);
+    der = constrain(vel + correccion, 0.0f, 255.0f);
 }
 
 bool logica_90grados(bool &giro_pendiente)
