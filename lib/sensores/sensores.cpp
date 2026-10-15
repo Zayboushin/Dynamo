@@ -2,15 +2,6 @@
 #include <Arduino.h>
 #include "sensores.h"
 
-String colores[] = {"azul",
-                    "amarillo",
-                    "naranja",
-                    "rosa",
-                    "rojo",
-                    "verde",
-                    "blanco",
-                    "negro"};
-
 // Clase para manejar los sensores ultrasónicos
 
 ultrasonico ultrasonico_izq;
