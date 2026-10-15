@@ -83,4 +83,8 @@ void derecha(uint8_t PWM);
 void detener();
 
 void giro(int lateralidad);
+
+void desp_der(uint8_t PWM);
+
+void desp_izq(uint8_t PWM);
 #endif
