@@ -88,6 +88,8 @@ void giro(int lateralidad)
         motor_der_back.motor_individual(1, PWM_menor);
     }
 }
+
+/*
 //Funciones de karla :))
 
 void desp_der(uint8_t PWM)

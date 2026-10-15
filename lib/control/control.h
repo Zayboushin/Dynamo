@@ -2,6 +2,7 @@
 #ifndef CONTROL_H
 #define CONTROL_H
 
+void reiniciar_PID();
 void iniciar_IMU();
 
 void leer_IMU();

@@ -60,20 +60,17 @@ void avanzar_control(float &izq, float &der, float distancia_ultrasonico_izq, fl
     float dt = (ahora - antes_ms) / 1000.0f;
     antes_ms = ahora;
     
-    float error = constrain((dist_izq - dist_der), -20.0f, 20.0f);
+    float error = constrain((distancia_ultrasonico_izq - distancia_ultrasonico_der), -20.0f, 20.0f);
 
     // P
     float termino_p = P * error;
-
-    error = distancia_ultrasonico_izq - distancia_ultrasonico_der;
-
 
     // I
 
     if (!primera && fabs(error) < zona_I)
     {
         integral += I*error*dt;
-        integral = constrain(integral, -limite_I, limite_I)
+        integral = constrain(integral, -limite_I, limite_I);
 
     }
 
@@ -114,9 +111,9 @@ bool logica_90grados(bool &giro_pendiente)
 
     antes = ahora;
 
-    grados_x += a.gyro.x * segundos;
-    grados_y += a.gyro.y * segundos;
-    grados_z += a.gyro.z * segundos;
+    grados_x += g.gyro.x * segundos;
+    grados_y += g.gyro.y * segundos;
+    grados_z += g.gyro.z * segundos;
 
     // funcion que determina que se detenga el giro
     if (grados_x >= 3.14159 / 2)
