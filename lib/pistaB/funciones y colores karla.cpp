@@ -1,21 +1,3 @@
-#define S0 45
-#define S1 44
-#define S2 46
-#define S3 49
-#define salidaTCS 8
-
-void setup() {
-    pinMode (S0, OUTPUT);
-    pinMode (S1, OUTPUT);
-    pinMode (S2, OUTPUT);
-    pinMode (S3, OUTPUT);
-    pinMode (salidaTCS, INPUT);
-
-    digitalWrite(S0, HIGH);
-    digitalWrite(S1, LOW);
-
-    Serial.begin (9600);
-}
 
 void loop() {
     //rojo
