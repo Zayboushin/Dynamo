@@ -52,8 +52,8 @@ void avanzar_control(float &izq, float &der, float distancia_ultrasonico_izq, fl
     float dt = (ahora - antes_ms) / 1000.0f;
     antes_ms = ahora;
     
-    static float error = 0;
-
+    float error = constrain(dist_izq - dist_der, -20.0f, 20.0f);
+    
     int correccion = 0;
 
     error = distancia_ultrasonico_izq - distancia_ultrasonico_der;
