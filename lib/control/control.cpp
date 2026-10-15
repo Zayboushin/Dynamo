@@ -41,9 +41,17 @@ void iniciar_IMU()
 void leer_IMU()
 {
     IMU.getEvent(&a, &g, &temp);
+
+    // Retorna la aceleración en el eje X
+
 }
 
-// Retorna la aceleración en el eje X
+void reiniciar_PID()
+{
+    integral = 0.0f;
+    error_anterior = 0.0f;
+    antes_ms = 0;
+}
 
 void avanzar_control(float &izq, float &der, float distancia_ultrasonico_izq, float distancia_ultrasonico_der)
 {
