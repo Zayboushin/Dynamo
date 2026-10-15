@@ -31,6 +31,12 @@ void iniciar_IMU()
 {
      Wire.begin();
      Wire.setClock(400000);
+
+      if (!IMU.begin(0x68, &Wire))
+    {
+        Serial.println("No se encontro el MPU6050");
+    }
+
      IMU.setGyroRange(MPU6050_RANGE_500_DEG);       // ±500 °/s es suficiente para un carro
      IMU.setFilterBandwidth(MPU6050_BAND_21_HZ);
 }
@@ -145,8 +151,9 @@ bool logica_90grados(bool &giro_pendiente)
         grados_y = 0;
         grados_z = 0;
         giro_pendiente = false;
-        return giro_pendiente;
         antes = 0;
+        return giro_pendiente;
+    
     }
     else
     {
