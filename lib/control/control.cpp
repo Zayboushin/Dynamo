@@ -1,6 +1,7 @@
 // author:leonardo Rodríguez
 //  librería para PID con ultrasonicos y giro con IMU
 
+#include <Wire.h>
 #include <Arduino.h>
 #include "control.h"
 #include <Adafruit_MPU6050.h>
@@ -28,8 +29,32 @@ sensors_event_t a, g, temp;
 
 void iniciar_IMU()
 {
-    while (!Serial)
-        delay(10);
+     Wire.begin();
+     Wire.setClock(400000);
+     IMU.setGyroRange(MPU6050_RANGE_500_DEG);       // ±500 °/s es suficiente para un carro
+     IMU.setFilterBandwidth(MPU6050_BAND_21_HZ);
+}
+
+static float sesgo_x = 0.0f;
+static float sesgo_y = 0.0f;
+static float sesgo_z = 0.0f;
+
+void calibrar_IMU()
+{
+    float suma_x = 0.0f;
+    float suma_y = 0.0f;
+    float suma_z = 0.0f;
+    for (int i = 0; i < 200; i++)
+    {
+        IMU.getEvent(&a, &g, &temp);
+        suma_x += g.gyro.x;
+        suma_y += g.gyro.y;
+        suma_z += g.gyro.z;
+        delay(5);
+    }
+    sesgo_x = suma_x / 200.0f;
+    sesgo_y = suma_y / 200.0f;
+    sesgo_z = suma_z / 200.0f;
 }
 
 void leer_IMU()
@@ -87,7 +112,7 @@ bool logica_90grados(bool &giro_pendiente)
     static float grados_x = 0;
     static float grados_y = 0;
     static float grados_z = 0;
-    static long antes = 0;
+    unsigned static long antes = 0;
     
     leer_IMU();
 
@@ -106,12 +131,12 @@ bool logica_90grados(bool &giro_pendiente)
 
     antes = ahora;
 
-    grados_x += g.gyro.x * dt;
-    grados_y += g.gyro.y * dt;
-    grados_z += g.gyro.z * dt;
+    grados_x += (g.gyro.x-sesgo_x) * dt;
+    grados_y += (g.gyro.y-sesgo_y) * dt;
+    grados_z += (g.gyro.z-sesgo_z) * dt;
 
     // funcion que determina que se detenga el giro
-    if ((fabs(grados_x) >= PI/2)
+    if (fabs(grados_x) >= PI/2)
     {
         // indica que ya se pasó del giro de 90 grados, deteniendo el uso de esta funcion
 
@@ -121,6 +146,7 @@ bool logica_90grados(bool &giro_pendiente)
         grados_z = 0;
         giro_pendiente = false;
         return giro_pendiente;
+        antes = 0;
     }
     else
     {

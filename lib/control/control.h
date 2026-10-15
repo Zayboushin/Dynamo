@@ -3,7 +3,10 @@
 #define CONTROL_H
 
 void reiniciar_PID();
+
 void iniciar_IMU();
+
+void calibrar_IMU();
 
 void leer_IMU();
 

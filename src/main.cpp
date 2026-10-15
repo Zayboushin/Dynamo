@@ -11,6 +11,7 @@ void setup()
   iniciar_motores();
   iniciar_sensores();
   iniciar_IMU();
+  calibrar_IMU();
 
   if (true)
   {
