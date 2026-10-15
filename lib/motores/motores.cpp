@@ -19,6 +19,16 @@ void iniciar_motores()
     motor_der_front.setPins(A12, A13, 4);
     motor_der_back.setPins(A10, A11, 3);
     motor_intake.setPins(A0, A1, 6);
+    
+    //const uint8_t PIN_STBY = A2;
+ //const uint8_t LIMIT_SWITCH = 12;
+
+    //limit switch
+bool limit_switch() {
+    return digitalRead(LIMIT_SWITCH) == LOW; // Devuelve true si el limit switch está activado (LOW)
+}
+
+
     // funciones de movimiento
 
     motor_der_back.begin();  // Pines del motor derecho trasero
@@ -107,11 +117,6 @@ void desp_izq(uint8_t PWM)
     motor_der_back.motor_individual(-1, PWM);
 }
 
-/*
-//pines del driver del intake y limit switch
- const uint8_t PIN_STBY = A2;
- const uint8_t LIMIT_SWITCH = 12;
-
 void encender_intake(uint8_t PWM)
 {
     motor_intake.motor_individual(1, PWM); // Encender el motor del intake
@@ -119,30 +124,3 @@ void encender_intake(uint8_t PWM)
 void apagar_intake(uint8_t PWM) {
     motor_intake.motor_individual(0, PWM);
 }
-
-//limit switch
-bool limit_switch() {
-    return digitalRead(LIMIT_SWITCH) == LOW; // Devuelve true si el limit switch está activado (LOW)
-}
-
-
-
-/*
-
-
-
-funcion giro(lateralidad, PWM_Izq, PWM_der)
-si lateralidad == 1 control_motor_izq(-1, PWM_Izq) control_motor_der(1, PWM_der) FinSi si lateralidad == 2 control_motor_izq(1, PWM_Izq) control_motor_der(-1, PWM_der) FinSi
-
-    FinFuncion
-
-    funcion detener() control_motor_izq(0) control_motor_der(0) FinFuncion
-
-    Funcion giro90(lateralidad_elegida, giro_pendiente, posiciones x y z) Si(giro_pendiente y no ha girado 90 % -el giro se define con las posiciones guardadas en la condicion anterior -)
-
-        giro(lateralidad_elegida, vel, vel)
-
-            FinSi
-
-    FinFuncion
-*/
