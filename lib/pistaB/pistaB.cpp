@@ -22,9 +22,9 @@ bool pelota_tomada = false;
 //
 //variables de ultrasonicos
 
-    float dist_izq = ultrasonico_izq.distancia_ultrasonico();
-    float dist_der = ultrasonico_der.distancia_ultrasonico();
-    float dist_frente = ultrasonico_frente.distancia_ultrasonico();
+    float dist_izq = 0.0f;
+    float dist_der = 0.0f;
+    float dist_frente = 0.0f;
     //karla
 
 //variables de movimiento
@@ -32,102 +32,17 @@ byte vel = 200;
 
 void pistaB()
 {
-    float dist_izq = ultrasonico_izq.distancia_ultrasonico();
-    float dist_der = ultrasonico_der.distancia_ultrasonico();
-    float dist_frente = ultrasonico_frente.distancia_ultrasonico();
+    dist_izq = ultrasonico_izq.distancia_ultrasonico();
+    dist_der = ultrasonico_der.distancia_ultrasonico();
+    dist_frente = ultrasonico_frente.distancia_ultrasonico();
 
-    void navegacion() {
+    navegacion();
 
-     if (dist_frente < 10 && dist_der > 50) { //giro a la derecha por pasillo-
-        giro_pendiente = true;
-        giro_der = true;
-        logica_90grados(giro_pendiente);
-     }
-    else {
-        avanzar();
-    }
-}
+    salida1();
 
-void salida1() { //condiciones para salir de secc 1
-    
-    if (pelota_tomada && dist_frente > 20 && dist_izq > 40 && dist_der < 20) {
-        giro_pendiente = true;
-        giro_izq = true;
-        logica_90grados(giro_pendiente);
-    }
-}
-
-seccion_1()
-{
-
-        if (!pelota_detectada) {
-        if (dist_der < 45 && dist_frente < 40) { //encuentra el recuadro de la pelota
-
-            pelota_detectada = true;
-            giro_pendiente = true;
-            giro_der = true; //corregir
-        }
-        else {
-            navegacion();
-        }
-    }
-
-    if (pelota_detectada && !pelota_tomada) {
-        if (giro_pendiente) {
-            logica_90grados(giro_pendiente);
-        }
-        else if(!limit_switch) {
-            encender_intake();//falta agregar
-            retroceder();
-        }
-        else {
-            detener();
-            apagar_intake();//falta
-            pelota_tomada = true;
-        }
-        }
-    if (pelota_tomada) {
-        if (giro_pendiente) {
-            logica_90grados(giro_pendiente);
-        }
-    else if (pelota_tomada) {
-        salida1();
-    }
-    else {
-        navegacion();
-    }
-    }
-
-}
-
-seccion_2()
-{
-    
-eleccion_desplazamiento(direccion);
-
-
-
-
-
-}
-
-seccion_3()
-{
-    
-    if (sensor_rgb.leer_color()== "naranja") {
-        avanzar(vel, vel);
-    }
-    else if (sensor_rgb.leer_color()== "azul") {
-        desp_der(vel);
-    }
-    else if (sensor_rgb.leer_color()== "amarillo") {
-        desp_izq(vel);
-    }
-    else if (sensor_rgb.leer_color()== "rosa") {
-        retroceder(vel);
-    }
-
-}
+    seccion_1();
+    seccion_2();
+    seccion_3();
 
 //Funciones de movimiento internas
 
@@ -141,7 +56,7 @@ void navegacion() {
         logica_90grados(giro_pendiente);
      }
     else {
-        avanzar();
+        avanzar(vel, vel);
     }
 }
 
@@ -175,7 +90,7 @@ void seccion_1()
         }
         else if(!limit_switch) {
             encender_intake();//falta agregar
-            retroceder();
+            retroceder(vel);
         }
         else {
             detener();
@@ -227,7 +142,7 @@ void seccion_3()
 }
 
 //Funciones de movimiento internas
-void eleccion_desplazamiento(string direccion) {
+void eleccion_desplazamiento(String direccion) {
     if (dist_izq < dist_der) {
         desp_der(200);
     }
@@ -252,7 +167,7 @@ bool linea_blanca_der = infrarrojo_der.hay_linea();
         eleccion_desplazamiento("izquierda");
     }
     else {
-        avanzar();
+        avanzar(vel, vel);
     }
     
     }
