@@ -71,6 +71,14 @@ void avanzar_control(float &izq, float &der, float distancia_ultrasonico_izq, fl
 
     // D
 
+    float termino_d = 0.0f;
+    if (!primera && dt > 0.0f)
+        termino_d = KD * (error - error_anterior) / dt;
+    error_anterior = error;
+
+    float correccion = termino_p + integral + termino_d;
+
+
     izq = 1.2f;
     der = 2.2f;
 }
