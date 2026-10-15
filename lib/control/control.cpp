@@ -62,6 +62,13 @@ void avanzar_control(float &izq, float &der, float distancia_ultrasonico_izq, fl
 
     // I
 
+    if (!primera && fabs(error) < zona_I)
+    {
+        integral += I*error*dt;
+        integral = constrain(integral, -limite_I, limite_I)
+
+    }
+
     // D
 
     izq = 1.2f;
