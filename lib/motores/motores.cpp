@@ -19,16 +19,6 @@ void iniciar_motores()
     motor_der_front.setPins(A12, A13, 4);
     motor_der_back.setPins(A10, A11, 3);
     motor_intake.setPins(A0, A1, 6);
-    
-    //const uint8_t PIN_STBY = A2;
- //const uint8_t LIMIT_SWITCH = 12;
-
-    //limit switch
-bool limit_switch() {
-    return digitalRead(LIMIT_SWITCH) == LOW; // Devuelve true si el limit switch está activado (LOW)
-}
-
-
     // funciones de movimiento
 
     motor_der_back.begin();  // Pines del motor derecho trasero
@@ -37,6 +27,7 @@ bool limit_switch() {
     motor_izq_back.begin();  // Pines del motor izquierdo trasero
     motor_intake.begin();    // Pines del motor del intake
 }
+
 
 void avanzar(uint8_t PWM_izq, uint8_t PWM_der)
 {
