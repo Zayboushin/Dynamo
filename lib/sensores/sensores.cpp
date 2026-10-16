@@ -10,7 +10,6 @@ String colores[] = {"azul",
                     "verde",
                     "blanco",
                     "negro"};
-
     
 // Clase para manejar los sensores ultrasónicos
 
@@ -24,6 +23,13 @@ infrarrojo infrarrojo_izq;
 infrarrojo infrarrojo_der;
 
 RGB sensor_rgb;
+
+byte LIMIT_SWITCH = 12;
+
+bool retroalimentacion_limit_switch()
+{
+    return digitalRead(LIMIT_SWITCH); // Devuelve true si el limit switch está activado (LOW)
+}
 
 // funcion final para iniciación de sensores
 void iniciar_sensores()
@@ -46,29 +52,20 @@ void iniciar_sensores()
     // Configuración de pines para el sensor RGB (falta configurarlos)
     sensor_rgb.setPins(45, 44, 46, 49, 48); // Pines del sensor RGB
     sensor_rgb.begin();
+    pinMode(LIMIT_SWITCH, INPUT);
 }
+
+
+    //const uint8_t PIN_STBY = A2;
+ //const uint8_t LIMIT_SWITCH = 12;
+
+
+    //limit switch
+    
+
 
 // Karla :)
 /*
-void navegacion() {
-     if (ultrasonico_frente < 10 && ultrasonico_der > 50) { //giro a la derecha por pasillo-
-        giro_pendiente = true;
-        giro_der = true;
-        logica_90grados(giro_pendiente);
-     }
-    else {
-        avanzar();
-    }
-}
-
-void salida1() { //condiciones para salir de secc 1
-    if (pelota_tomada && ultrasonico_frente >20 && ultrasonico_izq > 40 && ultrasonico_der < 20) {
-        giro_pendiente = true;
-        giro_izq = true;
-        logica_90grados(giro_pendiente);
-
-    }
-}
 
 //detectar tonalidad/color
 

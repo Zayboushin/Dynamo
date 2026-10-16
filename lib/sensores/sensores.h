@@ -169,6 +169,10 @@ public:
 
 extern RGB sensor_rgb;
 
+extern byte LIMIT_SWITCH;
+
+bool retroalimentacion_limit_switch();
+
 void iniciar_sensores();
 
 #endif
