@@ -160,7 +160,7 @@ void eleccion_desplazamiento(String direccion) {
     else if (direccion == direcciones[1]) {
     desp_der(200);
     }   
-}
+
 
 bool linea_blanca_izq = infrarrojo_izq.linea_blanca();
 bool linea_blanca_der = infrarrojo_der.linea_blanca();
@@ -169,7 +169,6 @@ bool linea_blanca_der = infrarrojo_der.linea_blanca();
         eleccion_desplazamiento(direcciones[1]);  
     }
      
-    }
     else if (linea_blanca_der) {
         eleccion_desplazamiento(direcciones[0]);
     }
@@ -177,4 +176,4 @@ bool linea_blanca_der = infrarrojo_der.linea_blanca();
         avanzar(vel, vel);
     }
     
-    }
+}
