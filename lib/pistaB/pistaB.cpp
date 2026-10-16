@@ -4,7 +4,6 @@
 
 
 //Sensores(creo)
-#include <WString.h>
 long  dist_ultrasonico;
 String leer_color;
 bool linea_blanca;
@@ -16,6 +15,14 @@ bool pelota_detectada = false; //
 bool giro_der = false; // para q sepa a que lado girar en grados
 bool giro_izq =false;
 bool pelota_tomada = false;
+
+
+//
+//variables de ultrasonicos
+
+    float dist_izq = 0.0f;
+    float dist_der = 0.0f;
+    float dist_frente = 0.0f;
     //karla
 
 //variables de movimiento
@@ -77,8 +84,10 @@ void seccion_1()
 
             pelota_detectada = true;
             giro_pendiente = true;
-            giro_der = true; //corregir
-            
+            logica_90grados(giro_pendiente);
+            izquierda(200,200)
+    
+
         }
         else {
             navegacion();
@@ -86,31 +95,38 @@ void seccion_1()
     }
 
     if (pelota_detectada && !pelota_tomada) {
-        if(!limit_switch) {
-            encender_intake();//falta agregar
+        
+        if(!retroalimentacion_limit_switch()) {
+            encender_intake(200);//falta agregar
             retroceder(vel);
         }
         
         else {
             detener();
-            apagar_intake();//falta
+            apagar_intake(0);//falta
             pelota_tomada = true;
         }
         }
     if (pelota_tomada && dist_frente > 10) {
-        salida1();
+        avanzar()
+        }
+    else if (pelota_tomada && dist_frente < 10) {
+        salida1(); //algo tiene mal lo tengo que corregir
     }
 
     else {
         navegacion();
     }
+    }
+
 }
-    
 
 void seccion_2()
 {
     
 eleccion_desplazamiento(direccion);
+
+
 
 
 
@@ -142,27 +158,23 @@ void eleccion_desplazamiento(String direccion) {
     else if (dist_der < dist_izq) {
         desp_izq(200);
     }
-    else {
-    if (direccion == "izquierda") {
+    else if (direccion == direcciones[0]) {
         desp_izq(200);
     }
     }
-else if direccion == "derecha" {
+    else if (direccion == "derecha") {
     desp_der(200);
-    }
+    }   
 
-    }
-
-
-
-//Seccion 2
-bool linea_blanca_izq = infrarrojo_izq.hay_linea();
-bool linea_blanca_der = infrarrojo_der.hay_linea();
+bool linea_blanca_izq = infrarrojo_izq.linea_blanca();
+bool linea_blanca_der = infrarrojo_der.linea_blanca();
+    
     if (linea_blanca_izq) {
         eleccion_desplazamiento("derecha"); 
     }
+     
     else if (linea_blanca_der) {
-        eleccion_desplazamiento("izquierda");
+        eleccion_desplazamiento(direcciones[0]);
     }
     else {
         avanzar();
@@ -179,8 +191,5 @@ bool linea_blanca_der = infrarrojo_der.hay_linea();
     else if (sensor_rgb.leer_color()== "amarillo") { //amarillo sig desp izq
         desp_izq();
     }
-    else if (sensor_rgb.leer_color()== "rosa") { //rosa sig retroceder
-        retroceder();
-    }
     
-
+    }

@@ -87,4 +87,8 @@ void giro(int lateralidad);
 void desp_der(uint8_t PWM);
 
 void desp_izq(uint8_t PWM);
+
+void encender_intake(uint8_t PWM);
+
+void apagar_intake(uint8_t PWM);
 #endif
