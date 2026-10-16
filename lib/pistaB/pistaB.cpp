@@ -98,7 +98,7 @@ void seccion_1()
 
     if (pelota_detectada && !pelota_tomada) {
         
-        if(!retroalimentacion_limit_switch) {
+        if(!retroalimentacion_limit_switch()) {
             encender_intake(200);//falta agregar
             retroceder(vel);
         }
