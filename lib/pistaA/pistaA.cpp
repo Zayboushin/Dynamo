@@ -32,48 +32,48 @@ static byte cercania_pared = 5; // valor que define que tan cerca estara de la p
 static byte choque_inminente = 15; // distancia en donde se detecta que hay una pared
 
 // funciones
-static bool pared(ultrasonico &u);   
+static bool pared(ultrasonico &u);
 static bool revision_giro(int lateralidad);
 
-//Funcion principal
+// Funcion principal
 void pistaA()
 {
-while(true)
+    while (true)
     {
         // define la lateridad
-    if (lateralidad == 0)
-    {
-        if (!pared(ultrasonico_izq))
+        if (lateralidad == 0)
         {
-            lateralidad = 1;
+            if (!pared(ultrasonico_izq))
+            {
+                lateralidad = 1;
+            }
+
+            if (!pared(ultrasonico_der))
+            {
+                lateralidad = 2;
+            }
         }
 
-        if (!pared(ultrasonico_der))
+        giro_pendiente = revision_giro(lateralidad);
+        if (!giro_pendiente)
         {
-            lateralidad = 2;
+            distancia_ultrasonico_izq = ultrasonico_izq.distancia_ultrasonico();
+            distancia_ultrasonico_der = ultrasonico_der.distancia_ultrasonico();
+
+            float correcion_izq = 0;
+            float correcion_der = 0;
+
+            avanzar_control(correcion_izq, correcion_der, distancia_ultrasonico_izq, distancia_ultrasonico_der);
+            // regresa los valores de corrección para determinar el PWM final de los motores
+
+            avanzar(correcion_izq, correcion_der);
+            // revisar signos
         }
-    }
-
-    giro_pendiente = revision_giro(lateralidad);
-    if (!giro_pendiente)
-    {
-        distancia_ultrasonico_izq = ultrasonico_izq.distancia_ultrasonico();
-        distancia_ultrasonico_der = ultrasonico_der.distancia_ultrasonico();
-
-        float correcion_izq = 0;
-        float correcion_der = 0;
-
-        avanzar_control(correcion_izq, correcion_der, distancia_ultrasonico_izq, distancia_ultrasonico_der);
-        // regresa los valores de corrección para determinar el PWM final de los motores
-
-        avanzar(correcion_izq, correcion_der);
-        // revisar signos
-    }
-    else
-    {
-        giro(lateralidad);
-        logica_90grados(giro_pendiente);
-    }
+        else
+        {
+            giro(lateralidad);
+            logica_90grados(giro_pendiente);
+        }
     }
 }
 
@@ -97,7 +97,7 @@ static bool pared(ultrasonico &u)
 
 static bool revision_giro(int lateralidad)
 {
-//agregar condiciones que consideren los lados del sensor necesarios
+    // agregar condiciones que consideren los lados del sensor necesarios
     bool izq = false;
     bool der = false;
     bool frente = false;

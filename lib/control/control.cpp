@@ -30,6 +30,7 @@ sensors_event_t a, g, temp;
 void iniciar_IMU()
 {
     Wire.begin();
+    IMU.begin(0x68);
     IMU.setGyroRange(MPU6050_RANGE_500_DEG); // ±500 °/s es suficiente para un carro
     IMU.setFilterBandwidth(MPU6050_BAND_21_HZ);
 }
