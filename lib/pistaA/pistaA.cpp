@@ -32,8 +32,13 @@ static byte cercania_pared = 5; // valor que define que tan cerca estara de la p
 static byte choque_inminente = 15; // distancia en donde se detecta que hay una pared
 
 // funciones
+<<<<<<< HEAD
 static bool pared(ultrasonico &u);
 static bool revision_giro(int lateralidad);
+=======
+bool pared(ultrasonico &u);   
+bool revision_giro(int &lateralidad_temporal);
+>>>>>>> 63091255bb4a6fe86c8383c3ca8e533fc6442f14
 
 // Funcion principal
 void pistaA()
@@ -78,7 +83,7 @@ void pistaA()
 }
 
 // funcion que determina si hay una pared cerca
-static bool pared(ultrasonico &u)
+bool pared(ultrasonico &u)
 {
     // De entrada, se recibe uno de los 3 ultrasónicos (enfrente, izquierda, derecha)
 
@@ -95,18 +100,24 @@ static bool pared(ultrasonico &u)
     }
 }
 
-static bool revision_giro(int lateralidad)
+bool revision_giro(int &lateralidad_temporal)
 {
+<<<<<<< HEAD
     // agregar condiciones que consideren los lados del sensor necesarios
     bool izq = false;
     bool der = false;
     bool frente = false;
     switch (lateralidad)
+=======
+//agregar condiciones que consideren los lados del sensor necesarios
+    switch (lateralidad_temporal)
+>>>>>>> 63091255bb4a6fe86c8383c3ca8e533fc6442f14
     {
     case 1:
 
         if (!pared(ultrasonico_izq))
         {
+            lateralidad_temporal = 1;
             return true;
         }
         break;
@@ -114,18 +125,29 @@ static bool revision_giro(int lateralidad)
     case 2:
         if (!pared(ultrasonico_der))
         {
+            lateralidad_temporal = 2;
             return true;
         }
         break;
     }
-
-    if (pared(ultrasonico_frente))
+        if (pared(ultrasonico_frente))
     {
+        //cambio de valor de lateralidad para giro normal
+            if (lateralidad_temporal == 1)
+            {   
+                lateralidad_temporal = 2;
+            } 
+            else if (lateralidad_temporal == 2)
+            {
+                lateralidad_temporal = 1;
+            }
+
         return true;
     }
 
     return false;
 }
+
 
 static void correcion_drift()
 {
