@@ -35,12 +35,12 @@ static byte choque_frontal_inminente = 10; // distancia en donde se detecta que 
 // funciones
 bool pared_lateral(ultrasonico &u);
 bool pared_frontal(ultrasonico &u);
-bool revision_giro(int &lateralidad_temporal);
+bool revision_giro(byte &lateralidad_temporal);
 
 // Funcion principal
 void pistaA()
 {
-    int lateralidad_temporal = 0;
+    byte lateralidad_temporal = 0;
     while (true)
     {
         // define la lateridad
@@ -72,7 +72,10 @@ void pistaA()
             float correcion_izq = 0;
             float correcion_der = 0;
 
-            avanzar_control(correcion_izq, correcion_der, distancia_ultrasonico_izq, distancia_ultrasonico_der);
+            avanzar_control(correcion_izq,
+                            correcion_der,
+                            distancia_ultrasonico_izq,
+                            distancia_ultrasonico_der);
             // regresa los valores de corrección para determinar el PWM final de los motores
 
             avanzar(correcion_izq, correcion_der);
