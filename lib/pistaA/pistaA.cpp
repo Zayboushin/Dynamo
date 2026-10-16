@@ -33,6 +33,7 @@ static byte choque_lateral_inminente = 15; // distancia en donde se detecta que 
 static byte choque_frontal_inminente = 10; // distancia en donde se detecta que hay una pared
 
 // funciones
+<<<<<<< HEAD
 bool pared_lateral(ultrasonico &u);
 bool pared_frontal(ultrasonico &u);
 bool revision_giro(int &lateralidad_temporal);
