@@ -165,7 +165,7 @@ void eleccion_desplazamiento(String direccion) {
 bool linea_blanca_izq = infrarrojo_izq.linea_blanca();
 bool linea_blanca_der = infrarrojo_der.linea_blanca();
     
-    if (linea_blanca_izq) {
+    if (linea_blanca_izq) { //revisar error
         eleccion_desplazamiento(direcciones[1]);  
     }
      
