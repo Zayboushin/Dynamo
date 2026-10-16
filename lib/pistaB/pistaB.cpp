@@ -81,12 +81,17 @@ void salida1() { //condiciones para salir de secc 1
 void seccion_1()
 {
 
-        if (!pelota_detectada) {
+    //la condicion no toma en cuenta que la logica de 90 grados necesita seguir girando.
+    // ¿qu pasa si la variable de pelota detectada cambia mientras esta girando?
+    if (!pelota_detectada) {
         if (dist_der < 45 && dist_frente < 40) { //encuentra el recuadro de la pelota
 
             pelota_detectada = true;
             giro_pendiente = true;
-            giro_der = true; //corregir
+            logica_90grados(giro_pendiente);
+            izquierda(200,200)
+    
+
         }
         else {
             navegacion();
@@ -94,10 +99,7 @@ void seccion_1()
     }
 
     if (pelota_detectada && !pelota_tomada) {
-        if (giro_pendiente) {
-            logica_90grados(giro_pendiente);
-        }
-        else if(!limit_switch) {
+        if(!limit_switch) {
             encender_intake();//falta agregar
             retroceder(vel);
         }
@@ -107,12 +109,11 @@ void seccion_1()
             pelota_tomada = true;
         }
         }
-    if (pelota_tomada) {
-        if (giro_pendiente) {
-            logica_90grados(giro_pendiente);
+    if (pelota_tomada && dist_frente > 10) {
+        avanzar()
         }
-    else if (pelota_tomada) {
-        salida1();
+    else if (pelota_tomada && dist_frente < 10) {
+        salida1(); //algo tiene mal lo tengo que corregir
     }
     else {
         navegacion();
