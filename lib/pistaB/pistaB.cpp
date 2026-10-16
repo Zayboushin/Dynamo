@@ -30,6 +30,15 @@ bool pelota_tomada = false;
 //variables de movimiento
 byte vel = 200;
 
+void navegacion();
+void salida1();
+void seccion_1();
+void seccion_2();
+void seccion_3();
+
+//Funciones de movimiento internas
+void eleccion_desplazamiento(String direccion);
+
 void pistaB()
 {
     dist_izq = ultrasonico_izq.distancia_ultrasonico();
