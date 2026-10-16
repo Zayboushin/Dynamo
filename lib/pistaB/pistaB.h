@@ -1,5 +1,5 @@
-#ifndef PISTA_A_H
-#define PISTA_A_H
+#ifndef PISTA_B_H
+#define PISTA__H
 
 void pistaB();
 void navegacion(); 
