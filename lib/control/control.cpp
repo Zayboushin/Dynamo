@@ -125,9 +125,9 @@ bool logica_90grados(bool &giro_pendiente)
 
     antes = ahora;
 
-    grados_x += (g.gyro.x - sesgo_x) * dt;
-    grados_y += (g.gyro.y - sesgo_y) * dt;
-    grados_z += (g.gyro.z - sesgo_z) * dt;
+    grados_x += (fabs(g.gyro.x) - sesgo_x) * dt;
+    grados_y += (fabs(g.gyro.y) - sesgo_y) * dt;
+    grados_z += (fabs(g.gyro.z) - sesgo_z) * dt;
 
     // funcion que determina que se detenga el giro
     if (fabs(grados_x) >= PI / 2)
