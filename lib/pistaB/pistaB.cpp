@@ -18,8 +18,6 @@ bool giro_der = false; // para q sepa a que lado girar en grados
 bool giro_izq =false;
 bool pelota_tomada = false;
 
-
-//
 //variables de ultrasonicos
 
     float dist_izq = 0.0f;
@@ -89,7 +87,7 @@ void seccion_1()
             pelota_detectada = true;
             giro_pendiente = true;
             logica_90grados(giro_pendiente);
-            izquierda(200,200)
+            izquierda(200);
     
 
         }
@@ -99,7 +97,8 @@ void seccion_1()
     }
 
     if (pelota_detectada && !pelota_tomada) {
-        if(!limit_switch) {
+        
+        if(!retroalimentacion_limit_switch) {
             encender_intake();//falta agregar
             retroceder(vel);
         }
