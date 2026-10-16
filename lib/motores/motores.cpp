@@ -28,7 +28,6 @@ void iniciar_motores()
     motor_intake.begin();    // Pines del motor del intake
 }
 
-
 void avanzar(uint8_t PWM_izq, uint8_t PWM_der)
 {
     motor_izq_front.motor_individual(1, PWM_izq);
@@ -69,7 +68,7 @@ void detener()
     motor_der_back.motor_individual(0, 0);
 }
 
-void giro(int lateralidad)
+void giro(byte lateralidad)
 {
     // funciones a calibrar para que de un giro limpio
     uint8_t PWM_menor = 50;
@@ -112,6 +111,7 @@ void encender_intake(uint8_t PWM)
 {
     motor_intake.motor_individual(1, PWM); // Encender el motor del intake
 }
-void apagar_intake(uint8_t PWM) {
+void apagar_intake(uint8_t PWM)
+{
     motor_intake.motor_individual(0, PWM);
 }
