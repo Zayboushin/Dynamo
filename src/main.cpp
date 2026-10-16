@@ -3,6 +3,7 @@
 #include "sensores.h"
 #include "control.h"
 #include "pistaA.h"
+#include "pistaB.h"
 
 void setup()
 {
@@ -21,5 +22,5 @@ void setup()
 
 void loop()
 {
-   // put your main code here, to run repeatedly:
+  // put your main code here, to run repeatedly:
 }

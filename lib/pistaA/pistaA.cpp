@@ -21,7 +21,7 @@ float distancia_ultrasonico_izq = 0;
 float distancia_ultrasonico_der = 0;
 
 // logica
-bool giro_pendiente = false;
+static bool giro_pendiente = false;
 
 byte lateralidad = 0;
 // izquierda = 1
