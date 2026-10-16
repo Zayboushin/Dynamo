@@ -29,10 +29,12 @@ byte lateralidad = 0;
 
 static byte cercania_pared = 5; // valor que define que tan cerca estara de la pared una vez se defina la lateralidad. revisar que valor es mejor
 
-static byte choque_inminente = 15; // distancia en donde se detecta que hay una pared
+static byte choque_lateral_inminente = 15; // distancia en donde se detecta que hay una pared
+static byte choque_frontal_inminente = 10; // distancia en donde se detecta que hay una pared
 
 // funciones
-bool pared(ultrasonico &u);   
+bool pared_lateral(ultrasonico &u);
+bool pared_frontal(ultrasonico &u);
 bool revision_giro(int &lateralidad_temporal);
 
 //Funcion principal
@@ -43,20 +45,29 @@ while(true)
         // define la lateridad
     if (lateralidad == 0)
     {
-        if (!pared(ultrasonico_izq))
+        if (!pared_lateral(ultrasonico_izq))
         {
             lateralidad = 1;
         }
 
-        if (!pared(ultrasonico_der))
+        if (!pared_lateral(ultrasonico_der))
         {
             lateralidad = 2;
         }
     }
-    int lateralidad_temporal = lateralidad;
-    giro_pendiente = revision_giro(lateralidad);
+        int lateralidad_temporal = lateralidad;
+        giro_pendiente = revision_giro(lateralidad_temporal);
+
+
     if (!giro_pendiente)
     {
+        int lateralidad_temporal = lateralidad;
+        giro_pendiente = revision_giro(lateralidad_temporal);
+            if (giro_pendiente)
+            {
+                break; // si no hay giro pendiente, se sale del loop y se termina la función
+            }
+
         distancia_ultrasonico_izq = ultrasonico_izq.distancia_ultrasonico();
         distancia_ultrasonico_der = ultrasonico_der.distancia_ultrasonico();
 
@@ -69,22 +80,40 @@ while(true)
         avanzar(correcion_izq, correcion_der);
         // revisar signos
     }
-    else
+    
+    if (giro_pendiente)
     {
-        giro(lateralidad);
+        giro(lateralidad_temporal);
         logica_90grados(giro_pendiente);
     }
     }
 }
 
 // funcion que determina si hay una pared cerca
-bool pared(ultrasonico &u)
+bool pared_lateral(ultrasonico &u)
 {
     // De entrada, se recibe uno de los 3 ultrasónicos (enfrente, izquierda, derecha)
 
     float distancia = u.distancia_ultrasonico();
 
-    if (distancia < choque_inminente)
+    if (distancia < choque_lateral_inminente)
+    {
+        return true; // devuelve verdadero si hay pared
+    }
+
+    else
+    {
+        return false; // devuelve falso si no hay pared
+    }
+}
+
+bool pared_frontal()
+{
+    // De entrada, se recibe uno de los 3 ultrasónicos (enfrente, izquierda, derecha)
+
+    float distancia = ultrasonico_frente.distancia_ultrasonico();
+
+    if (distancia < choque_frontal_inminente)
     {
         return true; // devuelve verdadero si hay pared
     }
@@ -102,7 +131,7 @@ bool revision_giro(int &lateralidad_temporal)
     {
     case 1:
 
-        if (!pared(ultrasonico_izq))
+        if (!pared_lateral(ultrasonico_izq))
         {
             lateralidad_temporal = 1;
             return true;
@@ -110,14 +139,14 @@ bool revision_giro(int &lateralidad_temporal)
         break;
 
     case 2:
-        if (!pared(ultrasonico_der))
+        if (!pared_lateral(ultrasonico_der))
         {
             lateralidad_temporal = 2;
             return true;
         }
         break;
     }
-        if (pared(ultrasonico_frente))
+        if (pared_frontal())
     {
         //cambio de valor de lateralidad para giro normal
             if (lateralidad_temporal == 1)
@@ -133,10 +162,4 @@ bool revision_giro(int &lateralidad_temporal)
     }
 
     return false;
-}
-
-
-static void correcion_drift()
-{
-    // revisar que el drift no sea mayor a N centimetros.
 }
