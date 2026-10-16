@@ -53,7 +53,7 @@ while(true)
             lateralidad = 2;
         }
     }
-
+    int lateralidad_temporal = lateralidad;
     giro_pendiente = revision_giro(lateralidad);
     if (!giro_pendiente)
     {
