@@ -5,7 +5,6 @@
 
 
 //Sensores(creo)
-#include <WString.h>
 long  dist_ultrasonico;
 String leer_color;
 bool linea_blanca;
@@ -17,6 +16,7 @@ bool pelota_detectada = false; //
 bool giro_der = false; // para q sepa a que lado girar en grados
 bool giro_izq =false;
 bool pelota_tomada = false;
+String direcciones[] = {"izquierda", "derecha"};
 
 //variables de ultrasonicos
 
@@ -99,17 +99,17 @@ void seccion_1()
     if (pelota_detectada && !pelota_tomada) {
         
         if(!retroalimentacion_limit_switch) {
-            encender_intake();//falta agregar
+            encender_intake(200);//falta agregar
             retroceder(vel);
         }
         else {
             detener();
-            apagar_intake();//falta
+            apagar_intake(0);//falta
             pelota_tomada = true;
         }
         }
     if (pelota_tomada && dist_frente > 10) {
-        avanzar()
+        avanzar(200,200);
         }
     else if (pelota_tomada && dist_frente < 10) {
         salida1(); //algo tiene mal lo tengo que corregir
@@ -119,15 +119,11 @@ void seccion_1()
     }
     }
 
-}
 
 void seccion_2()
 {
     
-eleccion_desplazamiento(direccion);
-
-
-
+eleccion_desplazamiento(direcciones[0]);
 
 
 }
@@ -158,23 +154,24 @@ void eleccion_desplazamiento(String direccion) {
     else if (dist_der < dist_izq) {
         desp_izq(200);
     }
-    else {
-    if (direccion == "izquierda") {
+    else if (direccion == direcciones[0]) {
         desp_izq(200);
     }
-    }
-    else if (direccion == "derecha") {
+    else if (direccion == direcciones[1]) {
     desp_der(200);
-    }
+    }   
+}
 
 bool linea_blanca_izq = infrarrojo_izq.linea_blanca();
 bool linea_blanca_der = infrarrojo_der.linea_blanca();
     
     if (linea_blanca_izq) {
-        eleccion_desplazamiento("derecha"); 
+        eleccion_desplazamiento(direcciones[1]);  
+    }
+     
     }
     else if (linea_blanca_der) {
-        eleccion_desplazamiento("izquierda");
+        eleccion_desplazamiento(direcciones[0]);
     }
     else {
         avanzar(vel, vel);
