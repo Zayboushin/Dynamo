@@ -15,6 +15,11 @@ bool pelota_detectada = false; //
 bool giro_der = false; // para q sepa a que lado girar en grados
 bool giro_izq =false;
 bool pelota_tomada = false;
+bool salida_secc1 = false;
+bool seccion_1 = false
+bool seccion_2 = false;
+bool seccion_3 = false;
+
 
 
 //
@@ -61,23 +66,27 @@ void navegacion() {
         giro_pendiente = true;
         giro_der = true;
         logica_90grados(giro_pendiente);
+        derecha(200,200);
      }
     else {
-        avanzar(vel, vel);
+        avanzar(200, 200);
     }
 }
-
+/////hacer un bool
 void salida1() { //condiciones para salir de secc 1
     
     if (pelota_tomada && dist_frente > 20 && dist_izq > 40 && dist_der < 20) {
         giro_pendiente = true;
-        giro_izq = true;
+        giro_izq = true;//borrar creo
         logica_90grados(giro_pendiente);
+        izquierda(200,200);
+        salida_secc1 = true;
     }
 }
 
 void seccion_1()
 {
+    if (!seccion_1) {
 
         if (!pelota_detectada) {
         if (dist_der < 45 && dist_frente < 40) { //encuentra el recuadro de la pelota
@@ -86,19 +95,18 @@ void seccion_1()
             giro_pendiente = true;
             logica_90grados(giro_pendiente);
             izquierda(200,200)
-    
 
         }
         else {
             navegacion();
-        }
+            }
     }
 
     if (pelota_detectada && !pelota_tomada) {
         
         if(!retroalimentacion_limit_switch()) {
             encender_intake(200);//falta agregar
-            retroceder(vel);
+            retroceder(200, 200);
         }
         
         else {
@@ -110,7 +118,7 @@ void seccion_1()
     if (pelota_tomada && dist_frente > 10) {
         avanzar()
         }
-    else if (pelota_tomada && dist_frente < 10) {
+    else if (pelota_tomada && dist_frente < 10 && !salida_secc1) {
         salida1(); //algo tiene mal lo tengo que corregir
     }
 
@@ -118,10 +126,12 @@ void seccion_1()
         navegacion();
     }
     }
+    seccion_1 = true;
+    }
 
-}
 
 void seccion_2()
+
 {
     
 eleccion_desplazamiento(direccion);
@@ -134,6 +144,7 @@ eleccion_desplazamiento(direccion);
 
 void seccion_3()
 {
+    if (!seccion_3); {
     
     if (sensor_rgb.leer_color()== "naranja") {
         avanzar(vel, vel);
@@ -147,11 +158,12 @@ void seccion_3()
     else if (sensor_rgb.leer_color()== "rosa") {
         retroceder(vel);
     }
-
+    }
 }
 
 //Funciones de movimiento internas
 void eleccion_desplazamiento(String direccion) {
+    if (!seccion_2); { //orob cambiar de lugar este if
     if (dist_izq < dist_der) {
         desp_der(200);
     }
@@ -179,6 +191,7 @@ bool linea_blanca_der = infrarrojo_der.linea_blanca();
     else {
         avanzar();
     }
+}
 
     /////Seccion 3
 
@@ -192,4 +205,4 @@ bool linea_blanca_der = infrarrojo_der.linea_blanca();
         desp_izq();
     }
     
-    }
+    
