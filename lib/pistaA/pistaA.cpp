@@ -33,51 +33,39 @@ static byte choque_lateral_inminente = 15; // distancia en donde se detecta que 
 static byte choque_frontal_inminente = 10; // distancia en donde se detecta que hay una pared
 
 // funciones
-<<<<<<< HEAD
 bool pared_lateral(ultrasonico &u);
 bool pared_frontal(ultrasonico &u);
-=======
-<<<<<<< HEAD
-static bool pared(ultrasonico &u);
-static bool revision_giro(int lateralidad);
-=======
-bool pared(ultrasonico &u);   
->>>>>>> dba5cc518f121f97d36cfa9323f0a97abc75f86f
 bool revision_giro(int &lateralidad_temporal);
->>>>>>> 63091255bb4a6fe86c8383c3ca8e533fc6442f14
 
 // Funcion principal
 void pistaA()
 {
+    int lateralidad_temporal = 0;
     while (true)
     {
         // define la lateridad
-<<<<<<< HEAD
-    if (lateralidad == 0)
-    {
-        if (!pared_lateral(ultrasonico_izq))
-=======
         if (lateralidad == 0)
->>>>>>> dba5cc518f121f97d36cfa9323f0a97abc75f86f
         {
-            if (!pared(ultrasonico_izq))
+            if (!pared_lateral(ultrasonico_izq))
             {
                 lateralidad = 1;
             }
 
-            if (!pared(ultrasonico_der))
+            else if (!pared_lateral(ultrasonico_der))
             {
                 lateralidad = 2;
             }
         }
 
-<<<<<<< HEAD
-        if (!pared_lateral(ultrasonico_der))
-=======
-        giro_pendiente = revision_giro(lateralidad);
         if (!giro_pendiente)
->>>>>>> dba5cc518f121f97d36cfa9323f0a97abc75f86f
         {
+            lateralidad_temporal = lateralidad;
+            giro_pendiente = revision_giro(lateralidad_temporal);
+            if (giro_pendiente)
+            {
+                break; // si no hay giro pendiente, se sale del loop y se termina la función
+            }
+
             distancia_ultrasonico_izq = ultrasonico_izq.distancia_ultrasonico();
             distancia_ultrasonico_der = ultrasonico_der.distancia_ultrasonico();
 
@@ -90,47 +78,16 @@ void pistaA()
             avanzar(correcion_izq, correcion_der);
             // revisar signos
         }
-        else
+
+        if (giro_pendiente)
         {
-            giro(lateralidad);
+            giro(lateralidad_temporal);
             logica_90grados(giro_pendiente);
         }
-<<<<<<< HEAD
+        lateralidad_temporal = 0;
     }
-        int lateralidad_temporal = lateralidad;
-        giro_pendiente = revision_giro(lateralidad_temporal);
 
-
-    if (!giro_pendiente)
-    {
-        int lateralidad_temporal = lateralidad;
-        giro_pendiente = revision_giro(lateralidad_temporal);
-            if (giro_pendiente)
-            {
-                break; // si no hay giro pendiente, se sale del loop y se termina la función
-            }
-
-        distancia_ultrasonico_izq = ultrasonico_izq.distancia_ultrasonico();
-        distancia_ultrasonico_der = ultrasonico_der.distancia_ultrasonico();
-
-        float correcion_izq = 0;
-        float correcion_der = 0;
-
-        avanzar_control(correcion_izq, correcion_der, distancia_ultrasonico_izq, distancia_ultrasonico_der);
-        // regresa los valores de corrección para determinar el PWM final de los motores
-
-        avanzar(correcion_izq, correcion_der);
-        // revisar signos
-    }
-    
-    if (giro_pendiente)
-    {
-        giro(lateralidad_temporal);
-        logica_90grados(giro_pendiente);
-    }
-=======
->>>>>>> dba5cc518f121f97d36cfa9323f0a97abc75f86f
-    }
+    ;
 }
 
 // funcion que determina si hay una pared cerca
@@ -168,18 +125,10 @@ bool pared_frontal()
     }
 }
 
-bool revision_giro(int &lateralidad_temporal)
+bool revision_giro(byte &lateralidad_temporal)
 {
-<<<<<<< HEAD
     // agregar condiciones que consideren los lados del sensor necesarios
-    bool izq = false;
-    bool der = false;
-    bool frente = false;
-    switch (lateralidad)
-=======
-//agregar condiciones que consideren los lados del sensor necesarios
     switch (lateralidad_temporal)
->>>>>>> 63091255bb4a6fe86c8383c3ca8e533fc6442f14
     {
     case 1:
 
@@ -198,17 +147,17 @@ bool revision_giro(int &lateralidad_temporal)
         }
         break;
     }
-        if (pared_frontal())
+    if (pared_frontal())
     {
-        //cambio de valor de lateralidad para giro normal
-            if (lateralidad_temporal == 1)
-            {   
-                lateralidad_temporal = 2;
-            } 
-            else if (lateralidad_temporal == 2)
-            {
-                lateralidad_temporal = 1;
-            }
+        // cambio de valor de lateralidad para giro normal
+        if (lateralidad_temporal == 1)
+        {
+            lateralidad_temporal = 2;
+        }
+        else if (lateralidad_temporal == 2)
+        {
+            lateralidad_temporal = 1;
+        }
 
         return true;
     }
