@@ -74,8 +74,9 @@ void pistaA()
 
             avanzar_control(correcion_izq,
                             correcion_der,
-                            distancia_ultrasonico_izq,
-                            distancia_ultrasonico_der);
+                            cercania_pared,
+                            (lateralidad == 1) ? distancia_ultrasonico_izq : distancia_ultrasonico_der,
+                            lateralidad);
             // regresa los valores de corrección para determinar el PWM final de los motores
 
             avanzar(correcion_izq, correcion_der);

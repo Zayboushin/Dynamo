@@ -70,14 +70,19 @@ void reiniciar_PID()
     antes_ms = 0;
 }
 
-void avanzar_control(float &izq, float &der, float distancia_ultrasonico_izq, float distancia_ultrasonico_der)
+void avanzar_control(float &izq,
+                     float &der,
+                     float valor_esperado,
+                     float valor_actual,
+                     byte direccion_giro)
+
 {
     unsigned long ahora = millis();
     bool primera = (antes_ms == 0);
     float dt = (ahora - antes_ms) / 1000.0f;
     antes_ms = ahora;
 
-    float error = constrain((distancia_ultrasonico_izq - distancia_ultrasonico_der), -20.0f, 20.0f);
+    float error = constrain((valor_esperado - valor_actual), -20.0f, 20.0f);
 
     // P
     float termino_p = P * error;
@@ -99,8 +104,21 @@ void avanzar_control(float &izq, float &der, float distancia_ultrasonico_izq, fl
 
     float correccion = termino_p + integral + termino_d;
 
-    izq = constrain(vel - correccion, 0.0f, 255.0f);
-    der = constrain(vel + correccion, 0.0f, 255.0f);
+    if (direccion_giro == 1) // giro a la izquierda
+    {
+        izq = constrain(vel - correccion, 0.0f, 255.0f);
+        der = constrain(vel + correccion, 0.0f, 255.0f);
+    }
+    else if (direccion_giro == 2) // giro a la derecha
+    {
+        izq = constrain(vel + correccion, 0.0f, 255.0f);
+        der = constrain(vel - correccion, 0.0f, 255.0f);
+    }
+    else
+    {
+        izq = constrain(vel - correccion, 0.0f, 255.0f);
+        der = constrain(vel + correccion, 0.0f, 255.0f);
+    }
 }
 
 bool logica_90grados(bool &giro_pendiente)
