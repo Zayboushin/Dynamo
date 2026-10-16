@@ -8,20 +8,20 @@
 
 Adafruit_MPU6050 IMU;
 
-//valores de PID random (por calibrar)
-const float P = 4.0f;            
+// valores de PID random (por calibrar)
+const float P = 4.0f;
 const float I = 0.5f;
 const float D = 0.3f;
 
-//variable de movimiento
+// variable de movimiento
 const float vel = 180.0f;
 
-//variables importantes para I 
-const float limite_I = 30.0f;     
-const float zona_I   = 6.0f; 
+// variables importantes para I
+const float limite_I = 30.0f;
+const float zona_I = 6.0f;
 static float integral = 0.0f;
 
-//variables importantes para registro de error
+// variables importantes para registro de error
 static float error_anterior = 0.0f;
 static unsigned long antes_ms = 0;
 
@@ -29,16 +29,9 @@ sensors_event_t a, g, temp;
 
 void iniciar_IMU()
 {
-     Wire.begin();
-     Wire.setClock(400000);
-
-      if (!IMU.begin(0x68, &Wire))
-    {
-        Serial.println("No se encontro el MPU6050");
-    }
-
-     IMU.setGyroRange(MPU6050_RANGE_500_DEG);       // ±500 °/s es suficiente para un carro
-     IMU.setFilterBandwidth(MPU6050_BAND_21_HZ);
+    Wire.begin();
+    IMU.setGyroRange(MPU6050_RANGE_500_DEG); // ±500 °/s es suficiente para un carro
+    IMU.setFilterBandwidth(MPU6050_BAND_21_HZ);
 }
 
 static float sesgo_x = 0.0f;
@@ -66,9 +59,7 @@ void calibrar_IMU()
 void leer_IMU()
 {
     IMU.getEvent(&a, &g, &temp);
-
     // Retorna la aceleración en el eje X
-
 }
 
 void reiniciar_PID()
@@ -84,7 +75,7 @@ void avanzar_control(float &izq, float &der, float distancia_ultrasonico_izq, fl
     bool primera = (antes_ms == 0);
     float dt = (ahora - antes_ms) / 1000.0f;
     antes_ms = ahora;
-    
+
     float error = constrain((distancia_ultrasonico_izq - distancia_ultrasonico_der), -20.0f, 20.0f);
 
     // P
@@ -94,9 +85,8 @@ void avanzar_control(float &izq, float &der, float distancia_ultrasonico_izq, fl
 
     if (!primera && fabs(error) < zona_I)
     {
-        integral += I*error*dt;
+        integral += I * error * dt;
         integral = constrain(integral, -limite_I, limite_I);
-
     }
 
     // D
@@ -108,7 +98,6 @@ void avanzar_control(float &izq, float &der, float distancia_ultrasonico_izq, fl
 
     float correccion = termino_p + integral + termino_d;
 
-
     izq = constrain(vel - correccion, 0.0f, 255.0f);
     der = constrain(vel + correccion, 0.0f, 255.0f);
 }
@@ -119,11 +108,10 @@ bool logica_90grados(bool &giro_pendiente)
     static float grados_y = 0;
     static float grados_z = 0;
     unsigned static long antes = 0;
-    
+
     leer_IMU();
 
     unsigned long ahora = millis();
-
 
     float dt = 0.0f;
     if (antes == 0)
@@ -137,12 +125,12 @@ bool logica_90grados(bool &giro_pendiente)
 
     antes = ahora;
 
-    grados_x += (g.gyro.x-sesgo_x) * dt;
-    grados_y += (g.gyro.y-sesgo_y) * dt;
-    grados_z += (g.gyro.z-sesgo_z) * dt;
+    grados_x += (g.gyro.x - sesgo_x) * dt;
+    grados_y += (g.gyro.y - sesgo_y) * dt;
+    grados_z += (g.gyro.z - sesgo_z) * dt;
 
     // funcion que determina que se detenga el giro
-    if (fabs(grados_x) >= PI/2)
+    if (fabs(grados_x) >= PI / 2)
     {
         // indica que ya se pasó del giro de 90 grados, deteniendo el uso de esta funcion
 
@@ -153,7 +141,6 @@ bool logica_90grados(bool &giro_pendiente)
         giro_pendiente = false;
         antes = 0;
         return giro_pendiente;
-    
     }
     else
     {
