@@ -5,6 +5,7 @@
 #include <Arduino.h>
 #include "control.h"
 #include <Adafruit_MPU6050.h>
+#include <Adafruit_Sensor.h>
 
 Adafruit_MPU6050 IMU;
 static const uint8_t IMU_ADDR = 0x68;
@@ -122,7 +123,7 @@ void avanzar_control(float &izq,
     }
 }
 
-bool logica_90grados(bool &giro_pendiente)
+bool logica_90grados(bool &giro_pendiente, String &color)
 {
     static float grados_x = 0;
     static float grados_y = 0;
@@ -166,6 +167,7 @@ bool logica_90grados(bool &giro_pendiente)
         grados_z = 0;
         giro_pendiente = false;
         antes = 0;
+        String color = sensor_rgb.leer_color();
         return giro_pendiente;
     }
     else

@@ -60,7 +60,7 @@ void pistaA()
         }
         */
 
-                if (!giro_pendiente)
+        if (!giro_pendiente)
         {
             lateralidad_temporal = lateralidad;
             giro_pendiente = revision_giro(lateralidad_temporal);
@@ -104,7 +104,7 @@ void pistaA()
             {
                 derecha(150);
             }
-            logica_90grados(giro_pendiente);
+            logica_90grados(giro_pendiente, color);
             if (!giro_pendiente)
             {
                 avanzar(vel, vel);
