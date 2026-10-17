@@ -50,12 +50,12 @@ void pistaA()
         {
             if (!pared_lateral(ultrasonico_izq))
             {
-                lateralidad = 1;
+                // lateralidad = 1;
             }
 
             else if (!pared_lateral(ultrasonico_der))
             {
-                lateralidad = 2;
+                // lateralidad = 2;
             }
         }
 
