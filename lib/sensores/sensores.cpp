@@ -10,7 +10,7 @@ String colores[] = {"azul",
                     "verde",
                     "blanco",
                     "negro"};
-    
+
 // Clase para manejar los sensores ultrasónicos
 
 ultrasonico ultrasonico_izq;
@@ -34,9 +34,9 @@ bool retroalimentacion_limit_switch()
 // funcion final para iniciación de sensores
 void iniciar_sensores()
 {
-    //trig, echo
-    // Configuración de pines para los sensores ultrasónicos (falta configurarlos)
-    ultrasonico_izq.setPins(24,25);    // Pines del ultrasonico izquierdo
+    // trig, echo
+    //  Configuración de pines para los sensores ultrasónicos (falta configurarlos)
+    ultrasonico_izq.setPins(25, 24);    // Pines del ultrasonico izquierdo
     ultrasonico_der.setPins(26, 27);    // Pines del ultrasonico derecho
     ultrasonico_frente.setPins(28, 29); // Pines del ultrasonico frente
     ultrasonico_izq.begin();
@@ -49,21 +49,18 @@ void iniciar_sensores()
     infrarrojo_izq.begin();
     infrarrojo_der.begin();
 
+    /*
     // Configuración de pines para el sensor RGB (falta configurarlos)
     sensor_rgb.setPins(45, 44, 46, 49, 48); // Pines del sensor RGB
     sensor_rgb.begin();
     pinMode(LIMIT_SWITCH, INPUT);
+*/
 }
 
+// const uint8_t PIN_STBY = A2;
+// const uint8_t LIMIT_SWITCH = 12;
 
-
-    //const uint8_t PIN_STBY = A2;
- //const uint8_t LIMIT_SWITCH = 12;
-
-
-    //limit switch
-    
-
+// limit switch
 
 // Karla :)
 /*
@@ -83,10 +80,10 @@ if (rojo == 0 || verde == 0 || azul == 0) return "Desconocido";
   // Calcular el tono (0 a 360)
   float tono = 0;
   if (diferencia > 0) { //
-    if (mx == r) {    
+    if (mx == r) {
         tono = 60 * ((g - b) / diferencia);
     }
-    else if (mx == g) {     
+    else if (mx == g) {
         tono = 60 * ((b - r) / diferencia + 2);
     }
     else {
@@ -99,13 +96,13 @@ if (rojo == 0 || verde == 0 || azul == 0) return "Desconocido";
 //los numeros son suposiciones, necesito calibrar sensor de color y ajustarlos
   if (tono >= 10 && tono < 35) {
         return "NARANJA";
-    } 
+    }
     else if (tono >= 35 && tono < 80) {
         return "AMARILLO";
-    } 
+    }
     else if (tono >= 170 && tono < 260) {
         return "AZUL";
-    } 
+    }
     else if (tono >= 280 && tono < 345) {
         return "ROSA";
     }
@@ -113,5 +110,5 @@ if (rojo == 0 || verde == 0 || azul == 0) return "Desconocido";
     return "Desconocido";
     }
 
-    
+
 */

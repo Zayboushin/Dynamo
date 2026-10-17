@@ -7,6 +7,7 @@
 #include <Adafruit_MPU6050.h>
 
 Adafruit_MPU6050 IMU;
+static const uint8_t IMU_ADDR = 0x68;
 
 // valores de PID random (por calibrar)
 const float P = 4.0f;
@@ -14,7 +15,7 @@ const float I = 0.5f;
 const float D = 0.3f;
 
 // variable de movimiento
-const float vel = 180.0f;
+const float vel = 67.0f;
 
 // variables importantes para I
 const float limite_I = 30.0f;
@@ -31,6 +32,7 @@ void iniciar_IMU()
 {
     IMU.begin();//
     Wire.begin();
+    IMU.begin(0x68);
     IMU.setGyroRange(MPU6050_RANGE_500_DEG); // ±500 °/s es suficiente para un carro
     IMU.setFilterBandwidth(MPU6050_BAND_21_HZ);
 }
@@ -70,14 +72,19 @@ void reiniciar_PID()
     antes_ms = 0;
 }
 
-void avanzar_control(float &izq, float &der, float distancia_ultrasonico_izq, float distancia_ultrasonico_der)
+void avanzar_control(float &izq,
+                     float &der,
+                     float valor_esperado,
+                     float valor_actual,
+                     byte direccion_giro)
+
 {
     unsigned long ahora = millis();
     bool primera = (antes_ms == 0);
     float dt = (ahora - antes_ms) / 1000.0f;
     antes_ms = ahora;
 
-    float error = constrain((distancia_ultrasonico_izq - distancia_ultrasonico_der), -20.0f, 20.0f);
+    float error = constrain((valor_esperado - valor_actual), -20.0f, 20.0f);
 
     // P
     float termino_p = P * error;
@@ -99,8 +106,21 @@ void avanzar_control(float &izq, float &der, float distancia_ultrasonico_izq, fl
 
     float correccion = termino_p + integral + termino_d;
 
-    izq = constrain(vel - correccion, 0.0f, 255.0f);
-    der = constrain(vel + correccion, 0.0f, 255.0f);
+    if (direccion_giro == 1) // giro a la izquierda
+    {
+        izq = constrain(vel + correccion, 0.0f, 255.0f);
+        der = constrain(vel - correccion, 0.0f, 255.0f);
+    }
+    else if (direccion_giro == 2) // giro a la derecha
+    {
+        izq = constrain(vel - correccion, 0.0f, 255.0f);
+        der = constrain(vel + correccion, 0.0f, 255.0f);
+    }
+    else // no hay giro, se mueve recto
+    {
+        izq = vel;
+        der = vel;
+    }
 }
 
 bool logica_90grados(bool &giro_pendiente)
@@ -108,10 +128,16 @@ bool logica_90grados(bool &giro_pendiente)
     static float grados_x = 0;
     static float grados_y = 0;
     static float grados_z = 0;
+    static byte primer_iteracion = 1;
+    static float tiempo_seguridad = 0.0f;
     unsigned static long antes = 0;
 
     leer_IMU();
 
+    if (primer_iteracion == 1)
+    {
+        tiempo_seguridad = millis();
+    }
     unsigned long ahora = millis();
 
     float dt = 0.0f;
@@ -131,7 +157,7 @@ bool logica_90grados(bool &giro_pendiente)
     grados_z += (fabs(g.gyro.z) - sesgo_z) * dt;
 
     // funcion que determina que se detenga el giro
-    if (fabs(grados_x) >= PI / 2)
+    if (fabs(grados_z) >= 0.95 * PI / 2 || (ahora - tiempo_seguridad) > 1000)
     {
         // indica que ya se pasó del giro de 90 grados, deteniendo el uso de esta funcion
 

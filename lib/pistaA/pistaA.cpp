@@ -22,69 +22,108 @@ float distancia_ultrasonico_der = 0;
 
 // logica
 static bool giro_pendiente = false;
+const int tiempo_espera = 1100; //  tiempo que avanza el carro a ciegas cuando gira
+const float vel = 50.0f;        // velocidad de movimiento del carro
 
-byte lateralidad = 0;
+const byte lateralidad = 2;
 // izquierda = 1
 // derecha = 2
 
-static byte cercania_pared = 5; // valor que define que tan cerca estara de la pared una vez se defina la lateralidad. revisar que valor es mejor
+static byte cercania_pared = 3; // valor que define que tan cerca estara de la pared una vez se defina la lateralidad. revisar que valor es mejor
 
-static byte choque_inminente = 15; // distancia en donde se detecta que hay una pared
+static byte choque_lateral_inminente = 10; // distancia en donde se detecta que hay una pared
+static byte choque_frontal_inminente = 15; // distancia en donde se detecta que hay una pared
 
 // funciones
-static bool pared(ultrasonico &u);   
-static bool revision_giro(int lateralidad);
+bool pared_lateral(ultrasonico &u);
+bool pared_frontal(ultrasonico &u);
+bool revision_giro(byte &lateralidad_temporal);
 
-//Funcion principal
+// Funcion principal
 void pistaA()
 {
-while(true)
+    byte lateralidad_temporal = 0;
+    while (true)
     {
-        // define la lateridad
-    if (lateralidad == 0)
-    {
-        if (!pared(ultrasonico_izq))
+        /*     // define la lateridad
+        if (lateralidad == 0)
         {
-            lateralidad = 1;
+            if (!pared_lateral(ultrasonico_izq))
+            {
+                // lateralidad = 1;
+            }
+
+            else if (!pared_lateral(ultrasonico_der))
+            {
+                // lateralidad = 2;
+            }
+        }
+        */
+
+        if (!giro_pendiente)
+        {
+            lateralidad_temporal = lateralidad;
+            giro_pendiente = revision_giro(lateralidad_temporal);
+
+            distancia_ultrasonico_izq = ultrasonico_izq.distancia_ultrasonico();
+            distancia_ultrasonico_der = ultrasonico_der.distancia_ultrasonico();
+
+            float correcion_izq = 0;
+            float correcion_der = 0;
+
+            if (lateralidad != 0)
+            {
+                avanzar_control(correcion_izq,
+                                correcion_der,
+                                0,
+                                0,
+                                0);
+            }
+            else
+            {
+                avanzar_control(correcion_izq,
+                                correcion_der,
+                                cercania_pared,
+                                (lateralidad == 1) ? distancia_ultrasonico_izq : distancia_ultrasonico_der,
+                                lateralidad);
+            }
+
+            // regresa los valores de corrección para determinar el PWM final de los motores
+
+            avanzar(correcion_izq, correcion_der);
+            // revisar signos
         }
 
-        if (!pared(ultrasonico_der))
+        if (giro_pendiente)
         {
-            lateralidad = 2;
+            if (lateralidad_temporal == 1)
+            {
+                izquierda(150);
+            }
+            else if (lateralidad_temporal == 2)
+            {
+                derecha(150);
+            }
+            logica_90grados(giro_pendiente);
+            if (!giro_pendiente)
+            {
+                avanzar(vel, vel);
+                delay(tiempo_espera);
+                lateralidad_temporal = 0;
+                reiniciar_PID();
+            }
         }
-    }
-
-    giro_pendiente = revision_giro(lateralidad);
-    if (!giro_pendiente)
-    {
-        distancia_ultrasonico_izq = ultrasonico_izq.distancia_ultrasonico();
-        distancia_ultrasonico_der = ultrasonico_der.distancia_ultrasonico();
-
-        float correcion_izq = 0;
-        float correcion_der = 0;
-
-        avanzar_control(correcion_izq, correcion_der, distancia_ultrasonico_izq, distancia_ultrasonico_der);
-        // regresa los valores de corrección para determinar el PWM final de los motores
-
-        avanzar(correcion_izq, correcion_der);
-        // revisar signos
-    }
-    else
-    {
-        giro(lateralidad);
-        logica_90grados(giro_pendiente);
-    }
     }
 }
 
 // funcion que determina si hay una pared cerca
-static bool pared(ultrasonico &u)
+bool pared_lateral(ultrasonico &u)
 {
     // De entrada, se recibe uno de los 3 ultrasónicos (enfrente, izquierda, derecha)
 
     float distancia = u.distancia_ultrasonico();
 
-    if (distancia < choque_inminente)
+    if (distancia < choque_lateral_inminente)
     {
         return true; // devuelve verdadero si hay pared
     }
@@ -95,39 +134,59 @@ static bool pared(ultrasonico &u)
     }
 }
 
-static bool revision_giro(int lateralidad)
+bool pared_frontal()
 {
-//agregar condiciones que consideren los lados del sensor necesarios
-    bool izq = false;
-    bool der = false;
-    bool frente = false;
-    switch (lateralidad)
+    // De entrada, se recibe uno de los 3 ultrasónicos (enfrente, izquierda, derecha)
+
+    float distancia = ultrasonico_frente.distancia_ultrasonico();
+
+    if (distancia < choque_frontal_inminente)
+    {
+        return true; // devuelve verdadero si hay pared
+    }
+
+    else
+    {
+        return false; // devuelve falso si no hay pared
+    }
+}
+
+bool revision_giro(byte &lateralidad_temporal)
+{
+    // agregar condiciones que consideren los lados del sensor necesarios
+    switch (lateralidad_temporal)
     {
     case 1:
 
-        if (!pared(ultrasonico_izq))
+        if (!pared_lateral(ultrasonico_izq))
         {
+            lateralidad_temporal = 1;
             return true;
         }
         break;
 
     case 2:
-        if (!pared(ultrasonico_der))
+        if (!pared_lateral(ultrasonico_der))
         {
+            lateralidad_temporal = 2;
             return true;
         }
         break;
     }
-
-    if (pared(ultrasonico_frente))
+    if (pared_frontal())
     {
+        // cambio de valor de lateralidad para giro normal
+        if (lateralidad_temporal == 1)
+        {
+            lateralidad_temporal = 2;
+        }
+        else if (lateralidad_temporal == 2)
+        {
+            lateralidad_temporal = 1;
+        }
+
         return true;
     }
 
     return false;
-}
-
-static void correcion_drift()
-{
-    // revisar que el drift no sea mayor a N centimetros.
 }
