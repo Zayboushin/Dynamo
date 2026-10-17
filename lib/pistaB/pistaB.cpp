@@ -199,7 +199,7 @@ bool linea_blanca_der = infrarrojo_der.linea_blanca();
         eleccion_desplazamiento("izquierda");
     }
     else {
-        avanzar();
+        avanzar(200, 200);
     }
 }
 
