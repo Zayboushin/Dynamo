@@ -10,7 +10,11 @@ void calibrar_IMU();
 
 void leer_IMU();
 
-void avanzar_control(float &izq, float &der, float distancia_ultrasonico_izq, float distancia_ultrasonico_der);
+void avanzar_control(float &izq,
+                     float &der,
+                     float valor_esperado,
+                     float valor_actual,
+                     byte direccion_giro);
 
 bool logica_90grados(bool &giro_pendiente);
 #endif
