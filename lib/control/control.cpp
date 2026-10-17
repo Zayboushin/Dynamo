@@ -1,9 +1,9 @@
 // author:leonardo Rodríguez
 //  librería para PID con ultrasonicos y giro con IMU
-
 #include <Wire.h>
 #include <Arduino.h>
 #include "control.h"
+#include "sensores.h"
 #include <Adafruit_MPU6050.h>
 #include <Adafruit_Sensor.h>
 
@@ -26,6 +26,9 @@ static float integral = 0.0f;
 // variables importantes para registro de error
 static float error_anterior = 0.0f;
 static unsigned long antes_ms = 0;
+
+// variables de color
+String color = "desconocido";
 
 sensors_event_t a, g, temp;
 
@@ -167,7 +170,7 @@ bool logica_90grados(bool &giro_pendiente, String &color)
         grados_z = 0;
         giro_pendiente = false;
         antes = 0;
-        String color = sensor_rgb.leer_color();
+        color = sensor_rgb.leer_color();
         return giro_pendiente;
     }
     else

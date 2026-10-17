@@ -19,9 +19,12 @@ char posiciones_avance[MAX_TURNS];
 // variables nativas de sensores
 float distancia_ultrasonico_izq = 0;
 float distancia_ultrasonico_der = 0;
+string color = "desconocido";
 
-// logica
-static bool giro_pendiente = false;
+colores
+
+    // logica
+    static bool giro_pendiente = false;
 const int tiempo_espera = 1100; //  tiempo que avanza el carro a ciegas cuando gira
 const float vel = 50.0f;        // velocidad de movimiento del carro
 
@@ -62,6 +65,7 @@ void pistaA()
 
         if (!giro_pendiente)
         {
+
             lateralidad_temporal = lateralidad;
             giro_pendiente = revision_giro(lateralidad_temporal);
 

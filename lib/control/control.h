@@ -16,5 +16,5 @@ void avanzar_control(float &izq,
                      float valor_actual,
                      byte direccion_giro);
 
-bool logica_90grados(bool &giro_pendiente);
+bool logica_90grados(bool &giro_pendiente, String &color);
 #endif
