@@ -1,44 +1,52 @@
 #include <Arduino.h>
-#include <Wire.h>
-#include <Adafruit_MPU6050.h>
-
-Adafruit_MPU6050 mpu;
+#include "motores.h"
+#include "sensores.h"
+#include "control.h"
+#include "pistaA.h"
 
 void setup()
 {
-  Serial.begin(115200);
-  Wire.begin();
+  Serial.begin(9600);
+  /*
+    iniciar_motores();
+    iniciar_sensores();
+    iniciar_IMU();
+    calibrar_IMU();
+  */
 
-  if (!mpu.begin(0x68, &Wire))
-  {
-    Serial.println("No se encontro el MPU6050");
-    while (true)
-      delay(10);
-  }
+  pinMode(A13, OUTPUT);
+  pinMode(A11, OUTPUT);
+  pinMode(4, OUTPUT);
 
-  mpu.setGyroRange(MPU6050_RANGE_500_DEG);
-  mpu.setFilterBandwidth(MPU6050_BAND_21_HZ);
-  Serial.println("IMU listo");
+  pinMode(46, OUTPUT);
+  pinMode(47, OUTPUT);
+  pinMode(5, OUTPUT);
+
+  pinMode(A8, OUTPUT);
+  pinMode(A9, OUTPUT);
+  pinMode(2, OUTPUT);
+
+  pinMode(A10, OUTPUT);
+  pinMode(A11, OUTPUT);
+  pinMode(3, OUTPUT);
 }
 
 void loop()
 {
-  sensors_event_t a, g, temp;
-  mpu.getEvent(&a, &g, &temp);
 
-  Serial.print("Gyro (rad/s)  x: ");
-  Serial.print(g.gyro.x, 2);
-  Serial.print("  y: ");
-  Serial.print(g.gyro.y, 2);
-  Serial.print("  z: ");
-  Serial.print(g.gyro.z, 2);
+  digitalWrite(A13, HIGH);
+  digitalWrite(A11, LOW);
+  analogWrite(4, 255);
 
-  Serial.print("   |   Accel (m/s2)  x: ");
-  Serial.print(a.acceleration.x, 2);
-  Serial.print("  y: ");
-  Serial.print(a.acceleration.y, 2);
-  Serial.print("  z: ");
-  Serial.println(a.acceleration.z, 2);
+  digitalWrite(46, LOW);
+  digitalWrite(47, HIGH);
+  analogWrite(5, 255);
 
-  delay(200);
+  digitalWrite(A8, LOW);
+  digitalWrite(A9, HIGH);
+  analogWrite(2, 255);
+
+  digitalWrite(A10, LOW);
+  digitalWrite(A11, HIGH);
+  analogWrite(3, 255);
 }

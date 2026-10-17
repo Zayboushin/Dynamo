@@ -8,13 +8,13 @@
 // dirección = 0 -> detenerse
 // dirección = -1 -> retroceder
 
-motor motor_izq_front(A15, A14, 5), motor_izq_back(A9, A8, 2), motor_der_front(A12, A13, 4), motor_der_back(A10, A11, 3), motor_intake(A0, A1, 6);
+extern struct motor motor_izq_front(m1 : A15, m2 : A14, pin_pwm : 5), motor_izq_back(m1 : A9, m2 : A8, pin_pwm : 2), motor_der_front(m1 : A12, m2 : A13, pin_pwm : 4), motor_der_back(m1 : A10, m2 : A11, pin_pwm : 3), motor_intake(m1 : A0, m2 : A1, pin_pwm : 6);
 
-void iniciar_motores(motor &motor_izq_front,
-                     motor &motor_izq_back,
-                     motor &motor_der_front,
-                     motor &motor_der_back,
-                     motor &motor_intake)
+void iniciar_motores(struct motor &motor_izq_front,
+                     struct motor &motor_izq_back,
+                     struct motor &motor_der_front,
+                     struct motor &motor_der_back,
+                     struct motor &motor_intake)
 {
     // Instancia de los motores (falta declarar pines correctos)
     // pin1, pin2, Pin_pwm
