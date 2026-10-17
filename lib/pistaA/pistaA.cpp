@@ -22,6 +22,8 @@ float distancia_ultrasonico_der = 0;
 
 // logica
 static bool giro_pendiente = false;
+const int tiempo_espera = 500; //  tiempo que avanza el carro a ciegas cuando gira
+const float vel = 67.0f;       // velocidad de movimiento del carro
 
 byte lateralidad = 0;
 // izquierda = 1
@@ -68,11 +70,23 @@ void pistaA()
             float correcion_izq = 0;
             float correcion_der = 0;
 
-            avanzar_control(correcion_izq,
-                            correcion_der,
-                            cercania_pared,
-                            (lateralidad == 1) ? distancia_ultrasonico_izq : distancia_ultrasonico_der,
-                            lateralidad);
+            if (lateralidad != 0)
+            {
+                avanzar_control(correcion_izq,
+                                correcion_der,
+                                0,
+                                0,
+                                0);
+            }
+            else
+            {
+                avanzar_control(correcion_izq,
+                                correcion_der,
+                                cercania_pared,
+                                (lateralidad == 1) ? distancia_ultrasonico_izq : distancia_ultrasonico_der,
+                                lateralidad);
+            }
+
             // regresa los valores de corrección para determinar el PWM final de los motores
 
             avanzar(correcion_izq, correcion_der);
@@ -90,8 +104,14 @@ void pistaA()
                 derecha(150);
             }
             logica_90grados(giro_pendiente);
+            if (!giro_pendiente)
+            {
+                avanzar(vel, vel);
+                delay(tiempo_espera);
+                lateralidad_temporal = 0;
+                reiniciar_PID();
+            }
         }
-        lateralidad_temporal = 0;
     }
 }
 
