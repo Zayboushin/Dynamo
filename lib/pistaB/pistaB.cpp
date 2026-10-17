@@ -1,6 +1,7 @@
 #include <Arduino.h>
 #include "sensores.h"
 #include "motores.h"
+#include "control.h"
 //logica90 grad
 
 //Sensores(creo)
@@ -67,7 +68,7 @@ void navegacion() {
         derecha(200);
      }
     else {
-        avanzar(200);
+        avanzar(200, 200);
     }
 }
 /////hacer un bool
@@ -78,7 +79,7 @@ void salida1() { //condiciones para salir de secc 1
         giro_izq = true;//borrar creo
         logica_90grados(giro_pendiente);
         izquierda(200);
-        salida_secc1 = true;
+        salida_seccion1 = true;
     }
 }
 
@@ -114,7 +115,7 @@ void seccion_1()
         }
         }
     if (pelota_tomada && dist_frente > 10) {
-        avanzar(200);
+        avanzar(200, 200);
         }
     else if (pelota_tomada && dist_frente < 10 && !salida_secc1) {
         salida1(); //algo tiene mal lo tengo que corregir
@@ -153,7 +154,7 @@ void seccion_3()
     
     
     if (sensor_rgb.leer_color()== "naranja") {
-        avanzar(200);
+        avanzar(200, 200);
     }
     else if (sensor_rgb.leer_color()== "azul") {
         desp_der(200);
