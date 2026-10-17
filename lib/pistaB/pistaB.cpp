@@ -76,7 +76,6 @@ void salida1() { //condiciones para salir de secc 1
     
     if (pelota_tomada && dist_frente > 20 && dist_izq > 40 && dist_der < 20) {
         giro_pendiente = true;
-        giro_izq = true;//borrar creo
         logica_90grados(giro_pendiente);
         izquierda(200);
         salida_seccion1 = true;
@@ -87,44 +86,13 @@ void seccion_1()
 {
 
     if (seccion == 1) {
-        if (!pelota_detectada) {
-        if (dist_der < 45 && dist_frente < 40) { //encuentra el recuadro de la pelota
-
-            pelota_detectada = true;
-            giro_pendiente = true;
-            logica_90grados(giro_pendiente);
-            izquierda(200);
-
+        if (!salida_seccion1) {
+        salida1();
         }
         else {
             navegacion();
-            }
     }
-
-    if (pelota_detectada && !pelota_tomada) {
-        
-        if(!retroalimentacion_limit_switch()) {
-            encender_intake(200);//falta agregar
-            retroceder(200);
-        }
-        
-        else {
-            detener();
-            apagar_intake(0);//falta
-            pelota_tomada = true;
-        }
-        }
-    if (pelota_tomada && dist_frente > 10) {
-        avanzar(200, 200);
-        }
-    else if (pelota_tomada && dist_frente < 10 && !salida_secc1) {
-        salida1(); //algo tiene mal lo tengo que corregir
-    }
-
-    else {
-        navegacion();
-    }
-    }
+}
     if (salida_seccion1)
     {
         seccion = 2;
