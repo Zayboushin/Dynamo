@@ -1,7 +1,7 @@
 #include <Arduino.h>
 #include "sensores.h"
 #include "motores.h"
-
+//logica90 grad
 
 //Sensores(creo)
 long  dist_ultrasonico;
@@ -16,12 +16,10 @@ bool giro_der = false; // para q sepa a que lado girar en grados
 bool giro_izq =false;
 bool pelota_tomada = false;
 bool salida_secc1 = false;
-bool seccion_1 = false
-bool seccion_2 = false;
-bool seccion_3 = false;
-
-
-
+int seccion = 1;
+bool salida_seccion1 = false;
+bool salida_seccion2 = false;
+bool salida_seccion3 = false;
 //
 //variables de ultrasonicos
 
@@ -86,8 +84,8 @@ void salida1() { //condiciones para salir de secc 1
 
 void seccion_1()
 {
-    if (!seccion_1) {
 
+    if (seccion == 1) {
         if (!pelota_detectada) {
         if (dist_der < 45 && dist_frente < 40) { //encuentra el recuadro de la pelota
 
@@ -126,25 +124,65 @@ void seccion_1()
         navegacion();
     }
     }
-    seccion_1 = true;
+    if (salida_seccion1)
+    {
+        seccion = 2;
     }
+  
+}
 
 
 void seccion_2()
-
 {
-    
+    if (seccion == 2) {}
 eleccion_desplazamiento(direccion);
 
+//Funciones de movimiento internas
+void eleccion_desplazamiento(String direccion) {
+   
+    if (dist_izq < dist_der) {
+        desp_der(200);
+    }
+    else if (dist_der < dist_izq) {
+        desp_izq(200);
+    }
+    else if (direccion == direcciones[0]) {
+        desp_izq(200);
+    }
+    
+    else if (direccion == "derecha") {
+    desp_der(200);
+    }   
 
-
-
-
+bool linea_blanca_izq = infrarrojo_izq.linea_blanca();
+bool linea_blanca_der = infrarrojo_der.linea_blanca();
+    
+    if (linea_blanca_izq) {
+        eleccion_desplazamiento("derecha"); 
+    }
+     
+    else if (linea_blanca_der) {
+        eleccion_desplazamiento(direcciones[0]);
+    }
+    else {
+        avanzar();
+    }
 }
+if (salida_seccion2) {
+    seccion = 3;
+}
+}
+
+
+
+
+
+
 
 void seccion_3()
 {
-    if (!seccion_3); {
+    if (seccion == 3) {
+    
     
     if (sensor_rgb.leer_color()== "naranja") {
         avanzar(vel, vel);
@@ -159,11 +197,14 @@ void seccion_3()
         retroceder(vel);
     }
     }
+    if (salida_seccion3) {
+        //que pongoooo
+    }
 }
 
 //Funciones de movimiento internas
 void eleccion_desplazamiento(String direccion) {
-    if (!seccion_2); { //orob cambiar de lugar este if
+   
     if (dist_izq < dist_der) {
         desp_der(200);
     }
@@ -173,7 +214,7 @@ void eleccion_desplazamiento(String direccion) {
     else if (direccion == direcciones[0]) {
         desp_izq(200);
     }
-    }
+    
     else if (direccion == "derecha") {
     desp_der(200);
     }   
@@ -193,16 +234,4 @@ bool linea_blanca_der = infrarrojo_der.linea_blanca();
     }
 }
 
-    /////Seccion 3
-
-    if (sensor_rgb.leer_color()== "naranja") { //naranja sig avanzar
-        avanzar();
-    }
-    else if (sensor_rgb.leer_color()== "azul") { //azul sign desp a la derecha, para mas agilidad
-        desp_der();
-    }
-    else if (sensor_rgb.leer_color()== "amarillo") { //amarillo sig desp izq
-        desp_izq();
-    }
-    
-    
+  
