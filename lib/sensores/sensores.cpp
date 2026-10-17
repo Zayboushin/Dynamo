@@ -1,10 +1,6 @@
 // author:leonardo Rodríguez
 #include <Arduino.h>
 #include "sensores.h"
-#include <Wire.h>
-#include <Adafruit_GFX.h>
-#include <Adafruit_SSD1306.h>
-#include <Adafruit_TCS34725.h>
 
 String colores[] = {"azul",
                     "amarillo",

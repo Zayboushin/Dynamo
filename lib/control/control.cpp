@@ -27,9 +27,6 @@ static float integral = 0.0f;
 static float error_anterior = 0.0f;
 static unsigned long antes_ms = 0;
 
-// variables de color
-String color = "desconocido";
-
 sensors_event_t a, g, temp;
 
 void iniciar_IMU()
@@ -170,7 +167,7 @@ bool logica_90grados(bool &giro_pendiente, String &color)
         grados_z = 0;
         giro_pendiente = false;
         antes = 0;
-        color = sensor_rgb.leer_color();
+        String color = sensor_rgb.leer_color();
         return giro_pendiente;
     }
     else
