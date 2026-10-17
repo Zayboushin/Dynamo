@@ -43,19 +43,20 @@ void eleccion_desplazamiento(String direccion);
 
 void pistaB()
 {
-    dist_izq = ultrasonico_izq.distancia_ultrasonico();
-    dist_der = ultrasonico_der.distancia_ultrasonico();
-    dist_frente = ultrasonico_frente.distancia_ultrasonico();
+    while(true) {
+        dist_izq = ultrasonico_izq.distancia_ultrasonico();
+        dist_der = ultrasonico_der.distancia_ultrasonico();
+        dist_frente = ultrasonico_frente.distancia_ultrasonico();
 
-    while (true) {
-        navegacion();
-    }
+    navegacion();
 
     salida1();
 
     seccion_1();
     seccion_2();
     seccion_3();
+    }
+
 
 //Funciones de movimiento internas
 
