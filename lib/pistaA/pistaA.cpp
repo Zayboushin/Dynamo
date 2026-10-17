@@ -85,7 +85,7 @@ void pistaA()
 
         if (giro_pendiente)
         {
-            giro(lateralidad_temporal);
+            izquierda(150);
             logica_90grados(giro_pendiente);
         }
         lateralidad_temporal = 0;

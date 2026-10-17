@@ -7,13 +7,10 @@
 void setup()
 {
   Serial.begin(9600);
-  /*
-    iniciar_motores();
-    iniciar_sensores();
-    iniciar_IMU();
-    calibrar_IMU();
-  */
 
+  iniciar_motores();
+
+  /*
   pinMode(A13, OUTPUT);
   pinMode(A11, OUTPUT);
   pinMode(4, OUTPUT);
@@ -29,24 +26,31 @@ void setup()
   pinMode(A10, OUTPUT);
   pinMode(A11, OUTPUT);
   pinMode(3, OUTPUT);
+
+  */
 }
 
 void loop()
 {
 
-  digitalWrite(A13, HIGH);
-  digitalWrite(A11, LOW);
-  analogWrite(4, 255);
+  avanzar(200, 200);
+  /*
 
-  digitalWrite(46, LOW);
-  digitalWrite(47, HIGH);
-  analogWrite(5, 255);
+    digitalWrite(A13, HIGH);
+    digitalWrite(A11, LOW);
+    analogWrite(4, 255);
 
-  digitalWrite(A8, LOW);
-  digitalWrite(A9, HIGH);
-  analogWrite(2, 255);
+    digitalWrite(46, LOW);
+    digitalWrite(47, HIGH);
+    analogWrite(5, 255);
 
-  digitalWrite(A10, LOW);
-  digitalWrite(A11, HIGH);
-  analogWrite(3, 255);
+    digitalWrite(A8, LOW);
+    digitalWrite(A9, HIGH);
+    analogWrite(2, 255);
+
+    digitalWrite(A10, LOW);
+    digitalWrite(A11, HIGH);
+    analogWrite(3, 255);
+
+  */
 }
