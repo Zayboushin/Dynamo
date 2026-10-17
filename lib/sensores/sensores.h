@@ -10,12 +10,14 @@ class ultrasonico
 private:
     uint8_t trig;
     uint8_t echo;
+    long ruido;
 
 public:
     ultrasonico()
     {
         trig = 0;
         echo = 0;
+        ruido = 0;
     }
     void setPins(uint8_t newTrig, uint8_t newEcho)
     {
