@@ -10,14 +10,18 @@ class ultrasonico
 private:
     uint8_t trig;
     uint8_t echo;
-    long ruido;
+    float valor_anterior;
+    byte lecturas_estables;
+    float ultimo_valor_aceptado;
 
 public:
     ultrasonico()
     {
         trig = 0;
         echo = 0;
-        ruido = 0;
+        valor_anterior = 0.0f;
+        lecturas_estables = 0;
+        ultimo_valor_aceptado = 0.0f;
     }
     void setPins(uint8_t newTrig, uint8_t newEcho)
     {
@@ -44,6 +48,28 @@ public:
         if (t == 0)
             return 400.0f;
         return t / 58.2f; // distancia en cm
+    }
+
+    float distancia_estable()
+    {
+        float distancia = distancia_ultrasonico();
+
+        if (fabs(distancia - valor_anterior) < 2.0f)
+        {
+            lecturas_estables++;
+            if (lecturas_estables >= 3)
+            {
+                ultimo_valor_aceptado = distancia;
+            }
+        }
+        else
+        {
+            lecturas_estables = 0;
+        }
+
+        valor_anterior = distancia;
+
+        return ultimo_valor_aceptado;
     }
 };
 extern ultrasonico ultrasonico_izq;
