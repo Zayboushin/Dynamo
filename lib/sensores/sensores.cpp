@@ -36,7 +36,7 @@ void iniciar_sensores()
 {
     // trig, echo
     //  Configuración de pines para los sensores ultrasónicos (falta configurarlos)
-    ultrasonico_izq.setPins(24, 25);    // Pines del ultrasonico izquierdo
+    ultrasonico_izq.setPins(25, 24);    // Pines del ultrasonico izquierdo
     ultrasonico_der.setPins(26, 27);    // Pines del ultrasonico derecho
     ultrasonico_frente.setPins(28, 29); // Pines del ultrasonico frente
     ultrasonico_izq.begin();
