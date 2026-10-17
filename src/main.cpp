@@ -4,6 +4,7 @@
 #include "control.h"
 #include "pistaA.h"
 
+
 void setup()
 {
 
@@ -17,7 +18,6 @@ void setup()
   }
 
 
-void loop()
-{
- avanzar(200, 200);
+void loop() {
+  
 }
