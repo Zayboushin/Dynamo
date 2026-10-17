@@ -7,6 +7,7 @@
 #include <Adafruit_MPU6050.h>
 
 Adafruit_MPU6050 IMU;
+static const uint8_t IMU_ADDR = 0x68;
 
 // valores de PID random (por calibrar)
 const float P = 4.0f;
@@ -126,10 +127,16 @@ bool logica_90grados(bool &giro_pendiente)
     static float grados_x = 0;
     static float grados_y = 0;
     static float grados_z = 0;
+    static byte primer_iteracion = 1;
+    static float tiempo_seguridad = 0.0f;
     unsigned static long antes = 0;
 
     leer_IMU();
 
+    if (primer_iteracion == 1)
+    {
+        tiempo_seguridad = millis();
+    }
     unsigned long ahora = millis();
 
     float dt = 0.0f;
@@ -149,7 +156,22 @@ bool logica_90grados(bool &giro_pendiente)
     grados_z += (g.gyro.z - sesgo_z) * dt;
 
     // funcion que determina que se detenga el giro
-    if (fabs(grados_z) >= 0.9 * PI / 2)
+    if (fabs(grados_z) >= 0.95 * PI / 2 || (ahora - tiempo_seguridad) > 2000)
+    {
+        // indica que ya se pasó del giro de 90 grados, deteniendo el uso de esta funcion
+
+        //
+        grados_x = 0;
+        grados_y = 0;
+        grados_z = 0;
+        giro_pendiente = false;
+        antes = 0;
+        return giro_pendiente;
+    }
+    else
+    {
+        return true;
+    }
     {
         // indica que ya se pasó del giro de 90 grados, deteniendo el uso de esta funcion
 
