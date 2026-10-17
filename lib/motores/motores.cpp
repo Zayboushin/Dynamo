@@ -8,9 +8,16 @@
 // dirección = 0 -> detenerse
 // dirección = -1 -> retroceder
 
+// listo
 struct motor motor_izq_back = {A8, A9, 2};
+
+// listo
 struct motor motor_izq_front = {46, 47, 5};
-struct motor motor_der_front = {A12, A13, 1};
+
+// listo
+struct motor motor_der_front = {A13, A12, 8};
+
+// listo
 struct motor motor_der_back = {A10, A11, 3};
 
 void iniciar_motores()

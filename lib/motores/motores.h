@@ -14,7 +14,6 @@ struct motor
 extern motor motor_izq_front, motor_izq_back, motor_der_front, motor_der_back;
 
 void iniciar_motores();
-
 void motor_individual(struct motor &m, int direction);
 void avanzar(byte PWM_izq, byte PWM_der);
 void retroceder(byte vel);

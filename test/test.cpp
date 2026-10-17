@@ -32,14 +32,15 @@ void setup()
 void loop()
 {
 
-  retroceder(100);
+  avanzar(200, 200);
 
   /*
 
-  digitalWrite(A13, HIGH);
-  digitalWrite(A11, LOW);
-  analogWrite(4, 255);
+    struct motor motor_der_back = {A10, A11, 3};
 
+  */
+
+  /*
   digitalWrite(46, LOW);
   digitalWrite(47, HIGH);
   analogWrite(5, 255);
