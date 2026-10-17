@@ -106,18 +106,18 @@ void avanzar_control(float &izq,
 
     if (direccion_giro == 1) // giro a la izquierda
     {
-        izq = constrain(vel - correccion, 0.0f, 255.0f);
-        der = constrain(vel + correccion, 0.0f, 255.0f);
-    }
-    else if (direccion_giro == 2) // giro a la derecha
-    {
         izq = constrain(vel + correccion, 0.0f, 255.0f);
         der = constrain(vel - correccion, 0.0f, 255.0f);
     }
-    else
+    else if (direccion_giro == 2) // giro a la derecha
     {
         izq = constrain(vel - correccion, 0.0f, 255.0f);
         der = constrain(vel + correccion, 0.0f, 255.0f);
+    }
+    else // no hay giro, se mueve recto
+    {
+        izq = vel;
+        der = vel;
     }
 }
 
@@ -149,7 +149,7 @@ bool logica_90grados(bool &giro_pendiente)
     grados_z += (g.gyro.z - sesgo_z) * dt;
 
     // funcion que determina que se detenga el giro
-    if (fabs(grados_x) >= PI / 2)
+    if (fabs(grados_z) >= PI / 2)
     {
         // indica que ya se pasó del giro de 90 grados, deteniendo el uso de esta funcion
 

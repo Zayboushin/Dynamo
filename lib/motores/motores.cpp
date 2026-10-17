@@ -34,9 +34,9 @@ void iniciar_motores()
     pinMode(motor_izq_back.m2, OUTPUT);
     pinMode(motor_izq_back.pin_pwm, OUTPUT);
 
-    pinMode(motor_izq_back.m1, OUTPUT);
-    pinMode(motor_izq_back.m2, OUTPUT);
-    pinMode(motor_izq_back.pin_pwm, OUTPUT);
+    pinMode(motor_der_front.m1, OUTPUT);
+    pinMode(motor_der_front.m2, OUTPUT);
+    pinMode(motor_der_front.pin_pwm, OUTPUT);
 
     pinMode(motor_der_back.m1, OUTPUT);
     pinMode(motor_der_back.m2, OUTPUT);
