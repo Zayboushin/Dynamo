@@ -189,7 +189,3 @@ bool revision_giro(byte &lateralidad_temporal)
 
     return false;
 }
-
-void discriminacion_ultrasonico()
-{
-}
