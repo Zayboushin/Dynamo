@@ -21,6 +21,7 @@ int seccion = 1;
 bool salida_seccion1 = false;
 bool salida_seccion2 = false;
 bool salida_seccion3 = false;
+// 
 //
 //variables de ultrasonicos
 
@@ -62,6 +63,11 @@ void pistaB()
 
 }
 
+
+
+
+
+
 void navegacion() {
 
      if (dist_frente < 10 && dist_der > 50) { //giro a la derecha por pasillo-
@@ -75,33 +81,35 @@ void navegacion() {
     }
 }
 /////hacer un bool
-void salida1() { //condiciones para salir de secc 1
+void salida1() { //Borrar
     
-    if (dist_frente > 20 && dist_izq > 40 && dist_der < 20) {
+    if (dist_frente > 20 && dist_izq > 40) {
         giro_pendiente = true;
         logica_90grados(giro_pendiente);
         izquierda(200);
-        salida_seccion1 = true;
+        salida_seccion1 = true;//cambiar
     }
 }
 
-void seccion_1()
-{
 
-    if (seccion == 1) { //act sin tomar pelotita
-        if (!salida_seccion1) {
+void seccion_1() {
+    if (!salida_seccion1) {
+    
+    if (dist_frente < 10 && dist_der > 50) { //giro a la derecha por pasillo-
+        giro_pendiente = true;
+        giro_der = true;
+        logica_90grados(giro_pendiente);
+        derecha(200);
+     }
+    else if (dist_frente > 20 && dist_izq > 40) {
         salida1();
-        }
-        else {
-            navegacion();
+
     }
 }
-    if (salida_seccion1)
-    {
-        seccion = 2;
-    }
-  
 }
+
+
+
 
 
 void seccion_2()
