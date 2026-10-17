@@ -16,12 +16,20 @@ char posiciones_avance[MAX_TURNS];
 //  u = “up”;
 //  d = “down”;
 
+const int vel = 67;
+const int vel_giro = 67;
+
 // variables nativas de sensores
 float distancia_ultrasonico_izq = 0;
 float distancia_ultrasonico_der = 0;
 
 // logica
 static bool giro_pendiente = false;
+
+// [CAMBIO 1] variables nuevas
+static byte lado_giro = 0;                       // lado del giro en curso (1 = izq, 2 = der)
+static bool lateral_armado = true;               // false tras un giro, hasta que el lado de referencia vea pared
+static const unsigned int MS_ANTES_DE_GIRAR = 0; // ms avanzando antes de girar en un hueco lateral (CALIBRAR)
 
 byte lateralidad = 0;
 // izquierda = 1
@@ -60,36 +68,80 @@ void pistaA()
         if (!giro_pendiente)
         {
             lateralidad_temporal = lateralidad;
+
+            // [CAMBIO 2] re-armar la detección de hueco cuando el lado de referencia vuelve a ver pared
+            if (lateralidad != 0 && pared_lateral(lateralidad == 1 ? ultrasonico_izq : ultrasonico_der))
+            {
+                lateral_armado = true;
+            }
+
             giro_pendiente = revision_giro(lateralidad_temporal);
 
-            distancia_ultrasonico_izq = ultrasonico_izq.distancia_ultrasonico();
-            distancia_ultrasonico_der = ultrasonico_der.distancia_ultrasonico();
+            if (giro_pendiente)
+            {
+                // [CAMBIO 3] guardar el lado y, si fue un hueco lateral, centrarse antes de girar
+                lado_giro = lateralidad_temporal;
+                if (lado_giro == lateralidad && MS_ANTES_DE_GIRAR > 0)
+                {
+                    avanzar(vel, vel);
+                    delay(MS_ANTES_DE_GIRAR);
+                }
+                detener();
+            }
+            else // [CAMBIO 4] el PID solo corre si no hay giro
+            {
+                distancia_ultrasonico_izq = ultrasonico_izq.distancia_ultrasonico();
+                distancia_ultrasonico_der = ultrasonico_der.distancia_ultrasonico();
 
-            float correcion_izq = 0;
-            float correcion_der = 0;
+                float correcion_izq = 0;
+                float correcion_der = 0;
 
-            avanzar_control(correcion_izq,
-                            correcion_der,
-                            cercania_pared,
-                            (lateralidad == 1) ? distancia_ultrasonico_izq : distancia_ultrasonico_der,
-                            lateralidad);
-            // regresa los valores de corrección para determinar el PWM final de los motores
+                if (lateralidad == 0)
+                {
+                    // antes del primer hueco: centrarse entre las dos paredes
+                    avanzar_control(correcion_izq, correcion_der,
+                                    distancia_ultrasonico_der, distancia_ultrasonico_izq, 1);
+                }
+                else if (((lateralidad == 1) ? distancia_ultrasonico_izq : distancia_ultrasonico_der) >= choque_lateral_inminente)
+                {
+                    // el lado de referencia no tiene pared: ir recto
+                    avanzar_control(correcion_izq, correcion_der, 0, 0, 0);
+                }
+                else
+                {
+                    avanzar_control(correcion_izq,
+                                    correcion_der,
+                                    cercania_pared,
+                                    (lateralidad == 1) ? distancia_ultrasonico_izq : distancia_ultrasonico_der,
+                                    lateralidad);
+                }
+                // regresa los valores de corrección para determinar el PWM final de los motores
 
-            avanzar(correcion_izq, correcion_der);
-            // revisar signos
+                avanzar(correcion_izq, correcion_der);
+                // revisar signos
+            }
         }
 
         if (giro_pendiente)
         {
-            if (lateralidad_temporal == 1)
+            // [CAMBIO 5] usa lado_giro (lateralidad_temporal se reinicia cada vuelta)
+            if (lado_giro == 1)
             {
-                izquierda(150);
+                izquierda(vel_giro);
             }
-            else if (lateralidad_temporal == 2)
+            else if (lado_giro == 2)
             {
-                derecha(150);
+                derecha(vel_giro);
             }
             logica_90grados(giro_pendiente);
+
+            if (!giro_pendiente)
+            {
+                // [CAMBIO 6] al terminar el giro
+                detener();
+                reiniciar_PID();
+                lateral_armado = false;
+            }
         }
         lateralidad_temporal = 0;
     }
@@ -133,7 +185,7 @@ bool pared_frontal()
 bool revision_giro(byte &lateralidad_temporal)
 {
     // agregar condiciones que consideren los lados del sensor necesarios
-    switch (lateralidad_temporal)
+    switch (lateral_armado ? lateralidad_temporal : 0) // [CAMBIO 7] sin armar, se ignora el hueco lateral
     {
     case 1:
 
