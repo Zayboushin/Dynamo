@@ -149,7 +149,7 @@ bool logica_90grados(bool &giro_pendiente)
     grados_z += (g.gyro.z - sesgo_z) * dt;
 
     // funcion que determina que se detenga el giro
-    if (fabs(grados_z) >= PI / 2)
+    if (fabs(grados_z) >= 0.9 * PI / 2)
     {
         // indica que ya se pasó del giro de 90 grados, deteniendo el uso de esta funcion
 
