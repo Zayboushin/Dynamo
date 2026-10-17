@@ -10,6 +10,8 @@ void calibrar_IMU();
 
 void leer_IMU();
 
+void led_color(int r, int g, int b);
+
 void avanzar_control(float &izq,
                      float &der,
                      float valor_esperado,

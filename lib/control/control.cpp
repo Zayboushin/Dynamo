@@ -123,6 +123,13 @@ void avanzar_control(float &izq,
     }
 }
 
+void led_color(int r, int g, int b)
+{
+    analogWrite(8, r);
+    analogWrite(9, g);
+    analogWrite(10, b);
+}
+
 bool logica_90grados(bool &giro_pendiente, String &color)
 {
     static float grados_x = 0;
@@ -167,7 +174,17 @@ bool logica_90grados(bool &giro_pendiente, String &color)
         grados_z = 0;
         giro_pendiente = false;
         antes = 0;
-        String color = sensor_rgb.leer_color();
+        color = sensor_rgb.leer_color();
+
+        for (int i = 0; i < 8; i++)
+        {
+            if (color == colores[i])
+            {
+                led_color(sensor_rgb.r, sensor_rgb.g, sensor_rgb.b);
+                break;
+            }
+        }
+
         return giro_pendiente;
     }
     else
