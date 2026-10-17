@@ -9,6 +9,7 @@ void setup()
 {
 
   Serial.begin(115200);
+  // RobotInstance.begin(); <-- Crear una lib que inicie todos lo sensores 
   iniciar_motores();
   iniciar_sensores();
   iniciar_IMU();

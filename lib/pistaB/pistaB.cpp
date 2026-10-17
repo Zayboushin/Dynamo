@@ -97,20 +97,7 @@ void salida1() { //Borrar
 
 
 void seccion_1() {
-    if (!salida_seccion1) {
-    
-    if (dist_frente < 10 && dist_der > 50) { //giro a la derecha por pasillo-
-        giro_pendiente = true;
-        giro_der = true;
-        logica_90grados(giro_pendiente);
-        derecha(200);
-     }
-    else if (dist_frente > 20 && dist_izq > 40) {
-        salida1();
-
-    }
-}
-}
+    ¿
 //second option
 if (!salida_seccion1) {
     if (dist_izq < dist_der) {
@@ -127,7 +114,7 @@ if (sensor_rgb.leer_color() == "rojo") {
     avanzar(200,200);
     salida_seccion1 = true;
 }
-
+}
 
 
 
