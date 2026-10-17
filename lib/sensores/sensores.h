@@ -36,7 +36,7 @@ public:
         digitalWrite(trig, LOW);
     }
 
-    float distancia_ultrasonico()
+    float distancia_ultrasonico_cruda()
     {
         long t = 0;
 
@@ -47,12 +47,12 @@ public:
         t = pulseIn(echo, HIGH, 25000UL);
         if (t == 0)
             return 400.0f;
-        return t / 58.2f; // distancia en cm
+        return t / 58.2f; // distancia en cms
     }
 
-    float distancia_estable()
+    float distancia_ultrasonico()
     {
-        float distancia = distancia_ultrasonico();
+        float distancia = distancia_ultrasonico_cruda();
 
         if (fabs(distancia - valor_anterior) < 2.0f)
         {
