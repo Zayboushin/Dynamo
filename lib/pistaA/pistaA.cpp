@@ -22,8 +22,8 @@ float distancia_ultrasonico_der = 0;
 
 // logica
 static bool giro_pendiente = false;
-const int tiempo_espera = 500; //  tiempo que avanza el carro a ciegas cuando gira
-const float vel = 67.0f;       // velocidad de movimiento del carro
+const int tiempo_espera = 1000; //  tiempo que avanza el carro a ciegas cuando gira
+const float vel = 67.0f;        // velocidad de movimiento del carro
 
 byte lateralidad = 0;
 // izquierda = 1
