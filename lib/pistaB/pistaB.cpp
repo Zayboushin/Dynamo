@@ -67,7 +67,7 @@ void pistaB()
 
 
 
-
+//
 
 
 void navegacion() {
@@ -140,10 +140,6 @@ eleccion_desplazamiento("izquierda"); //
     }
     salida_seccion2 = true;
 }
-
-
-
-
 
 
 
