@@ -33,9 +33,10 @@ bool salida_seccion3 = false;
 //variables de movimiento
 byte vel = 200;
 
+
+void seccion_1();
 void navegacion();
 void salida1();
-void seccion_1();
 void seccion_2();
 void seccion_3();
 
@@ -49,11 +50,12 @@ void pistaB()
         dist_der = ultrasonico_der.distancia_ultrasonico();
         dist_frente = ultrasonico_frente.distancia_ultrasonico();
 
+    
+
+    seccion_1();
     navegacion();
 
     salida1();
-
-    seccion_1();
     seccion_2();
     seccion_3();
     }
@@ -87,7 +89,9 @@ void salida1() { //Borrar
         giro_pendiente = true;
         logica_90grados(giro_pendiente);
         izquierda(200);
+        avanzar(200, 200);
         salida_seccion1 = true;//cambiar
+       
     }
 }
 
@@ -107,6 +111,22 @@ void seccion_1() {
     }
 }
 }
+//second option
+if (!salida_seccion1) {
+    if (dist_izq < dist_der) {
+        desp_der(200);
+    }
+else {
+    avanzar(200, 200);
+}
+}
+if (sensor_rgb.leer_color() == "rojo") {
+    giro_pendiente = true;
+    logica_90grados(giro_pendiente);
+    derecha(200);
+    avanzar(200,200);
+    salida_seccion1 = true;
+}
 
 
 
@@ -114,13 +134,13 @@ void seccion_1() {
 
 void seccion_2()
 {
-    if (seccion == 2) {
+   if (!salida_seccion2) {
 eleccion_desplazamiento("izquierda"); //
-    if (salida_seccion2) {
-        seccion = 3;
+ 
     }
+    salida_seccion2 = true;
 }
-}
+
 
 
 
@@ -129,7 +149,7 @@ eleccion_desplazamiento("izquierda"); //
 
 void seccion_3()
 {
-    if (seccion == 3) {
+
     
     
     if (sensor_rgb.leer_color()== "naranja") {
@@ -145,10 +165,6 @@ void seccion_3()
         retroceder(200);
     }
     }
-    if (salida_seccion3) {
-        //que pongoooo
-    }
-}
 
 //Funciones de movimiento internas
 void eleccion_desplazamiento(String direccion) {
