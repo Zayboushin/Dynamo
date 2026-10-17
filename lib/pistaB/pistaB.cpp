@@ -74,7 +74,7 @@ void navegacion() {
 /////hacer un bool
 void salida1() { //condiciones para salir de secc 1
     
-    if (pelota_tomada && dist_frente > 20 && dist_izq > 40 && dist_der < 20) {
+    if (dist_frente > 20 && dist_izq > 40 && dist_der < 20) {
         giro_pendiente = true;
         logica_90grados(giro_pendiente);
         izquierda(200);
