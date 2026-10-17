@@ -5,23 +5,13 @@
 class motor
 {
 private:
-    uint8_t m1;
-    uint8_t m2;
-    uint8_t pin_pwm;
-    int dir;
-    uint8_t vel;
+    uint8_t m1 = 0;
+    uint8_t m2 = 0;
+    uint8_t pin_pwm = 0;
+    int dir = 0;
+    uint8_t vel = 0;
 
 public:
-    // sigo sin entender como funcionan los constructores, pero por ahora lo dejo asi
-    motor()
-    {
-        m1 = 0;
-        m2 = 0;
-        pin_pwm = 0;
-        dir = 0;
-        vel = 0;
-    }
-
     void setPins(uint8_t pin1, uint8_t pin2, uint8_t newPin_pwm)
     {
         m1 = pin1;
