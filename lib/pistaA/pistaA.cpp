@@ -60,7 +60,7 @@ void pistaA()
         }
         */
 
-                if (!giro_pendiente)
+        if (!giro_pendiente)
         {
             lateralidad_temporal = lateralidad;
             giro_pendiente = revision_giro(lateralidad_temporal);
