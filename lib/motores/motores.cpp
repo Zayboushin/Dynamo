@@ -8,13 +8,12 @@
 // dirección = 0 -> detenerse
 // dirección = -1 -> retroceder
 
-extern struct motor motor_izq_front(m1 : A15, m2 : A14, pin_pwm : 5), motor_izq_back(m1 : A9, m2 : A8, pin_pwm : 2), motor_der_front(m1 : A12, m2 : A13, pin_pwm : 4), motor_der_back(m1 : A10, m2 : A11, pin_pwm : 3), motor_intake(m1 : A0, m2 : A1, pin_pwm : 6);
+struct motor motor_izq_back = {A9, A8, 2};
+struct motor motor_der_front = {A12, A13, 4};
+struct motor motor_der_back = {A10, A11, 3};
+struct motor motor_intake = {A0, A1, 6};
 
-void iniciar_motores(struct motor &motor_izq_front,
-                     struct motor &motor_izq_back,
-                     struct motor &motor_der_front,
-                     struct motor &motor_der_back,
-                     struct motor &motor_intake)
+void iniciar_motores()
 {
     // Instancia de los motores (falta declarar pines correctos)
     // pin1, pin2, Pin_pwm
@@ -37,9 +36,8 @@ void iniciar_motores(struct motor &motor_izq_front,
     pinMode(motor_der_back.pin_pwm, OUTPUT);
 }
 
-void motor_individual(motor &motor, int direction)
+void motor_individual(motor &m, int direction)
 {
-    analogWrite(motor.pin_pwm, motor.vel);
 
     // dirección = 1 -> avanzar
     // dirección = 0 -> detenerse
@@ -49,20 +47,20 @@ void motor_individual(motor &motor, int direction)
     {
     case 1:
     {
-        digitalWrite(motor.m1, HIGH);
-        digitalWrite(motor.m2, LOW);
+        digitalWrite(m.m1, HIGH);
+        digitalWrite(m.m2, LOW);
         break;
     }
     case 0:
     {
-        digitalWrite(motor.m1, LOW);
-        digitalWrite(motor.m2, LOW);
+        digitalWrite(m.m1, LOW);
+        digitalWrite(m.m2, LOW);
         break;
     }
     case -1:
     {
-        digitalWrite(motor.m1, LOW);
-        digitalWrite(motor.m2, HIGH);
+        digitalWrite(m.m1, LOW);
+        digitalWrite(m.m2, HIGH);
         break;
     }
     }
