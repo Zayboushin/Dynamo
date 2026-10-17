@@ -20,5 +20,5 @@ void setup()
 
 void loop()
 {
- pistaB();
+ avanzar(200, 200);
 }
