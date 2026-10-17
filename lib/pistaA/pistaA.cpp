@@ -22,14 +22,14 @@ float distancia_ultrasonico_der = 0;
 
 // logica
 static bool giro_pendiente = false;
-const int tiempo_espera = 1000; //  tiempo que avanza el carro a ciegas cuando gira
+const int tiempo_espera = 1100; //  tiempo que avanza el carro a ciegas cuando gira
 const float vel = 67.0f;        // velocidad de movimiento del carro
 
 byte lateralidad = 0;
 // izquierda = 1
 // derecha = 2
 
-static byte cercania_pared = 5; // valor que define que tan cerca estara de la pared una vez se defina la lateralidad. revisar que valor es mejor
+static byte cercania_pared = 3; // valor que define que tan cerca estara de la pared una vez se defina la lateralidad. revisar que valor es mejor
 
 static byte choque_lateral_inminente = 15; // distancia en donde se detecta que hay una pared
 static byte choque_frontal_inminente = 10; // distancia en donde se detecta que hay una pared
