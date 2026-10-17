@@ -56,6 +56,7 @@ void iniciar_sensores()
 }
 
 
+
     //const uint8_t PIN_STBY = A2;
  //const uint8_t LIMIT_SWITCH = 12;
 

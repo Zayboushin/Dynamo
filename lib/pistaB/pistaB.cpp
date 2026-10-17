@@ -64,10 +64,10 @@ void navegacion() {
         giro_pendiente = true;
         giro_der = true;
         logica_90grados(giro_pendiente);
-        derecha(200,200);
+        derecha(200);
      }
     else {
-        avanzar(200, 200);
+        avanzar(200);
     }
 }
 /////hacer un bool
@@ -77,7 +77,7 @@ void salida1() { //condiciones para salir de secc 1
         giro_pendiente = true;
         giro_izq = true;//borrar creo
         logica_90grados(giro_pendiente);
-        izquierda(200,200);
+        izquierda(200);
         salida_secc1 = true;
     }
 }
@@ -92,7 +92,7 @@ void seccion_1()
             pelota_detectada = true;
             giro_pendiente = true;
             logica_90grados(giro_pendiente);
-            izquierda(200,200)
+            izquierda(200);
 
         }
         else {
@@ -104,7 +104,7 @@ void seccion_1()
         
         if(!retroalimentacion_limit_switch()) {
             encender_intake(200);//falta agregar
-            retroceder(200, 200);
+            retroceder(200);
         }
         
         else {
@@ -114,7 +114,7 @@ void seccion_1()
         }
         }
     if (pelota_tomada && dist_frente > 10) {
-        avanzar()
+        avanzar(200);
         }
     else if (pelota_tomada && dist_frente < 10 && !salida_secc1) {
         salida1(); //algo tiene mal lo tengo que corregir
@@ -134,45 +134,13 @@ void seccion_1()
 
 void seccion_2()
 {
-    if (seccion == 2) {}
-eleccion_desplazamiento(direccion);
-
-//Funciones de movimiento internas
-void eleccion_desplazamiento(String direccion) {
-   
-    if (dist_izq < dist_der) {
-        desp_der(200);
-    }
-    else if (dist_der < dist_izq) {
-        desp_izq(200);
-    }
-    else if (direccion == direcciones[0]) {
-        desp_izq(200);
-    }
-    
-    else if (direccion == "derecha") {
-    desp_der(200);
-    }   
-
-bool linea_blanca_izq = infrarrojo_izq.linea_blanca();
-bool linea_blanca_der = infrarrojo_der.linea_blanca();
-    
-    if (linea_blanca_izq) {
-        eleccion_desplazamiento("derecha"); 
-    }
-     
-    else if (linea_blanca_der) {
-        eleccion_desplazamiento(direcciones[0]);
-    }
-    else {
-        avanzar();
+    if (seccion == 2) {
+eleccion_desplazamiento("izquierda"); //
+    if (salida_seccion2) {
+        seccion = 3;
     }
 }
-if (salida_seccion2) {
-    seccion = 3;
 }
-}
-
 
 
 
@@ -185,16 +153,16 @@ void seccion_3()
     
     
     if (sensor_rgb.leer_color()== "naranja") {
-        avanzar(vel, vel);
+        avanzar(200);
     }
     else if (sensor_rgb.leer_color()== "azul") {
-        desp_der(vel);
+        desp_der(200);
     }
     else if (sensor_rgb.leer_color()== "amarillo") {
-        desp_izq(vel);
+        desp_izq(200);
     }
     else if (sensor_rgb.leer_color()== "rosa") {
-        retroceder(vel);
+        retroceder(200);
     }
     }
     if (salida_seccion3) {
@@ -211,7 +179,7 @@ void eleccion_desplazamiento(String direccion) {
     else if (dist_der < dist_izq) {
         desp_izq(200);
     }
-    else if (direccion == direcciones[0]) {
+    else if (direccion == "izquierda") {
         desp_izq(200);
     }
     
@@ -227,7 +195,7 @@ bool linea_blanca_der = infrarrojo_der.linea_blanca();
     }
      
     else if (linea_blanca_der) {
-        eleccion_desplazamiento(direcciones[0]);
+        eleccion_desplazamiento("izquierda");
     }
     else {
         avanzar();
