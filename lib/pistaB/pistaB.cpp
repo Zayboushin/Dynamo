@@ -97,7 +97,7 @@ void salida1() { //Borrar
 
 
 void seccion_1() {
-    ¿
+    
 //second option
 if (!salida_seccion1) {
     if (dist_izq < dist_der) {
