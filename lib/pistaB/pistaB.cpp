@@ -85,7 +85,7 @@ void salida1() { //condiciones para salir de secc 1
 void seccion_1()
 {
 
-    if (seccion == 1) {
+    if (seccion == 1) { //act sin tomar pelota
         if (!salida_seccion1) {
         salida1();
         }
