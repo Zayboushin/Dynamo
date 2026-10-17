@@ -47,7 +47,9 @@ void pistaB()
     dist_der = ultrasonico_der.distancia_ultrasonico();
     dist_frente = ultrasonico_frente.distancia_ultrasonico();
 
-    navegacion();
+    while (true) {
+        navegacion();
+    }
 
     salida1();
 
