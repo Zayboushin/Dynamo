@@ -172,19 +172,4 @@ bool logica_90grados(bool &giro_pendiente)
     {
         return true;
     }
-    {
-        // indica que ya se pasó del giro de 90 grados, deteniendo el uso de esta funcion
-
-        //
-        grados_x = 0;
-        grados_y = 0;
-        grados_z = 0;
-        giro_pendiente = false;
-        antes = 0;
-        return giro_pendiente;
-    }
-    else
-    {
-        return true;
-    }
 }
