@@ -6,14 +6,10 @@
 
 void setup()
 {
-  pinMode(8, OUTPUT);
-  pinMode(9, OUTPUT);
-  pinMode(10, OUTPUT);
 
   Serial.begin(115200);
   iniciar_motores();
   iniciar_sensores();
-
   iniciar_IMU();
   calibrar_IMU();
 

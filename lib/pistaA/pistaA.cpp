@@ -19,21 +19,20 @@ char posiciones_avance[MAX_TURNS];
 // variables nativas de sensores
 float distancia_ultrasonico_izq = 0;
 float distancia_ultrasonico_der = 0;
-String color = "desconocido";
 
 // logica
 static bool giro_pendiente = false;
 const int tiempo_espera = 1100; //  tiempo que avanza el carro a ciegas cuando gira
 const float vel = 50.0f;        // velocidad de movimiento del carro
 
-const byte lateralidad = 2;
+const byte lateralidad = 1;
 // izquierda = 1
 // derecha = 2
 
 static byte cercania_pared = 3; // valor que define que tan cerca estara de la pared una vez se defina la lateralidad. revisar que valor es mejor
 
 static byte choque_lateral_inminente = 10; // distancia en donde se detecta que hay una pared
-static byte choque_frontal_inminente = 15; // distancia en donde se detecta que hay una pared
+static byte choque_frontal_inminente = 10; // distancia en donde se detecta que hay una pared
 
 // funciones
 bool pared_lateral(ultrasonico &u);
@@ -63,7 +62,6 @@ void pistaA()
 
         if (!giro_pendiente)
         {
-
             lateralidad_temporal = lateralidad;
             giro_pendiente = revision_giro(lateralidad_temporal);
 
@@ -106,7 +104,7 @@ void pistaA()
             {
                 derecha(150);
             }
-            logica_90grados(giro_pendiente, color);
+            logica_90grados(giro_pendiente);
             if (!giro_pendiente)
             {
                 avanzar(vel, vel);

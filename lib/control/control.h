@@ -10,13 +10,11 @@ void calibrar_IMU();
 
 void leer_IMU();
 
-void led_color(int r, int g, int b);
-
 void avanzar_control(float &izq,
                      float &der,
                      float valor_esperado,
                      float valor_actual,
                      byte direccion_giro);
 
-bool logica_90grados(bool &giro_pendiente, String &color);
+bool logica_90grados(bool &giro_pendiente);
 #endif
