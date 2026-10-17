@@ -14,13 +14,10 @@ void setup()
   iniciar_IMU();
   calibrar_IMU();
 
-  if (true)
-  {
-    pistaA();
   }
-}
+
 
 void loop()
 {
-  // put your main code here, to run repeatedly:
+ pistaB();
 }
