@@ -61,10 +61,6 @@ void pistaA()
         {
             lateralidad_temporal = lateralidad;
             giro_pendiente = revision_giro(lateralidad_temporal);
-            if (giro_pendiente)
-            {
-                break; // si no hay giro pendiente, se sale del loop y se termina la función
-            }
 
             distancia_ultrasonico_izq = ultrasonico_izq.distancia_ultrasonico();
             distancia_ultrasonico_der = ultrasonico_der.distancia_ultrasonico();
@@ -85,13 +81,18 @@ void pistaA()
 
         if (giro_pendiente)
         {
-            izquierda(150);
+            if (lateralidad_temporal == 1)
+            {
+                izquierda(150);
+            }
+            else if (lateralidad_temporal == 2)
+            {
+                derecha(150);
+            }
             logica_90grados(giro_pendiente);
         }
         lateralidad_temporal = 0;
     }
-
-    ;
 }
 
 // funcion que determina si hay una pared cerca
