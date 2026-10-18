@@ -1,5 +1,5 @@
 #ifndef PISTA_B_H
-#define PISTA__H
+#define PISTA_B_H
 
 void pistaB();
 void navegacion(); 
@@ -10,4 +10,4 @@ void seccion_3();
 //Funciones de movimiento internas
 void eleccion_desplazamiento(String direccion);
 
-#endif
+#endif // PISTA_B_H
