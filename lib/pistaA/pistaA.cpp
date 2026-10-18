@@ -25,14 +25,14 @@ static bool giro_pendiente = false;
 const int tiempo_espera = 1100; //  tiempo que avanza el carro a ciegas cuando gira
 const float vel = 50.0f;        // velocidad de movimiento del carro
 
-const byte lateralidad = 2;
+const byte lateralidad = 1;
 // izquierda = 1
 // derecha = 2
 
 static byte cercania_pared = 3; // valor que define que tan cerca estara de la pared una vez se defina la lateralidad. revisar que valor es mejor
 
 static byte choque_lateral_inminente = 10; // distancia en donde se detecta que hay una pared
-static byte choque_frontal_inminente = 15; // distancia en donde se detecta que hay una pared
+static byte choque_frontal_inminente = 10; // distancia en donde se detecta que hay una pared
 
 // funciones
 bool pared_lateral(ultrasonico &u);
@@ -68,30 +68,9 @@ void pistaA()
             distancia_ultrasonico_izq = ultrasonico_izq.distancia_ultrasonico();
             distancia_ultrasonico_der = ultrasonico_der.distancia_ultrasonico();
 
-            float correcion_izq = 0;
-            float correcion_der = 0;
-
-            if (lateralidad != 0)
-            {
-                avanzar_control(correcion_izq,
-                                correcion_der,
-                                0,
-                                0,
-                                0);
-            }
-            else
-            {
-                avanzar_control(correcion_izq,
-                                correcion_der,
-                                cercania_pared,
-                                (lateralidad == 1) ? distancia_ultrasonico_izq : distancia_ultrasonico_der,
-                                lateralidad);
-            }
-
             // regresa los valores de corrección para determinar el PWM final de los motores
 
-            avanzar(correcion_izq, correcion_der);
-            // revisar signos
+            avanzar(100, 100);
         }
 
         if (giro_pendiente)
