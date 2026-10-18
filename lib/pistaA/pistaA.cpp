@@ -68,30 +68,9 @@ void pistaA()
             distancia_ultrasonico_izq = ultrasonico_izq.distancia_ultrasonico();
             distancia_ultrasonico_der = ultrasonico_der.distancia_ultrasonico();
 
-            float correcion_izq = 0;
-            float correcion_der = 0;
-
-            if (lateralidad != 0)
-            {
-                avanzar_control(correcion_izq,
-                                correcion_der,
-                                0,
-                                0,
-                                0);
-            }
-            else
-            {
-                avanzar_control(correcion_izq,
-                                correcion_der,
-                                cercania_pared,
-                                (lateralidad == 1) ? distancia_ultrasonico_izq : distancia_ultrasonico_der,
-                                lateralidad);
-            }
-
             // regresa los valores de corrección para determinar el PWM final de los motores
 
-            avanzar(correcion_izq, correcion_der);
-            // revisar signos
+            avanzar(100, 100);
         }
 
         if (giro_pendiente)
