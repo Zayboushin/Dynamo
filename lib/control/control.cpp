@@ -30,6 +30,7 @@ sensors_event_t a, g, temp;
 
 void iniciar_IMU()
 {
+    IMU.begin();//
     Wire.begin();
     IMU.begin(0x68);
     IMU.setGyroRange(MPU6050_RANGE_500_DEG); // ±500 °/s es suficiente para un carro
@@ -151,12 +152,12 @@ bool logica_90grados(bool &giro_pendiente)
 
     antes = ahora;
 
-    grados_x += (g.gyro.x - sesgo_x) * dt;
-    grados_y += (g.gyro.y - sesgo_y) * dt;
-    grados_z += (g.gyro.z - sesgo_z) * dt;
+    grados_x += (fabs(g.gyro.x) - sesgo_x) * dt;
+    grados_y += (fabs(g.gyro.y) - sesgo_y) * dt;
+    grados_z += (fabs(g.gyro.z) - sesgo_z) * dt;
 
     // funcion que determina que se detenga el giro
-    if (fabs(grados_z) >= 0.95 * PI / 2 || (ahora - tiempo_seguridad) > 2000)
+    if (fabs(grados_z) >= 0.95 * PI / 2 || (ahora - tiempo_seguridad) > 1000)
     {
         // indica que ya se pasó del giro de 90 grados, deteniendo el uso de esta funcion
 
