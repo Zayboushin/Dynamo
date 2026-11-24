@@ -4,22 +4,20 @@
 #include "control.h"
 #include "pistaA.h"
 
+
 void setup()
 {
 
   Serial.begin(115200);
+  // RobotInstance.begin(); <-- Crear una lib que inicie todos lo sensores 
   iniciar_motores();
   iniciar_sensores();
   iniciar_IMU();
   calibrar_IMU();
 
-  if (true)
-  {
-    pistaA();
   }
-}
 
-void loop()
-{
-  // put your main code here, to run repeatedly:
+
+void loop() {
+  
 }
